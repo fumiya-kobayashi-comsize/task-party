@@ -12,7 +12,7 @@
 		<hr>
 		<h1>ユーザーIDとパスワードを入力してください。</h1>
 		<!-- actionにサーブレットURLを入れる  -->
-		<form action="" method="post">
+		<form action="LoginServlet" method="post">
 			ユーザーID<input type="text" name="id"><br>
 			パスワード<input type="text" name="pass"><br>
 			<input type="submit" value="ログイン">

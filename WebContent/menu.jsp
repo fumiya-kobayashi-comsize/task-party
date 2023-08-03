@@ -11,13 +11,12 @@
 		<h1 >メニュー画面</h1>
 		<hr>
 		ようこそ！
-			<!--actionにサーブレットURLを入れる  -->
-		<form action="Servlet" method="POST">
+		<form action="TaskAddServlet" method="POST">
 			<input type="submit" value="タスク登録" >
 		</form>
 		<br>
 			<!--actionにサーブレットURLを入れる  -->
-		<form action="Servlet" method="POST">
+		<form action="TaskShowServlet" method="POST">
 			<input type="submit" value="タスク表示">
 		</form>
 		<br>
