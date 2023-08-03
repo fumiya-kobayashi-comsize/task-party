@@ -58,6 +58,9 @@ INSERT INTO task_db.m_category (category_name) VALUES ('新商品A:開発プロ�
 INSERT INTO task_db.m_category (category_name) VALUES ('既存商品B:改良プロジェクト');
 
 /*ユーザマスタ INSERT*/
-INSERT INTO task_db.m_category VALUES ('admin', 'password', 'テストユーザー');
+INSERT INTO task_db.m_user(user_id, password, user_name) VALUES ('admin', 'password', 'テストユーザー');
+
+/*タスクテーブル INSERT*/
+INSERT INTO task_db.t_task(task_name, category_id, limit_date, user_id, status_code, memo) VALUES ('サンプルタスク', 1, '2023-09-01', 'admin', '00', 'サンプルメモ');
 
 commit;
