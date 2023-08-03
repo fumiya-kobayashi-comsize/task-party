@@ -14,6 +14,7 @@ public class TaskBean {
 	private int category_id;
 	private LocalDate limit_date;
 	private String user_id;
+	private String status_code;
 	private String memo;
 	private Date create_datetime;
 	private Date update_datetime;
@@ -112,6 +113,18 @@ public class TaskBean {
 	 */
 	public void setUpdate_datetime(Date update_datetime) {
 		this.update_datetime = update_datetime;
+	}
+	/**
+	 * @return status_code
+	 */
+	public String getStatus_code() {
+		return status_code;
+	}
+	/**
+	 * @param status_code セットする status_code
+	 */
+	public void setStatus_code(String status_code) {
+		this.status_code = status_code;
 	}
 
 
