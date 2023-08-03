@@ -3,7 +3,6 @@
 DROP DATABASE IF EXISTS task_db;
 CREATE DATABASE task_db CHARACTER SET utf8 COLLATE utf8_general_ci;
 
-
 /* AUTOCOMMIT 無効 */
 SET AUTOCOMMIT = 0;
 
@@ -58,3 +57,4 @@ INSERT INTO task_db.m_status(status_code, status_name) VALUES ('99', '完了');
 INSERT INTO task_db.m_category (category_name) VALUES ('新商品A:開発プロジェクト');
 INSERT INTO task_db.m_category (category_name) VALUES ('既存商品B:改良プロジェクト');
 
+commit;
