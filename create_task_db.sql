@@ -57,4 +57,7 @@ INSERT INTO task_db.m_status(status_code, status_name) VALUES ('99', '完了');
 INSERT INTO task_db.m_category (category_name) VALUES ('新商品A:開発プロジェクト');
 INSERT INTO task_db.m_category (category_name) VALUES ('既存商品B:改良プロジェクト');
 
+/*ユーザマスタ INSERT*/
+INSERT INTO task_db.m_category VALUES ('admin', 'password', 'テストユーザー');
+
 commit;
