@@ -55,6 +55,7 @@ public class TaskSelectDAO {
 			if(res.next()) {
 				taskShow.setTaskId(taskId);
 				taskShow.setTaskName(res.getString("task_name"));
+				taskShow.setCategoryName(res.getString("category_name"));
 				taskShow.setLimitDate(res.getDate("limit_date").toLocalDate());
 				taskShow.setUserName(res.getString("user_name"));
 				taskShow.setStatusName(res.getString("status_name"));
