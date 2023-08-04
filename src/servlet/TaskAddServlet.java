@@ -71,10 +71,12 @@ public class TaskAddServlet extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		TaskInsertDAO insertDAO = new TaskInsertDAO();
 		int count = 0;
+		LocalDate localDate =null;
 //　　　送られてきたdateをlocaldateへ変換
-		LocalDate localDate = LocalDate.parse(request.getParameter("limitDate"),
+		if(!request.getParameter("limitDate").equals("")) {
+		 localDate = LocalDate.parse(request.getParameter("limitDate"),
 				DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-
+		}
 		TaskBean taskBean = new TaskBean();
 		taskBean.setTaskName(request.getParameter("taskName"));
 		taskBean.setCategoryId(Integer.parseInt(request.getParameter("categoryId")));
