@@ -18,17 +18,17 @@
 			<table border="1">
 				<tr>
 					<td>タスク名</td>
-					<td><input type="text" name="taskName" maxlength="50"></td>
+					<td><input type="text" name="taskName" maxlength="50" required></td>
 				</tr>
 				<tr>
 					<td>カテゴリ名</td>
 					<td>
 
-					<select name="categoryId">
+					<select name="categoryId"required>
 						<%for(CategoryBean category:categoryList ){ %>
 							<option value=<%=category.getCategoryId() %>><%=category.getCategoryName() %></option>
 						<%} %>
-					</select>
+					</select >
 					</td>
 				</tr>
 				<tr>
@@ -38,7 +38,7 @@
 				<tr>
 					<td>担当者情報</td>
 					<td>
-					<select name="userId">
+					<select name="userId" required>
 						<%for(UserBean user:userList ){ %>
 							<option value=<%=user.getUserId() %>><%=user.getUserName() %></option>
 						<%} %>
@@ -48,7 +48,7 @@
 				<tr>
 					<td>ステータス</td>
 					<td>
-						<select name="statusCode">
+						<select name="statusCode" required>
 						<%for(StatusBean status:statusList ){ %>
 							<option value=<%=status.getStatusCode() %>><%=status.getStatusName() %></option>
 						<%} %>
