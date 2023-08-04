@@ -30,7 +30,8 @@
 		<td><%=task.getStatusName() %></td>
 		<td><%=task.getMemo() %></td>
 		<td>
-			<form action = "edit-task.jsp" method = "POST">
+			<form action = "TaskEditServlet" method = "GET">
+				<input type = "hidden" name = "taskId" value = <%=task.getTaskId() %>>
 				<input type = "submit" value = 編集>
 			</form>
 		</td>
