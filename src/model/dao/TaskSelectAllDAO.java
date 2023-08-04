@@ -67,10 +67,15 @@ public class TaskSelectAllDAO {
 				int taskId = res.getInt("task_id");
 				String taskName = res.getString("task_name");
 				String categoryName = res.getString("category_name");
-				LocalDate limitDate = res.getDate("limit_date").toLocalDate();
 				String userName = res.getString("user_name");
 				String statusName = res.getString("status_name");
-				String memo = res.getString("memo");
+				String memo;
+				if(res.getString("memo")!=null) {
+					memo = res.getString("memo");
+				} else {
+					memo = "";
+				}
+				LocalDate limitDate = res.getDate("limit_date").toLocalDate();
 
 				TaskShowBean task = new TaskShowBean();
 				task.setTaskId(taskId);

@@ -31,13 +31,13 @@
 		<td><%=task.getMemo() %></td>
 		<td>
 			<form action = "TaskEditServlet" method = "GET">
-				<input type = "hidden" name = "taskId" value = <%=task.getTaskId() %>>
+				<input type = "hidden" name = "task_id" value = <%=task.getTaskId() %>>
 				<input type = "submit" value = 編集>
 			</form>
 		</td>
 		<td>
-			<form action = "ItemDeleteSurvlet" method = "GET">
-				<input type = "hidden" name = "taskId" value = <%=task.getTaskId() %>>
+			<form action = "TaskDeleteServlet" method = "GET">
+				<input type = "hidden" name = "task_id" value = <%=task.getTaskId() %>>
 				<input type = "submit" value = 削除>
 			</form>
 		</td>

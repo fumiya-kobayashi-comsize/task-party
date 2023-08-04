@@ -42,13 +42,13 @@
 	<table>
 		<tr>
 			<td>
-				<form action="TaskDeleteSurvlet" method = "POST">
+				<form action="TaskDeleteServlet" method = "POST">
 					<input type = "hidden" name = "task_id" value = <%=task.getTaskId() %>>
 					<input type = "submit" value = "削除する">
 				</form>
 			</td>
 			<td>
-				<form action="show-task.jsp" method = "POST">
+				<form action="show-task.jsp">
 					<input type = "submit" value = "一覧に戻る">
 				</form>
 		</tr>

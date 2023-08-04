@@ -34,8 +34,6 @@ public class TaskDeleteServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
 		request.setCharacterEncoding("UTF-8");
 
 		int id = Integer.parseInt(request.getParameter("task_id"));
@@ -78,5 +76,4 @@ public class TaskDeleteServlet extends HttpServlet {
 			rd.forward(request, response);
 		}
 	}
-
 }
