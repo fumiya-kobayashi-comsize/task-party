@@ -9,8 +9,11 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import model.dao.TaskDeleteDAO;
+import model.dao.TaskSelectDAO;
+import model.entity.TaskShowBean;
 
 /**
  * Servlet implementation class TaskDeleteServlet
@@ -33,6 +36,20 @@ public class TaskDeleteServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		response.getWriter().append("Served at: ").append(request.getContextPath());
+		request.setCharacterEncoding("UTF-8");
+
+		int id = Integer.parseInt(request.getParameter("task_id"));
+		TaskSelectDAO dao = new TaskSelectDAO();
+
+		try {
+			TaskShowBean task = dao.selectTask(id);
+			HttpSession session = request.getSession();
+			session.setAttribute("task", task);
+		} catch (ClassNotFoundException | SQLException e) {
+			e.printStackTrace();
+		}
+		RequestDispatcher rd = request.getRequestDispatcher("delete-task-confirm.jsp");
+		rd.forward(request, response);
 	}
 
 	/**
@@ -46,7 +63,7 @@ public class TaskDeleteServlet extends HttpServlet {
 
 		try {
 			//処理
-			processNumber = dao.deleteTask(Integer.parseInt(request.getParameter("taskId")));
+			processNumber = dao.deleteTask(Integer.parseInt(request.getParameter("task_id")));
 		} catch (SQLException | ClassNotFoundException e) {
 			e.printStackTrace();
 		}
