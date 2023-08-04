@@ -74,5 +74,6 @@ INSERT INTO task_db.m_user(user_id, password, user_name) VALUES ('admin', 'passw
 
 /*タスクテーブル INSERT*/
 INSERT INTO task_db.t_task(task_name, category_id, limit_date, user_id, status_code, memo) VALUES ('サンプルタスク', 1, '2023-09-01', 'admin', '00', 'サンプルメモ');
+INSERT INTO task_db.t_task(task_name, category_id, user_id, status_code) VALUES ('サンプルタスク2', 2, 'admin', '99');
 
 commit;
