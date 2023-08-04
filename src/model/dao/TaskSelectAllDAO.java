@@ -57,25 +57,32 @@ public class TaskSelectAllDAO {
 
 		//SQL接続
 		try (Connection con = ConnectionManager.getConnection();
-				PreparedStatement pstmt = con.prepareStatement(sql)){
-
+				PreparedStatement pstmt = con.prepareStatement(sql)) {
+			LocalDate limitDate = null;
+			String testStr = null;
 			//一覧を取得
 			ResultSet res = pstmt.executeQuery();
 
 			//リストに一覧を挿入
-			while(res.next()) {
+			while (res.next()) {
 				int taskId = res.getInt("task_id");
 				String taskName = res.getString("task_name");
 				String categoryName = res.getString("category_name");
+
+				if (res.getDate("limit_date") != null) {
+					limitDate = res.getDate("limit_date").toLocalDate();
+				} else {
+					limitDate = null;
+				}
 				String userName = res.getString("user_name");
 				String statusName = res.getString("status_name");
 				String memo;
-				if(res.getString("memo")!=null) {
+				if (res.getString("memo") != null) {
 					memo = res.getString("memo");
 				} else {
 					memo = "";
 				}
-				LocalDate limitDate = res.getDate("limit_date").toLocalDate();
+				//			LocalDate limitDate = res.getDate("limit_date").toLocalDate();
 
 				TaskShowBean task = new TaskShowBean();
 				task.setTaskId(taskId);
