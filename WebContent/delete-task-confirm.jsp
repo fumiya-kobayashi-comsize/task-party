@@ -48,7 +48,7 @@
 				</form>
 			</td>
 			<td>
-				<form action="show-task.jsp">
+				<form action="show-task.jsp" method = "POST">
 					<input type = "submit" value = "一覧に戻る">
 				</form>
 		</tr>

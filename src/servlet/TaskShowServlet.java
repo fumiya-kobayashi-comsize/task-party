@@ -10,6 +10,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import model.dao.TaskSelectAllDAO;
 import model.entity.TaskShowBean;
@@ -52,7 +53,8 @@ public class TaskShowServlet extends HttpServlet {
 		} catch (SQLException | ClassNotFoundException e) {
 			e.printStackTrace();
 		}
-		request.setAttribute("taskList", taskList);
+		HttpSession session = request.getSession();
+		session.setAttribute("taskList", taskList);
 
 		RequestDispatcher rd = request.getRequestDispatcher("show-task.jsp");
 		rd.forward(request, response);

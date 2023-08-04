@@ -9,7 +9,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-<%List<TaskShowBean> taskList = (List<TaskShowBean>)request.getAttribute("taskList"); %>
+<%List<TaskShowBean> taskList = (List<TaskShowBean>)session.getAttribute("taskList"); %>
 <h2>タスク一覧</h2>
 <hr>
 <table>
