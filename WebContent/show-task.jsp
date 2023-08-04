@@ -21,8 +21,6 @@
 		<th>ユーザID</th>
 		<th>ステータスコード</th>
 		<th>メモ</th>
-		<th>登録日時</th>
-		<th>更新日時</th>
 	</tr>
 	<%for(TaskBean task : taskList){ %>
 	<tr>
@@ -33,8 +31,6 @@
 		<td><%=task.getUserId() %></td>
 		<td><%=task.getStatusCode() %></td>
 		<td><%=task.getMemo() %></td>
-		<td><%=task.getCreateDatetime() %></td>
-		<td><%=task.getUpdateDatetime() %></td>
 		<td>
 			<form action = "TaskEditServlet" method = "POST">
 				<input type = "submit" value = 編集>
