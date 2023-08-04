@@ -8,45 +8,46 @@ import java.util.Date;
  *
  */
 public class StatusBean {
-	private String status_code;
-	private String status_name;
-	private Date update_datetime;
+	private String statusCode;
+	private String statusName;
+	private Date updateDatetime;
 	/**
-	 * @return status_code
+	 * @return statusCode
 	 */
-	public String getStatus_code() {
-		return status_code;
+	public String getStatusCode() {
+		return statusCode;
 	}
 	/**
-	 * @param status_code セットする status_code
+	 * @param statusCode セットする statusCode
 	 */
-	public void setStatus_code(String status_code) {
-		this.status_code = status_code;
+	public void setStatusCode(String statusCode) {
+		this.statusCode = statusCode;
 	}
 	/**
-	 * @return status_name
+	 * @return statusName
 	 */
-	public String getStatus_name() {
-		return status_name;
+	public String getStatusName() {
+		return statusName;
 	}
 	/**
-	 * @param status_name セットする status_name
+	 * @param statusName セットする statusName
 	 */
-	public void setStatus_name(String status_name) {
-		this.status_name = status_name;
+	public void setStatusName(String statusName) {
+		this.statusName = statusName;
 	}
 	/**
-	 * @return update_datetime
+	 * @return updateDatetime
 	 */
-	public Date getUpdate_datetime() {
-		return update_datetime;
+	public Date getUpdateDatetime() {
+		return updateDatetime;
 	}
 	/**
-	 * @param update_datetime セットする update_datetime
+	 * @param updateDatetime セットする updateDatetime
 	 */
-	public void setUpdate_datetime(Date update_datetime) {
-		this.update_datetime = update_datetime;
+	public void setUpdateDatetime(Date updateDatetime) {
+		this.updateDatetime = updateDatetime;
 	}
+
 
 
 }

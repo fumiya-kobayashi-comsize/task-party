@@ -8,46 +8,45 @@ import java.util.Date;
  *
  */
 public class CategoryBean {
-	private int category_id;
-	private String category_name;
-	private Date update_datetime;
+	private int categoryId;
+	private String categoryName;
+	private Date updateDatetime;
 	/**
-	 * @return category_id
+	 * @return categoryId
 	 */
-	public int getCategory_id() {
-		return category_id;
+	public int getCategoryId() {
+		return categoryId;
 	}
 	/**
-	 * @param category_id セットする category_id
+	 * @param categoryId セットする categoryId
 	 */
-	public void setCategory_id(int category_id) {
-		this.category_id = category_id;
+	public void setCategoryId(int categoryId) {
+		this.categoryId = categoryId;
 	}
 	/**
-	 * @return category_name
+	 * @return categoryName
 	 */
-	public String getCategory_name() {
-		return category_name;
+	public String getCategoryName() {
+		return categoryName;
 	}
 	/**
-	 * @param category_name セットする category_name
+	 * @param categoryName セットする categoryName
 	 */
-	public void setCategory_name(String category_name) {
-		this.category_name = category_name;
+	public void setCategoryName(String categoryName) {
+		this.categoryName = categoryName;
 	}
 	/**
-	 * @return update_datetime
+	 * @return updateDatetime
 	 */
-	public Date getUpdate_datetime() {
-		return update_datetime;
+	public Date getUpdateDatetime() {
+		return updateDatetime;
 	}
 	/**
-	 * @param update_datetime セットする update_datetime
+	 * @param updateDatetime セットする updateDatetime
 	 */
-	public void setUpdate_datetime(Date update_datetime) {
-		this.update_datetime = update_datetime;
+	public void setUpdateDatetime(Date updateDatetime) {
+		this.updateDatetime = updateDatetime;
 	}
-
 
 
 }

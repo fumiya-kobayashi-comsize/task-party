@@ -37,8 +37,8 @@ public class TaskInsertDAO {
 				String categoryName = res.getString("category_name");
 
 				CategoryBean categoryBean = new CategoryBean();
-				categoryBean.setCategory_id(categoryId);
-				categoryBean.setCategory_name(categoryName);
+				categoryBean.setCategoryId(categoryId);
+				categoryBean.setCategoryName(categoryName);
 
 				categoryList.add(categoryBean);
 			}
@@ -94,8 +94,8 @@ public class TaskInsertDAO {
 				String statusName = res.getString("status_name");
 
 				StatusBean statusBean = new StatusBean();
-				statusBean.setStatus_code(statusCode);
-				statusBean.setStatus_name(statusName);
+				statusBean.setStatusCode(statusCode);
+				statusBean.setStatusName(statusName);
 
 				statusList.add(statusBean);
 			}

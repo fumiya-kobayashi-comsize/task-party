@@ -51,15 +51,15 @@ public class TaskSelectAllDAO {
 				Date updateDate = res.getDate("update_datetine");
 
 				TaskBean task = new TaskBean();
-				task.setTask_id(taskId);
-				task.setTask_name(taskName);
-				task.setCategory_id(categoryId);
-				task.setLimit_date(limitDate);
-				task.setUser_id(userId);
-				task.setStatus_code(statusCode);
+				task.setTaskId(taskId);
+				task.setTaskName(taskName);
+				task.setCategoryId(categoryId);
+				task.setLimitDate(limitDate);
+				task.setUserId(userId);
+				task.setStatusCode(statusCode);
 				task.setMemo(memo);
-				task.setCreate_datetime(createDate);
-				task.setUpdate_datetime(updateDate);
+				task.setCreateDatetime(createDate);
+				task.setUpdateDatetime(updateDate);
 
 				taskList.add(task);
 			}
