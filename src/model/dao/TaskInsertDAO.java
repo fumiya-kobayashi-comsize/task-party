@@ -62,8 +62,8 @@ public class TaskInsertDAO {
 
 			ResultSet res = pstmt.executeQuery();
 			while (res.next()) {
-				String userId = res.getString("category_id");
-				String userName = res.getString("category_name");
+				String userId = res.getString("user_id");
+				String userName = res.getString("user_name");
 
 				UserBean userBean = new UserBean();
 				userBean.setUserId(userId);
