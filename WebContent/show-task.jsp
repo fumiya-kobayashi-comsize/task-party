@@ -26,15 +26,15 @@
 	</tr>
 	<%for(TaskBean task : taskList){ %>
 	<tr>
-		<td><%=task.getTask_id() %></td>
-		<td><%=task.getTask_name() %></td>
-		<td><%=task.getCategory_id() %></td>
-		<td><%=task.getLimit_date() %></td>
-		<td><%=task.getUser_id() %></td>
-		<td><%=task.getStatus_code() %></td>
+		<td><%=task.getTaskId() %></td>
+		<td><%=task.getTaskName() %></td>
+		<td><%=task.getCategoryId() %></td>
+		<td><%=task.getLimitDate() %></td>
+		<td><%=task.getUserId() %></td>
+		<td><%=task.getStatusCode() %></td>
 		<td><%=task.getMemo() %></td>
-		<td><%=task.getCreate_datetime() %></td>
-		<td><%=task.getUpdate_datetime() %></td>
+		<td><%=task.getCreateDatetime() %></td>
+		<td><%=task.getUpdateDatetime() %></td>
 		<td>
 			<form action = "TaskEditServlet" method = "POST">
 				<input type = "submit" value = 編集>

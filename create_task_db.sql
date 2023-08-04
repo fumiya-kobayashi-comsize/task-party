@@ -48,6 +48,18 @@ CREATE TABLE task_db.t_task
 	FOREIGN KEY(status_code) REFERENCES task_db.m_status(status_code)
 );
 
+/*コメントテーブル作成*/
+CREATE TABLE task_db.t_comment
+(
+	comment_id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
+	task_id INT NOT NULL,
+	user_id VARCHAR(24) NOT NULL,
+	comment VARCHAR(100) NOT NULL,
+	update_datetime TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP NOT NULL,
+	FOREIGN KEY(task_id) REFERENCES task_db.t_task(task_id),
+	FOREIGN KEY(user_id) REFERENCES task_db.m_user(user_id)
+);
+
 /*ステータスマスタ INSERT*/
 INSERT INTO task_db.m_status(status_code, status_name) VALUES ('00', '未着手');
 INSERT INTO task_db.m_status(status_code, status_name) VALUES ('50', '着手');

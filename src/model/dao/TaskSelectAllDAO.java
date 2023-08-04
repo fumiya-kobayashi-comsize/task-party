@@ -48,7 +48,7 @@ public class TaskSelectAllDAO {
 				String statusCode = res.getString("status_code");
 				String memo = res.getString("memo");
 				Date createDate = res.getDate("create_datetime");
-				Date updateDate = res.getDate("update_datetine");
+				Date updateDate = res.getDate("update_datetime");
 
 				TaskBean task = new TaskBean();
 				task.setTaskId(taskId);
