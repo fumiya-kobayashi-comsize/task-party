@@ -6,10 +6,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
-import model.entity.TaskBean;
+import model.entity.TaskShowBean;
 
 /**
  * @author 小関
@@ -24,13 +23,37 @@ public class TaskSelectAllDAO {
 	 * @throws SQLException
 	 * @throws ClassNotFoundException
 	 */
-	public List<TaskBean> SelectAll() throws ClassNotFoundException, SQLException {
+	public List<TaskShowBean> SelectAll() throws ClassNotFoundException, SQLException {
 
 		//空のリスト作成
-		List<TaskBean> taskList = new ArrayList<TaskBean>();
+		List<TaskShowBean> taskList = new ArrayList<TaskShowBean>();
 
 		//sql文
-		String sql = "SELECT * FROM t_task ORDER BY task_id";
+		StringBuilder sb = new StringBuilder();
+		sb.append("SELECT ");
+		sb.append("  t1.task_id ");
+		sb.append(", t1.task_name ");
+		sb.append(", t2.category_name ");
+		sb.append(", t1.limit_date ");
+		sb.append(", t3.user_name ");
+		sb.append(", t4.status_name ");
+		sb.append(", t1.memo ");
+		sb.append("FROM ");
+		sb.append(" task_db.t_task t1 ");
+		sb.append("LEFT JOIN");
+		sb.append(" task_db.m_category t2 ");
+		sb.append("ON ");
+		sb.append(" t1.category_id = t2.category_id ");
+		sb.append("LEFT JOIN ");
+		sb.append(" task_db.m_user t3 ");
+		sb.append("ON ");
+		sb.append(" t1.user_id = t3.user_id ");
+		sb.append("LEFT JOIN ");
+		sb.append(" task_db.m_status t4 ");
+		sb.append("ON ");
+		sb.append("t1.status_code = t4.status_code ");
+		sb.append("ORDER BY t1.task_id");
+		String sql = sb.toString();
 
 		//SQL接続
 		try (Connection con = ConnectionManager.getConnection();
@@ -43,21 +66,19 @@ public class TaskSelectAllDAO {
 			while(res.next()) {
 				int taskId = res.getInt("task_id");
 				String taskName = res.getString("task_name");
-				int categoryId = res.getInt("category_id");
+				String categoryName = res.getString("category_name");
 				LocalDate limitDate = res.getDate("limit_date").toLocalDate();
-				String userId = res.getString("user_id");
-				String statusCode = res.getString("status_code");
+				String userName = res.getString("user_name");
+				String statusName = res.getString("status_name");
 				String memo = res.getString("memo");
-				Date createDate = res.getDate("create_datetime");
-				Date updateDate = res.getDate("update_datetime");
 
-				TaskBean task = new TaskBean();
+				TaskShowBean task = new TaskShowBean();
 				task.setTaskId(taskId);
 				task.setTaskName(taskName);
-				task.setCategoryId(categoryId);
+				task.setCategoryName(categoryName);
 				task.setLimitDate(limitDate);
-				task.setUserId(userId);
-				task.setStatusCode(statusCode);
+				task.setUserName(userName);
+				task.setStatusName(statusName);
 				task.setMemo(memo);
 
 				taskList.add(task);

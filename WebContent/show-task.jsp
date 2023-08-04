@@ -1,4 +1,4 @@
-<%@page import="model.entity.TaskBean"%>
+<%@page import="model.entity.TaskShowBean"%>
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -9,35 +9,34 @@
 <title>Insert title here</title>
 </head>
 <body>
-<%List<TaskBean> taskList = (List<TaskBean>)request.getAttribute("taskList"); %>
+<%List<TaskShowBean> taskList = (List<TaskShowBean>)request.getAttribute("taskList"); %>
 <h2>タスク一覧</h2>
 <hr>
 <table>
 	<tr>
-		<th>タスクID</th>
 		<th>タスク名</th>
-		<th>カテゴリID</th>
+		<th>カテゴリ情報</th>
 		<th>期限</th>
-		<th>ユーザID</th>
-		<th>ステータスコード</th>
+		<th>担当者情報</th>
+		<th>ステータス情報</th>
 		<th>メモ</th>
 	</tr>
-	<%for(TaskBean task : taskList){ %>
+	<%for(TaskShowBean task : taskList){ %>
 	<tr>
-		<td><%=task.getTaskId() %></td>
 		<td><%=task.getTaskName() %></td>
-		<td><%=task.getCategoryId() %></td>
+		<td><%=task.getCategoryName() %></td>
 		<td><%=task.getLimitDate() %></td>
-		<td><%=task.getUserId() %></td>
-		<td><%=task.getStatusCode() %></td>
+		<td><%=task.getUserName() %></td>
+		<td><%=task.getStatusName() %></td>
 		<td><%=task.getMemo() %></td>
 		<td>
-			<form action = "TaskEditServlet" method = "POST">
+			<form action = "edit-task.jsp" method = "POST">
 				<input type = "submit" value = 編集>
 			</form>
 		</td>
 		<td>
-			<form action = "TaskDeleteServlet" method = "POST">
+			<form action = "ItemDeleteSurvlet" method = "GET">
+				<input type = "hidden" name = "taskId" value = <%=task.getTaskId() %>>
 				<input type = "submit" value = 削除>
 			</form>
 		</td>

@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import model.dao.TaskSelectAllDAO;
-import model.entity.TaskBean;
+import model.entity.TaskShowBean;
 
 /**
  * Servlet implementation class TaskShowServlet
@@ -43,7 +43,7 @@ public class TaskShowServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 
-		List<TaskBean> taskList = null;
+		List<TaskShowBean> taskList = null;
 
 		TaskSelectAllDAO dao = new TaskSelectAllDAO();
 
