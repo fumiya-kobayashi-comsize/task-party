@@ -2,6 +2,8 @@ package servlet;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -10,10 +12,12 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import model.dao.TaskInsertDAO;
 import model.entity.CategoryBean;
 import model.entity.StatusBean;
+import model.entity.TaskBean;
 import model.entity.UserBean;
 
 /**
@@ -50,9 +54,10 @@ public class TaskAddServlet extends HttpServlet {
 		} catch (ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
 		}
-		request.setAttribute("categoryList", categoryList);
-		request.setAttribute("userList", userList);
-		request.setAttribute("statusList", statusList);
+		HttpSession session = request.getSession();
+		session.setAttribute("categoryList", categoryList);
+		session.setAttribute("userList", userList);
+		session.setAttribute("statusList", statusList);
 
 		RequestDispatcher rd = request.getRequestDispatcher("add-task.jsp");
 		rd.forward(request, response);
@@ -63,6 +68,33 @@ public class TaskAddServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		request.setCharacterEncoding("UTF-8");
+		TaskInsertDAO insertDAO = new TaskInsertDAO();
+		int count = 0;
+//　　　送られてきたdateをlocaldateへ変換
+		LocalDate localDate = LocalDate.parse(request.getParameter("limitDate"),
+				DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+
+		TaskBean taskBean = new TaskBean();
+		taskBean.setTaskName(request.getParameter("taskName"));
+		taskBean.setCategoryId(Integer.parseInt(request.getParameter("categoryId")));
+		taskBean.setLimitDate(localDate);
+		taskBean.setUserId(request.getParameter("userId"));
+		taskBean.setStatusCode(request.getParameter("statusCode"));
+		taskBean.setMemo(request.getParameter("memo"));
+
+		try {
+			count = insertDAO.insertTask(taskBean);
+		} catch (ClassNotFoundException | SQLException e) {
+			e.printStackTrace();
+		}
+		if (count == 0) {
+			RequestDispatcher rd = request.getRequestDispatcher("add-task-error.jsp");
+			rd.forward(request, response);
+		} else {
+			RequestDispatcher rd = request.getRequestDispatcher("add-task-success.jsp");
+			rd.forward(request, response);
+		}
 
 	}
 

@@ -8,9 +8,9 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<%List<CategoryBean> categoryList=(List)request.getAttribute("categoryList");
-	List<UserBean> userList=(List)request.getAttribute("userList");
-	List<StatusBean> statusList=(List)request.getAttribute("statusList");%>
+	<%List<CategoryBean> categoryList=(List)session.getAttribute("categoryList");
+	List<UserBean> userList=(List)session.getAttribute("userList");
+	List<StatusBean> statusList=(List)session.getAttribute("statusList");%>
 	<div align="center">
 		<h1>タスク登録画面</h1>
 		<hr>
@@ -24,7 +24,7 @@
 					<td>カテゴリ名</td>
 					<td>
 
-					<select name="categoryCode">
+					<select name="categoryId">
 						<%for(CategoryBean category:categoryList ){ %>
 							<option value=<%=category.getCategoryId() %>><%=category.getCategoryName() %></option>
 						<%} %>
@@ -60,6 +60,7 @@
 					<td><input type="text" name="memo" maxlength="100"></td>
 				</tr>
 			</table>
+			<input type="submit" value="登録">
 		</form>
 	</div>
 </body>

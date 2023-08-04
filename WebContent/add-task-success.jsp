@@ -4,9 +4,15 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>add task success</title>
 </head>
 <body>
+	<div align="center">
+		<h1>タスクの登録に成功しました</h1><hr>
 
+	<form action="menu.jsp" method="POST">
+		<input type="submit" value="メニューへ">
+	</form>
+	</div>
 </body>
 </html>

@@ -1,6 +1,7 @@
 package model.dao;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -9,6 +10,7 @@ import java.util.List;
 
 import model.entity.CategoryBean;
 import model.entity.StatusBean;
+import model.entity.TaskBean;
 import model.entity.UserBean;
 
 /**
@@ -101,5 +103,33 @@ public class TaskInsertDAO {
 			}
 		}
 		return statusList;
+	}
+
+	/**
+	 * タスク登録メソッド
+	 * @author 根上
+	 * @param taskBean
+	 * @return	insert成否判定のためのcount
+	 * @throws SQLException
+	 * @throws ClassNotFoundException
+	 */
+	public int insertTask(TaskBean taskBean) throws SQLException, ClassNotFoundException {
+		String sql = "INSERT INTO t_task (task_name,category_id,limit_date,user_id,status_code,memo) VALUES(?,?,?,?,?,?)";
+		int count = 0;
+
+		try (Connection con = ConnectionManager.getConnection();
+				PreparedStatement pstmt = con.prepareStatement(sql)) {
+
+			pstmt.setString(1, taskBean.getTaskName());
+			pstmt.setInt(2, taskBean.getCategoryId());
+			pstmt.setDate(3, Date.valueOf(taskBean.getLimitDate()));
+			pstmt.setString(4, taskBean.getUserId());
+			pstmt.setString(5, taskBean.getStatusCode());
+			pstmt.setString(6, taskBean.getMemo());
+
+			count = pstmt.executeUpdate();
+		}
+
+		return count;
 	}
 }
