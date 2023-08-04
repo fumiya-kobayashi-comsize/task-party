@@ -1,11 +1,18 @@
 package servlet;
 
 import java.io.IOException;
+import java.sql.SQLException;
+import java.util.List;
+
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import model.dao.TaskSelectAllDAO;
+import model.entity.TaskBean;
 
 /**
  * Servlet implementation class TaskShowServlet
@@ -13,7 +20,7 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet("/TaskShowServlet")
 public class TaskShowServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
+
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -34,8 +41,21 @@ public class TaskShowServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+		request.setCharacterEncoding("UTF-8");
+
+		List<TaskBean> taskList = null;
+
+		TaskSelectAllDAO dao = new TaskSelectAllDAO();
+
+		try {
+			taskList = dao.SelectAll();
+		} catch (SQLException | ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+		request.setAttribute("taskList", taskList);
+
+		RequestDispatcher rd = request.getRequestDispatcher("show-task.jsp");
+		rd.forward(request, response);
 	}
 
 }

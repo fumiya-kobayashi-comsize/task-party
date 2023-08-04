@@ -1,6 +1,5 @@
 package model.entity;
 
-import java.time.LocalDate;
 import java.util.Date;
 
 /**
@@ -12,7 +11,7 @@ public class TaskBean {
 	private int task_id;
 	private String task_name;
 	private int category_id;
-	private LocalDate limit_date;
+	private Date limit_date;
 	private String user_id;
 	private String status_code;
 	private String memo;
@@ -57,13 +56,13 @@ public class TaskBean {
 	/**
 	 * @return limit_date
 	 */
-	public LocalDate getLimit_date() {
+	public Date getLimit_date() {
 		return limit_date;
 	}
 	/**
 	 * @param limit_date セットする limit_date
 	 */
-	public void setLimit_date(LocalDate limit_date) {
+	public void setLimit_date(Date limit_date) {
 		this.limit_date = limit_date;
 	}
 	/**
