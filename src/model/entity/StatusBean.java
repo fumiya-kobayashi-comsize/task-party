@@ -1,7 +1,5 @@
 package model.entity;
 
-import java.util.Date;
-
 /**
  * ステータスのBean
  * @author arakawa
@@ -10,7 +8,6 @@ import java.util.Date;
 public class StatusBean {
 	private String statusCode;
 	private String statusName;
-	private Date updateDatetime;
 	/**
 	 * @return statusCode
 	 */
@@ -35,19 +32,4 @@ public class StatusBean {
 	public void setStatusName(String statusName) {
 		this.statusName = statusName;
 	}
-	/**
-	 * @return updateDatetime
-	 */
-	public Date getUpdateDatetime() {
-		return updateDatetime;
-	}
-	/**
-	 * @param updateDatetime セットする updateDatetime
-	 */
-	public void setUpdateDatetime(Date updateDatetime) {
-		this.updateDatetime = updateDatetime;
-	}
-
-
-
 }

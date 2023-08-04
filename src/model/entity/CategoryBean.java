@@ -1,7 +1,5 @@
 package model.entity;
 
-import java.util.Date;
-
 /**
  * カテゴリーのBean
  * @author arakawa
@@ -10,7 +8,6 @@ import java.util.Date;
 public class CategoryBean {
 	private int categoryId;
 	private String categoryName;
-	private Date updateDatetime;
 	/**
 	 * @return categoryId
 	 */
@@ -35,18 +32,5 @@ public class CategoryBean {
 	public void setCategoryName(String categoryName) {
 		this.categoryName = categoryName;
 	}
-	/**
-	 * @return updateDatetime
-	 */
-	public Date getUpdateDatetime() {
-		return updateDatetime;
-	}
-	/**
-	 * @param updateDatetime セットする updateDatetime
-	 */
-	public void setUpdateDatetime(Date updateDatetime) {
-		this.updateDatetime = updateDatetime;
-	}
-
 
 }

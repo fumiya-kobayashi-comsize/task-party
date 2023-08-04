@@ -1,6 +1,6 @@
 package model.entity;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 /**
  * タスクのBean
@@ -11,12 +11,10 @@ public class TaskBean {
 	private int taskId;
 	private String taskName;
 	private int categoryId;
-	private Date limitDate;
+	private LocalDate limitDate;
 	private String userId;
 	private String statusCode;
 	private String memo;
-	private Date createDatetime;
-	private Date updateDatetime;
 	/**
 	 * @return taskId
 	 */
@@ -56,13 +54,13 @@ public class TaskBean {
 	/**
 	 * @return limitDate
 	 */
-	public Date getLimitDate() {
+	public LocalDate getLimitDate() {
 		return limitDate;
 	}
 	/**
 	 * @param limitDate セットする limitDate
 	 */
-	public void setLimitDate(Date limitDate) {
+	public void setLimitDate(LocalDate limitDate) {
 		this.limitDate = limitDate;
 	}
 	/**
@@ -100,30 +98,6 @@ public class TaskBean {
 	 */
 	public void setMemo(String memo) {
 		this.memo = memo;
-	}
-	/**
-	 * @return createDatetime
-	 */
-	public Date getCreateDatetime() {
-		return createDatetime;
-	}
-	/**
-	 * @param createDatetime セットする createDatetime
-	 */
-	public void setCreateDatetime(Date createDatetime) {
-		this.createDatetime = createDatetime;
-	}
-	/**
-	 * @return updateDatetime
-	 */
-	public Date getUpdateDatetime() {
-		return updateDatetime;
-	}
-	/**
-	 * @param updateDatetime セットする updateDatetime
-	 */
-	public void setUpdateDatetime(Date updateDatetime) {
-		this.updateDatetime = updateDatetime;
 	}
 
 }

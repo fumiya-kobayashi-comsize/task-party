@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -43,7 +44,7 @@ public class TaskSelectAllDAO {
 				int taskId = res.getInt("task_id");
 				String taskName = res.getString("task_name");
 				int categoryId = res.getInt("category_id");
-				Date limitDate = res.getDate("limit_date");
+				LocalDate limitDate = res.getDate("limit_date").toLocalDate();
 				String userId = res.getString("user_id");
 				String statusCode = res.getString("status_code");
 				String memo = res.getString("memo");
@@ -58,8 +59,6 @@ public class TaskSelectAllDAO {
 				task.setUserId(userId);
 				task.setStatusCode(statusCode);
 				task.setMemo(memo);
-				task.setCreateDatetime(createDate);
-				task.setUpdateDatetime(updateDate);
 
 				taskList.add(task);
 			}
