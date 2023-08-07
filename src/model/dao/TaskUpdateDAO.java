@@ -21,12 +21,16 @@ public class TaskUpdateDAO {
 	 */
 	public int updateItem(TaskBean task) throws ClassNotFoundException, SQLException {
 		int count = 0;
-		String sql = "UPDATE t_task SET task_name = ?, category_id = ?, limit_date = ?, user_id = ?, status_code = ?, memo = ?, WHERE task_id = ?";
+		String sql = "UPDATE t_task SET task_name = ?, category_id = ?, limit_date = ?, user_id = ?, status_code = ?, memo = ? WHERE task_id = ?";
 		try(Connection con = ConnectionManager.getConnection();
 				PreparedStatement pstmt = con.prepareStatement(sql)){
 			pstmt.setString(1, task.getTaskName());
 			pstmt.setInt(2, task.getCategoryId());
-			pstmt.setDate(3, Date.valueOf(task.getLimitDate()));
+			if (task.getLimitDate() != null) {
+				pstmt.setDate(3, Date.valueOf(task.getLimitDate()));
+			} else {
+				pstmt.setDate(3, null);
+			}
 			pstmt.setString(4, task.getUserId());
 			pstmt.setString(5, task.getStatusCode());
 			pstmt.setString(6, task.getMemo());

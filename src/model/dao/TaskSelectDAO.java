@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 
 import model.entity.TaskShowBean;
 
@@ -52,11 +53,15 @@ public class TaskSelectDAO {
 				PreparedStatement pstmt = con.prepareStatement(sql)){
 			pstmt.setInt(1, taskId);
 			ResultSet res = pstmt.executeQuery();
+			LocalDate limitDate = null;
 			if(res.next()) {
 				taskShow.setTaskId(taskId);
 				taskShow.setTaskName(res.getString("task_name"));
 				taskShow.setCategoryName(res.getString("category_name"));
-				taskShow.setLimitDate(res.getDate("limit_date").toLocalDate());
+				if (res.getDate("limit_date") != null) {
+					limitDate = res.getDate("limit_date").toLocalDate();
+				}
+				taskShow.setLimitDate(limitDate);
 				taskShow.setUserName(res.getString("user_name"));
 				taskShow.setStatusName(res.getString("status_name"));
 				taskShow.setMemo(res.getString("memo"));
