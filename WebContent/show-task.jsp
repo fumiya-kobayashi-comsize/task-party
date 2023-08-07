@@ -46,6 +46,12 @@
 				<input type = "submit" value = 削除>
 			</form>
 		</td>
+		<td>
+			<form action = "commentBrowseServlet" method = "GET">
+				<input type = "hidden" name = "task_id" value = <%=task.getTaskId() %>>
+				<input type = "submit" value = コメント閲覧>
+			</form>
+		</td>
 	</tr>
 	<%} %>
 </table>
