@@ -95,17 +95,19 @@ public class TaskEditServlet extends HttpServlet {
 		task.setStatusCode(request.getParameter("status_code"));
 		task.setMemo(request.getParameter("memo"));
 
+		TaskSelectDAO selectDao = new TaskSelectDAO();
 		TaskUpdateDAO dao = new TaskUpdateDAO();
 		int updateCount = 0;
 		try {
-			updateCount = dao.updateItem(task);
+			if(!task.equals(selectDao.selectTask(task.getTaskId()))) {
+				updateCount = dao.updateItem(task);
+			}
 		} catch (ClassNotFoundException | SQLException e) {
 			// TODO 自動生成された catch ブロック
 			e.printStackTrace();
 		}
 		if (updateCount != 0) {
 			TaskShowBean taskShow = new TaskShowBean();
-			TaskSelectDAO selectDao = new TaskSelectDAO();
 			try {
 				taskShow = selectDao.selectTaskShow(task.getTaskId());
 			} catch (ClassNotFoundException | SQLException e) {

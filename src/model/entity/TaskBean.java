@@ -99,5 +99,66 @@ public class TaskBean {
 	public void setMemo(String memo) {
 		this.memo = memo;
 	}
+	/* (非 Javadoc)
+	 * @see java.lang.Object#hashCode()
+	 */
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + categoryId;
+		result = prime * result + ((limitDate == null) ? 0 : limitDate.hashCode());
+		result = prime * result + ((memo == null) ? 0 : memo.hashCode());
+		result = prime * result + ((statusCode == null) ? 0 : statusCode.hashCode());
+		result = prime * result + taskId;
+		result = prime * result + ((taskName == null) ? 0 : taskName.hashCode());
+		result = prime * result + ((userId == null) ? 0 : userId.hashCode());
+		return result;
+	}
+	/* 全部のフィールドを比較して等価判定
+	 *
+	 */
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		TaskBean other = (TaskBean) obj;
+		if (categoryId != other.categoryId)
+			return false;
+		if (limitDate == null) {
+			if (other.limitDate != null)
+				return false;
+		} else if (!limitDate.equals(other.limitDate))
+			return false;
+		if (memo == null) {
+			if (other.memo != null)
+				return false;
+		} else if (!memo.equals(other.memo))
+			return false;
+		if (statusCode == null) {
+			if (other.statusCode != null)
+				return false;
+		} else if (!statusCode.equals(other.statusCode))
+			return false;
+		if (taskId != other.taskId)
+			return false;
+		if (taskName == null) {
+			if (other.taskName != null)
+				return false;
+		} else if (!taskName.equals(other.taskName))
+			return false;
+		if (userId == null) {
+			if (other.userId != null)
+				return false;
+		} else if (!userId.equals(other.userId))
+			return false;
+		return true;
+	}
+
+
 
 }

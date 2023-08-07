@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
 
+import model.entity.TaskBean;
 import model.entity.TaskShowBean;
 
 
@@ -70,5 +71,30 @@ public class TaskSelectDAO {
 		return taskShow;
 
 
+	}
+
+	public TaskBean selectTask(int taskId) throws ClassNotFoundException, SQLException {
+		TaskBean task = new TaskBean();
+		String sql = "SELECT * FROM t_task WHERE task_id = ?";
+		try(Connection con = ConnectionManager.getConnection();
+				PreparedStatement pstmt = con.prepareStatement(sql)){
+			pstmt.setInt(1, taskId);
+			ResultSet res = pstmt.executeQuery();
+			LocalDate limitDate = null;
+			if(res.next()) {
+				task.setTaskId(taskId);
+				task.setTaskName(res.getString("task_name"));
+				task.setCategoryId(res.getInt("category_id"));
+				if (res.getDate("limit_date") != null) {
+					limitDate = res.getDate("limit_date").toLocalDate();
+				}
+				task.setLimitDate(limitDate);
+				task.setUserId(res.getString("user_id"));
+				task.setStatusCode(res.getString("status_code"));
+				task.setMemo(res.getString("memo"));
+			}
+		}
+
+		return task;
 	}
 }

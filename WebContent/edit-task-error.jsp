@@ -11,7 +11,7 @@
 		<h1>タスクの編集に失敗しました</h1><hr>
 
 	<form action="edit-task.jsp" method="POST">
-		<input type="submit" value="登録画面へ">
+		<input type="submit" value="編集画面へ">
 	</form>
 	</div>
 </body>
