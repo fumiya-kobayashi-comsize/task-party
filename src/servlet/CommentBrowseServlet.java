@@ -51,7 +51,7 @@ public class CommentBrowseServlet extends HttpServlet {
 		CommentBrowseDAO commentDAO = new CommentBrowseDAO();
 		TaskSelectDAO taskDAO = new TaskSelectDAO();
 
-
+		//タスクの選択とそのタスクのコメントリスト取得
 		try {
 			commentList = commentDAO.TaskComment(Integer.parseInt(request.getParameter("task_id")));
 			selectTask = taskDAO.selectTaskShow(Integer.parseInt(request.getParameter("task_id")));
@@ -60,6 +60,7 @@ public class CommentBrowseServlet extends HttpServlet {
 		}
 		request.setAttribute("comment_list", commentList);
 		request.setAttribute("select_task", selectTask);
+
 
 		RequestDispatcher rd = request.getRequestDispatcher("show-comment.jsp");
 		rd.forward(request, response);

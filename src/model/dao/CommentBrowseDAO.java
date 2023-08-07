@@ -4,7 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -48,12 +49,13 @@ public class CommentBrowseDAO {
 			while(res.next()) {
 				String user = res.getString("user_name");
 				String com = res.getString("comment");
-				LocalDate date = res.getDate("update_datetime").toLocalDate();
+				LocalDateTime date = res.getTimestamp("update_datetime").toLocalDateTime();
+				DateTimeFormatter f = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
 
 				CommentBean comment = new CommentBean();
 				comment.setCommentUser(user);
 				comment.setCommentContent(com);
-				comment.setCommentDate(date);
+				comment.setCommentDate(date.format(f));
 
 				commentList.add(comment);
 			}
