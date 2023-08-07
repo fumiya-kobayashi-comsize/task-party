@@ -38,6 +38,10 @@
 	</tr>
 </table>
 <hr>
+<form action="CommentPostServlet"method="GET">
+	<input type="hidden" name="task_id" value= <%=task.getTaskId() %>>
+	<input type="submit" value="コメント追加">
+</form>
 <table>
 	<%for(CommentBean comment : commentList){ %>
 	<tr>
