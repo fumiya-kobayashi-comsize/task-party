@@ -47,7 +47,7 @@
 			</form>
 		</td>
 		<td>
-			<form action = "commentBrowseServlet" method = "GET">
+			<form action = "CommentBrowseServlet" method = "POST">
 				<input type = "hidden" name = "task_id" value = <%=task.getTaskId() %>>
 				<input type = "submit" value = コメント閲覧>
 			</form>

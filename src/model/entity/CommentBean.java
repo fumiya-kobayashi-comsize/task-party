@@ -1,6 +1,6 @@
 package model.entity;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 /**
  * タスクの表示用Bean
@@ -10,7 +10,7 @@ import java.util.Date;
 public class CommentBean {
 	private String commentContent;
 	private String commentUser;
-	private Date commentDate;
+	private LocalDate commentDate;
 
 	/**
 	 * @return commentContent
@@ -39,13 +39,13 @@ public class CommentBean {
 	/**
 	 * @return commentDate
 	 */
-	public Date getCommentDate() {
+	public LocalDate getCommentDate() {
 		return commentDate;
 	}
 	/**
-	 * @param commentDate セットする commentDate
+	 * @param date セットする commentDate
 	 */
-	public void setCommentDate(Date commentDate) {
-		this.commentDate = commentDate;
+	public void setCommentDate(LocalDate date) {
+		this.commentDate = date;
 	}
 }
