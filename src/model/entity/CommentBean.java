@@ -8,10 +8,23 @@ import java.time.LocalDate;
  *
  */
 public class CommentBean {
+	private int taskId;
 	private String commentContent;
 	private String commentUser;
 	private LocalDate commentDate;
 
+	/**
+	 * @return taskId
+	 */
+	public int getTaskId() {
+		return taskId;
+	}
+	/**
+	 * @param taskId セットする taskId
+	 */
+	public void setTaskId(int taskId) {
+		this.taskId = taskId;
+	}
 	/**
 	 * @return commentContent
 	 */
