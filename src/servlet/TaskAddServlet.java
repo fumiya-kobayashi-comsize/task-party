@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import model.dao.MakeListDAO;
 import model.dao.TaskInsertDAO;
 import model.entity.CategoryBean;
 import model.entity.StatusBean;
@@ -45,12 +46,12 @@ public class TaskAddServlet extends HttpServlet {
 		List<UserBean> userList = null;
 		List<StatusBean> statusList = null;
 
-		TaskInsertDAO insertDAO = new TaskInsertDAO();
+		MakeListDAO listDAO = new MakeListDAO();
 
 		try {
-			categoryList = insertDAO.selectAllCategory();
-			userList = insertDAO.selectAllUser();
-			statusList = insertDAO.selectAllStatus();
+			categoryList = listDAO.selectAllCategory();
+			userList = listDAO.selectAllUser();
+			statusList = listDAO.selectAllStatus();
 		} catch (ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
 		}
