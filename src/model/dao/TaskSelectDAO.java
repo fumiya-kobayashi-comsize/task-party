@@ -21,7 +21,7 @@ public class TaskSelectDAO {
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
 	 */
-	public TaskShowBean selectTask(int taskId) throws ClassNotFoundException, SQLException{
+	public TaskShowBean selectTaskShow(int taskId) throws ClassNotFoundException, SQLException{
 		TaskShowBean taskShow = new TaskShowBean();
 		StringBuilder sqlSb = new StringBuilder();
 		sqlSb.append("SELECT ");

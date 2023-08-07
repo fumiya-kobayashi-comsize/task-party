@@ -56,7 +56,7 @@ public class TaskEditServlet extends HttpServlet {
 		TaskSelectDAO dao = new TaskSelectDAO();
 		MakeListDAO mldao = new MakeListDAO();
 		try {
-			task = dao.selectTask(taskId);
+			task = dao.selectTaskShow(taskId);
 			categoryList = mldao.selectAllCategory();
 			userList = mldao.selectAllUser();
 			statusList = mldao.selectAllStatus();
@@ -107,7 +107,7 @@ public class TaskEditServlet extends HttpServlet {
 			TaskShowBean taskShow = new TaskShowBean();
 			TaskSelectDAO selectDao = new TaskSelectDAO();
 			try {
-				taskShow = selectDao.selectTask(task.getTaskId());
+				taskShow = selectDao.selectTaskShow(task.getTaskId());
 			} catch (ClassNotFoundException | SQLException e) {
 				// TODO 自動生成された catch ブロック
 				e.printStackTrace();

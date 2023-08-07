@@ -40,7 +40,7 @@ public class TaskDeleteServlet extends HttpServlet {
 		TaskSelectDAO dao = new TaskSelectDAO();
 
 		try {
-			TaskShowBean task = dao.selectTask(id);
+			TaskShowBean task = dao.selectTaskShow(id);
 			HttpSession session = request.getSession();
 			session.setAttribute("task", task);
 		} catch (ClassNotFoundException | SQLException e) {
