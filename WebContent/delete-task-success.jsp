@@ -23,7 +23,10 @@
 		</tr>
 		<tr>
 			<th>期限</th>
-			<td><%=task. getLimitDate()%></td>
+			<td><%if(task.getLimitDate()!=null){ %>
+					<%=task.getLimitDate() %>
+				<% }%>
+			</td>
 		</tr>
 		<tr>
 			<th>担当者情報</th>

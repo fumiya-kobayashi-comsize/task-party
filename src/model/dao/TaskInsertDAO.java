@@ -26,7 +26,7 @@ public class TaskInsertDAO {
 		String sql = "INSERT INTO t_task (task_name,category_id,limit_date,user_id,status_code,memo) VALUES(?,?,?,?,?,?)";
 		int count = 0;
 
-		StringBuilder sb = new StringBuilder();
+		/*StringBuilder sb = new StringBuilder();
 		sb.append(" INSERT INTO t_task ");
 		sb.append(" (task_name,category_id ");
 		if (taskBean.getLimitDate() != null) {
@@ -45,6 +45,8 @@ public class TaskInsertDAO {
 			sb.append(",?");
 		}
 		sb.append(")");
+//		String sql = sb.toString();
+*/
 		try (Connection con = ConnectionManager.getConnection();
 				PreparedStatement pstmt = con.prepareStatement(sql)) {
 

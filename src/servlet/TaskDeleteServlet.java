@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import model.dao.CommentDeleteAllDAO;
 import model.dao.TaskDeleteDAO;
 import model.dao.TaskSelectDAO;
 import model.entity.TaskShowBean;
@@ -57,10 +58,12 @@ public class TaskDeleteServlet extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 
 		TaskDeleteDAO dao = new TaskDeleteDAO();
+		CommentDeleteAllDAO commentDelete = new CommentDeleteAllDAO();
 		int processNumber = 0; //処理件数
 
 		try {
 			//処理
+			commentDelete.deleteAllComment(Integer.parseInt(request.getParameter("task_id"))) ;
 			processNumber = dao.deleteTask(Integer.parseInt(request.getParameter("task_id")));
 		} catch (SQLException | ClassNotFoundException e) {
 			e.printStackTrace();
