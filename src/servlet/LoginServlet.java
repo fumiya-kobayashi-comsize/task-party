@@ -54,7 +54,7 @@ public class LoginServlet extends HttpServlet {
 		boolean match = false;
 //		セッションに名前をあげるための変数
 		String name = null;
-
+		String userId =userBean.getUserId();
 		try {
 			match = userDAO.matchUser(userBean);
 			name = userDAO.selectName(userBean);
@@ -64,7 +64,7 @@ public class LoginServlet extends HttpServlet {
 
 		HttpSession session = request.getSession();
 		session.setAttribute("name", name);
-
+		session.setAttribute("userId", userId);
 		if (match) {
 			RequestDispatcher rd = request.getRequestDispatcher("menu.jsp");
 			rd.forward(request, response);

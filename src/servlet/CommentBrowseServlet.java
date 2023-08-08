@@ -10,6 +10,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import model.dao.CommentBrowseDAO;
 import model.dao.TaskSelectDAO;
@@ -45,7 +46,7 @@ public class CommentBrowseServlet extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 
 		List<CommentBean> commentList = null;
-		TaskShowBean selectTask = null;
+		TaskShowBean taskShow = new TaskShowBean();
 
 		//DAO有効化
 		CommentBrowseDAO commentDAO = new CommentBrowseDAO();
@@ -54,12 +55,13 @@ public class CommentBrowseServlet extends HttpServlet {
 		//タスクの選択とそのタスクのコメントリスト取得
 		try {
 			commentList = commentDAO.TaskComment(Integer.parseInt(request.getParameter("task_id")));
-			selectTask = taskDAO.selectTaskShow(Integer.parseInt(request.getParameter("task_id")));
+			taskShow = taskDAO.selectTaskShow(Integer.parseInt(request.getParameter("task_id")));
 		} catch (SQLException | ClassNotFoundException e) {
 			e.printStackTrace();
 		}
+		HttpSession session = request.getSession();
 		request.setAttribute("comment_list", commentList);
-		request.setAttribute("select_task", selectTask);
+		session.setAttribute("task_show", taskShow);
 
 
 		RequestDispatcher rd = request.getRequestDispatcher("show-comment.jsp");

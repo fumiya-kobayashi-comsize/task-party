@@ -14,7 +14,7 @@ import javax.servlet.http.HttpSession;
 import model.dao.CommentPostDAO;
 import model.dao.TaskSelectDAO;
 import model.entity.CommentBean;
-import model.entity.TaskBean;
+import model.entity.TaskShowBean;
 
 /**
  * Servlet implementation class CommentPostServlet
@@ -32,17 +32,18 @@ public class CommentPostServlet extends HttpServlet {
 	}
 
 	/**
+	 *
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
-		TaskBean task = new TaskBean();
+		TaskShowBean task = new TaskShowBean();
 		int taskId = Integer.parseInt(request.getParameter("task_id"));
 		TaskSelectDAO selectDAO = new TaskSelectDAO();
 
 		try {
-			task = selectDAO.selectTask(taskId);
+			task = selectDAO.selectTaskShow(taskId);
 		} catch (ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
 		}
@@ -54,6 +55,7 @@ public class CommentPostServlet extends HttpServlet {
 	}
 
 	/**
+	 * コメント投稿servlet
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -62,11 +64,11 @@ public class CommentPostServlet extends HttpServlet {
 		CommentPostDAO postDAO = new CommentPostDAO();
 		CommentBean commnetBean = new CommentBean();
 		HttpSession session = request.getSession();
-		TaskBean task = (TaskBean) session.getAttribute("task");
+		TaskShowBean task = (TaskShowBean) session.getAttribute("task_show");
 		int count = 0;
 
 		commnetBean.setTaskId(task.getTaskId());
-		commnetBean.setCommentUser(session.getAttribute("name").toString());
+		commnetBean.setCommentUser(session.getAttribute("userId").toString());
 		commnetBean.setCommentContent(request.getParameter("comment"));
 
 		try {

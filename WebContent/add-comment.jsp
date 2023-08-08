@@ -9,8 +9,9 @@
 <title>Insert title here</title>
 </head>
 <body>
-<%String name= (String)session.getAttribute("name"); %>
-<%TaskShowBean task = (TaskShowBean)request.getAttribute("task"); %>
+<%String name= (String)session.getAttribute("name");
+String userId= (String)session.getAttribute("userId");%>
+<%TaskShowBean task = (TaskShowBean)session.getAttribute("task_show"); %>
 	<h1>コメント投稿画面</h1><hr>
 
 	<form action="CommentPostServlet"method="POST">
@@ -38,7 +39,7 @@
 			</tr>
 			<tr>
 				<td>投稿者</td>
-				<td><input type="hidden" name="poster" value=<%=name %>> <%=name %></td>
+				<td><input type="hidden" name="name_id" value=<%=userId %>> <%=name %></td>
 			</tr>
 			<tr>
 				<td>コメント内容</td>
