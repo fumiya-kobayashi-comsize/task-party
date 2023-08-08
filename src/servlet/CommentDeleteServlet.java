@@ -9,6 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import model.dao.CommentDeleteDAO;
 
@@ -42,15 +43,20 @@ public class CommentDeleteServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
-		int count = 0;
 		CommentDeleteDAO deleteDAO = new CommentDeleteDAO();
-		int commentId = Integer.parseInt(request.getParameter("comment_id"));
 
+		String userId= request.getParameter("user_id");
+		int commentId=Integer.parseInt(request.getParameter("comment_id"));
+		int count = 0;
+		HttpSession session = request.getSession();
+
+		if(userId.equals(session.getAttribute("userId"))) {
 		try {
 			count = deleteDAO.deleteComment(commentId);
 
 		} catch (ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
+		}
 		}
 		if (count == 1) {
 			RequestDispatcher rd = request.getRequestDispatcher("delete-comment-success.jsp");

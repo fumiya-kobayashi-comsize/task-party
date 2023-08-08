@@ -55,10 +55,13 @@
 
 	</tr>
 	<tr>
-		<td><%=comment.getCommentUser() %></td>
+		<td><%=comment.getCommentUserName() %></td>
 		<td><%=comment.getCommentContent() %></td>
 		<td><%=comment.getCommentDate() %></td>
-		<td><input type="submit" value="削除"><input type="hidden" name="comment_id" value=<%=comment.getCommentId() %>><td>
+		<td><input type="submit" value="削除">
+			<input type="hidden" name="comment_id" value=<%=comment.getCommentId() %>>
+			<input type="hidden" name="user_id" value=<%=comment.getCommentUser() %>>
+		<td>
 	</tr>
 	<%} %>
 </table>

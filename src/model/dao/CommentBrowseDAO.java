@@ -25,7 +25,8 @@ public class CommentBrowseDAO {
 		//SQL文の作成
 		StringBuilder sb = new StringBuilder();
 		sb.append("SELECT ");
-		sb.append("  t2.user_name ");
+		sb.append("  t2.user_id ");
+		sb.append(", t2.user_name ");
 		sb.append(", t1.comment_id ");
 		sb.append(", t1.comment ");
 		sb.append(", t1.update_datetime ");
@@ -52,14 +53,16 @@ public class CommentBrowseDAO {
 			//リストにコメントリストを入れる
 			while(res.next()) {
 				int commentId= res.getInt("comment_id");
-				String user = res.getString("user_name");
+				String userId = res.getString("user_id");
+				String userName=	res.getString("user_name");
 				String com = res.getString("comment");
 				LocalDateTime date = res.getTimestamp("update_datetime").toLocalDateTime();
 				DateTimeFormatter f = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
 
 				CommentBean comment = new CommentBean();
 				comment.setCommentId(commentId);
-				comment.setCommentUser(user);
+				comment.setCommentUser(userId);
+				comment.setCommentUserName(userName);
 				comment.setCommentContent(com);
 				comment.setCommentDate(date.format(f));
 
