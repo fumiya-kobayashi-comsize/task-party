@@ -76,4 +76,23 @@ INSERT INTO task_db.m_user(user_id, password, user_name) VALUES ('admin', 'passw
 INSERT INTO task_db.t_task(task_name, category_id, limit_date, user_id, status_code, memo) VALUES ('サンプルタスク', 1, '2023-09-01', 'admin', '00', 'サンプルメモ');
 INSERT INTO task_db.t_task(task_name, category_id, user_id, status_code) VALUES ('サンプルタスク2', 2, 'admin', '99');
 
+/*コメントテーブル INSERT*/
+INSERT INTO task_db.t_comment(task_id, user_id, comment) VALUES (2,'admin','コメント');
+INSERT INTO task_db.t_comment(task_id, user_id, comment) VALUES (1,'admin','コメントコメント');
+INSERT INTO task_db.t_comment(task_id, user_id, comment) VALUES (1,'admin','コメントコメントコメント');
+INSERT INTO task_db.t_comment(task_id, user_id, comment) VALUES (1,'admin','コメントコメントコメントコメント');
+INSERT INTO task_db.t_comment(task_id, user_id, comment) VALUES (2,'admin','コメントコメントコメントコメントコメント');
+INSERT INTO task_db.t_comment(task_id, user_id, comment) VALUES (2,'admin','コメントコメントコメントコメントコメントコメント');
+INSERT INTO task_db.t_comment(task_id, user_id, comment) VALUES (2,'admin','コメントコメントコメントコメントコメントコメントコメント');
+INSERT INTO task_db.t_comment(task_id, user_id, comment) VALUES (1,'admin','コメントコメントコメントコメントコメントコメントコメントコメント');
+INSERT INTO task_db.t_comment(task_id, user_id, comment) VALUES (2,'admin','コメントコメントコメントコメントコメントコメントコメントコメントコメント');
+INSERT INTO task_db.t_comment(task_id, user_id, comment) VALUES (2,'admin','コメントコメントコメントコメントコメントコメントコメントコメントコメントコメント');
+INSERT INTO task_db.t_comment(task_id, user_id, comment) VALUES (1,'admin','コメント1');
+INSERT INTO task_db.t_comment(task_id, user_id, comment) VALUES (1,'admin','コメント2');
+INSERT INTO task_db.t_comment(task_id, user_id, comment) VALUES (1,'admin','コメント3');
+INSERT INTO task_db.t_comment(task_id, user_id, comment) VALUES (2,'admin','コメント4');
+INSERT INTO task_db.t_comment(task_id, user_id, comment) VALUES (2,'admin','コメント5');
+INSERT INTO task_db.t_comment(task_id, user_id, comment) VALUES (1,'admin','コメント6');
+
+
 commit;

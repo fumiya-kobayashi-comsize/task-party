@@ -13,6 +13,7 @@ public class CommentBean {
 	private String commentUser;
 	private String commentDate;
 
+
 	/**
 	 * @return taskId
 	 */
@@ -20,16 +21,10 @@ public class CommentBean {
 		return taskId;
 	}
 	/**
-	 * @return commentUserName
+	 * @param taskId セットする taskId
 	 */
-	public String getCommentUserName() {
-		return commentUserName;
-	}
-	/**
-	 * @param commentUserName セットする commentUserName
-	 */
-	public void setCommentUserName(String commentUserName) {
-		this.commentUserName = commentUserName;
+	public void setTaskId(int taskId) {
+		this.taskId = taskId;
 	}
 	/**
 	 * @return commentId
@@ -44,10 +39,16 @@ public class CommentBean {
 		this.commentId = commentId;
 	}
 	/**
-	 * @param taskId セットする taskId
+	 * @return commentUserName
 	 */
-	public void setTaskId(int taskId) {
-		this.taskId = taskId;
+	public String getCommentUserName() {
+		return commentUserName;
+	}
+	/**
+	 * @param commentUserName セットする commentUserName
+	 */
+	public void setCommentUserName(String commentUserName) {
+		this.commentUserName = commentUserName;
 	}
 	/**
 	 * @return commentContent
@@ -80,9 +81,11 @@ public class CommentBean {
 		return commentDate;
 	}
 	/**
-	 * @param string セットする commentDate
+	 * @param commentDate セットする commentDate
 	 */
-	public void setCommentDate(String string) {
-		this.commentDate = string;
+	public void setCommentDate(String commentDate) {
+		this.commentDate = commentDate;
 	}
+
+
 }

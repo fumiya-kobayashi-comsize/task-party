@@ -25,11 +25,12 @@ public class CommentBrowseDAO {
 		//SQL文の作成
 		StringBuilder sb = new StringBuilder();
 		sb.append("SELECT ");
-		sb.append("  t2.user_id ");
-		sb.append(", t2.user_name ");
-		sb.append(", t1.comment_id ");
+		sb.append("  t1.comment_id ");
+		sb.append(", t1.task_id ");
+		sb.append(", t2.user_id ");
 		sb.append(", t1.comment ");
 		sb.append(", t1.update_datetime ");
+		sb.append(", t2.user_name ");
 		sb.append(" FROM ");
 		sb.append("  t_comment t1 ");
 		sb.append(" JOIN ");
@@ -53,14 +54,16 @@ public class CommentBrowseDAO {
 			//リストにコメントリストを入れる
 			while(res.next()) {
 				int commentId= res.getInt("comment_id");
+				int task = res.getInt("task_id");
 				String userId = res.getString("user_id");
-				String userName=	res.getString("user_name");
+				String userName = res.getString("user_name");
 				String com = res.getString("comment");
 				LocalDateTime date = res.getTimestamp("update_datetime").toLocalDateTime();
 				DateTimeFormatter f = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
 
 				CommentBean comment = new CommentBean();
 				comment.setCommentId(commentId);
+				comment.setTaskId(task);
 				comment.setCommentUser(userId);
 				comment.setCommentUserName(userName);
 				comment.setCommentContent(com);
