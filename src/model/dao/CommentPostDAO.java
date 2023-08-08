@@ -10,13 +10,15 @@ public class CommentPostDAO {
 
 	public int postComment(CommentBean comment) throws ClassNotFoundException, SQLException {
 		int count=0;
-		String sql="INSERT INTO t_task (task_id,user_id,comment)VALUES(?,?,?)";
+		String sql="INSERT INTO t_comment (task_id,user_id,comment)VALUES(?,?,?)";
 
 		try (Connection con = ConnectionManager.getConnection();
 				PreparedStatement pstmt = con.prepareStatement(sql)) {
 			pstmt.setInt(1, comment.getTaskId());
 			pstmt.setString(2, comment.getCommentUser());
 			pstmt.setString(3, comment.getCommentContent());
+
+			count = pstmt.executeUpdate();
 		}
 		return count;
 	}

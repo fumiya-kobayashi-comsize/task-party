@@ -11,7 +11,7 @@
 </head>
 <body>
 <%List<CommentBean> commentList = (List<CommentBean>)request.getAttribute("comment_list"); %>
-<%TaskShowBean task = (TaskShowBean)request.getAttribute("select_task"); %>
+<%TaskShowBean task = (TaskShowBean)session.getAttribute("task_show"); %>
 <h3>コメント</h3>
 <hr>
 <table>
