@@ -19,7 +19,7 @@ public class TaskUpdateDAO {
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
 	 */
-	public int updateItem(TaskBean task) throws ClassNotFoundException, SQLException {
+	public int updateTask(TaskBean task) throws ClassNotFoundException, SQLException {
 		int count = 0;
 		String sql = "UPDATE t_task SET task_name = ?, category_id = ?, limit_date = ?, user_id = ?, status_code = ?, memo = ? WHERE task_id = ?";
 		try(Connection con = ConnectionManager.getConnection();

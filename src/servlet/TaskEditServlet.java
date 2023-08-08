@@ -100,7 +100,7 @@ public class TaskEditServlet extends HttpServlet {
 		int updateCount = 0;
 		try {
 			if(!task.equals(selectDao.selectTask(task.getTaskId()))) {
-				updateCount = dao.updateItem(task);
+				updateCount = dao.updateTask(task);
 			}
 		} catch (ClassNotFoundException | SQLException e) {
 			// TODO 自動生成された catch ブロック
