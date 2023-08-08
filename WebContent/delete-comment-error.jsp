@@ -10,8 +10,8 @@
 	<h1>コメント削除エラー</h1><hr>
 	このコメントを削除できませんでした。
 
-	<form action="show-comment.jsp"method="POST">
-		<input type="submit" value="コメント一覧へ">
+	<form action="show-task.jsp"method="POST">
+		<input type="submit" value="タスク一覧画面へ">
 	</form>
 </body>
 </html>

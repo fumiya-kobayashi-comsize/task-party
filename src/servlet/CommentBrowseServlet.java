@@ -60,7 +60,7 @@ public class CommentBrowseServlet extends HttpServlet {
 			e.printStackTrace();
 		}
 		HttpSession session = request.getSession();
-		request.setAttribute("comment_list", commentList);
+		session.setAttribute("comment_list", commentList);
 		session.setAttribute("task_show", taskShow);
 
 

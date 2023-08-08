@@ -7,6 +7,7 @@ package model.entity;
  */
 public class CommentBean {
 	private int taskId;
+	private int commentId;
 	private String commentContent;
 	private String commentUser;
 	private String commentDate;
@@ -16,6 +17,18 @@ public class CommentBean {
 	 */
 	public int getTaskId() {
 		return taskId;
+	}
+	/**
+	 * @return commentId
+	 */
+	public int getCommentId() {
+		return commentId;
+	}
+	/**
+	 * @param commentId セットする commentId
+	 */
+	public void setCommentId(int commentId) {
+		this.commentId = commentId;
 	}
 	/**
 	 * @param taskId セットする taskId

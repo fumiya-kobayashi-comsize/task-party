@@ -17,8 +17,8 @@
 			<td></td>
 		</tr>
 	</table>
-	<form action="menu.jsp" method="POST">
-		<input type="submit" value="メニューへ">
+	<form action="show-task.jsp"method="POST">
+		<input type="submit" value="タスク一覧画面へ">
 	</form>
 	</div>
 </body>

@@ -10,9 +10,8 @@
 	<h1>コメント削除完了</h1><hr>
 	このコメントを削除しました
 
-
-	<form action="show-comment.jsp"method="POST">
-		<input type="submit" value="メニュー画面へ">
+	<form action="show-task.jsp"method="POST">
+		<input type="submit" value="タスク一覧画面へ">
 	</form>
 </body>
 </html>

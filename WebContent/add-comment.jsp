@@ -48,5 +48,8 @@ String userId= (String)session.getAttribute("userId");%>
 		</table>
 		<input type="submit" value="コメントを投稿">
 	</form>
+	<form action="show-task.jsp"method="POST">
+		<input type="submit" value="タスク一覧画面へ">
+	</form>
 </body>
 </html>
