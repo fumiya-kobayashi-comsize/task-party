@@ -23,30 +23,15 @@ public class TaskInsertDAO {
 	 * @throws ClassNotFoundException
 	 */
 	public int insertTask(TaskBean taskBean) throws SQLException, ClassNotFoundException {
-		String sql = "INSERT INTO t_task (task_name,category_id,limit_date,user_id,status_code,memo) VALUES(?,?,?,?,?,?)";
 		int count = 0;
 
-		/*StringBuilder sb = new StringBuilder();
+		StringBuilder sb = new StringBuilder();
 		sb.append(" INSERT INTO t_task ");
-		sb.append(" (task_name,category_id ");
-		if (taskBean.getLimitDate() != null) {
-			sb.append(" ,limit_date ");
-		}
-		sb.append(" ,user_id,status_code ");
-		if (!taskBean.getMemo().equals("")) {
-			sb.append(",memo");
-		}
-		sb.append(") VALUES(?,?");
-		if (taskBean.getLimitDate() != null) {
-			sb.append(",?");
-		}
-		sb.append(",?,?");
-		if (!taskBean.getMemo().equals("")) {
-			sb.append(",?");
-		}
-		sb.append(")");
-//		String sql = sb.toString();
-*/
+		sb.append(" (task_name,category_id,limit_date");
+		sb.append(" ,user_id,status_code,memo) ");
+		sb.append("  VALUES(?,?,?,?,?,?)");
+		String sql = sb.toString();
+
 		try (Connection con = ConnectionManager.getConnection();
 				PreparedStatement pstmt = con.prepareStatement(sql)) {
 
