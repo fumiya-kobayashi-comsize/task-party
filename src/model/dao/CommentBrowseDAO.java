@@ -35,13 +35,16 @@ public class CommentBrowseDAO {
 		sb.append(" ON ");
 		sb.append("  t1.user_id = t2.user_id ");
 		sb.append(" WHERE");
-		sb.append("  t1.task_id = " + taskId);
+		sb.append("  t1.task_id = ? ");
 		sb.append(" ORDER BY t1.comment_id ");
 		String sql = sb.toString();
 
 		//SQLconnect
 		try (Connection con = ConnectionManager.getConnection();
 				PreparedStatement pstmt = con.prepareStatement(sql)) {
+
+			//プレースホルダ
+			pstmt.setInt(1, taskId);
 			//一覧を取得
 			ResultSet res = pstmt.executeQuery();
 
