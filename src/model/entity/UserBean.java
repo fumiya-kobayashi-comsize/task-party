@@ -1,7 +1,5 @@
 package model.entity;
 
-import java.util.Date;
-
 /**
  * user情報を格納するクラス
  * @author 根上
@@ -11,7 +9,6 @@ public class UserBean {
 	String userId;
 	String pass;
 	String userName;
-	Date updateTime;
 	/**
 	 * @return userId
 	 */
@@ -48,19 +45,5 @@ public class UserBean {
 	public void setUserName(String userName) {
 		this.userName = userName;
 	}
-	/**
-	 * @return updateTime
-	 */
-	public Date getUpdateTime() {
-		return updateTime;
-	}
-	/**
-	 * @param updateTime セットする updateTime
-	 */
-	public void setUpdateTime(Date updateTime) {
-		this.updateTime = updateTime;
-	}
-
-
 
 }

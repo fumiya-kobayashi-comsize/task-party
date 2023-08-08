@@ -47,19 +47,22 @@ public class UserDAO {
 	 * @throws SQLException
 	 * @throws ClassNotFoundException
 	 */
-	public String selectName(UserBean userBean) throws SQLException, ClassNotFoundException {
+	public UserBean selectUser(String userId) throws SQLException, ClassNotFoundException {
 		String sql = "SELECT user_name FROM m_user WHERE user_id=?";
-		String name = null;
+		UserBean user = new UserBean();
 
 		try (Connection con = ConnectionManager.getConnection();
 				PreparedStatement pstmt = con.prepareStatement(sql);) {
 
-			pstmt.setString(1, userBean.getUserId());
+			pstmt.setString(1, userId);
 			ResultSet res = pstmt.executeQuery();
-			res.next();
-			name = res.getString("user_name");
+			if(res.next()) {
+				user.setUserId(userId);
+				user.setPass(res.getString("password"));
+				user.setUserName(res.getString("user_name"));
+			}
 		}
-		return name;
+		return user;
 	}
 
 }

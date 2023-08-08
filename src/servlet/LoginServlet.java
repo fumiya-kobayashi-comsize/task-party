@@ -57,7 +57,7 @@ public class LoginServlet extends HttpServlet {
 		String userId =userBean.getUserId();
 		try {
 			match = userDAO.matchUser(userBean);
-			name = userDAO.selectName(userBean);
+			name = userDAO.selectUser(userId).getUserName();
 		} catch (ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
 		}
