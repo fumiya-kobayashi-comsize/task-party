@@ -25,25 +25,25 @@ public class UserDAO {
 	 */
 	public boolean matchUser(UserBean userBean) throws SQLException, ClassNotFoundException {
 		String sql = "SELECT * FROM m_user WHERE user_id=? AND password=?";
-		boolean match = false;
 
 		try (Connection con = ConnectionManager.getConnection();
 				PreparedStatement pstmt = con.prepareStatement(sql);) {
 
 			pstmt.setString(1, userBean.getUserId());
 			pstmt.setString(2, userBean.getPass());
-			userBean.setUserName("user_name");
 			ResultSet res = pstmt.executeQuery();
-			match = res.next();
+			if(res.next()) {
+				return true;
+			}
+			return false;
 		}
-		return match;
 	}
 
 	/**
 	 * 入力されたIDと関連するユーザーネームを抽出するメソッド
 	 * @author 根上
-	 * @param userBean
-	 * @return	変数name 内容user name　
+	 * @param userId
+	 * @return	UserBean
 	 * @throws SQLException
 	 * @throws ClassNotFoundException
 	 */
