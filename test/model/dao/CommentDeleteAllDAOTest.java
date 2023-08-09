@@ -19,7 +19,7 @@ public class CommentDeleteAllDAOTest {
 
 		try {
 //			comment tableにあるtaskIdを引数に入れる
-			count = deleteAllDAO.deleteAllComment(15);
+			count = deleteAllDAO.deleteAllComment(2);
 		} catch (ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
 		}

@@ -21,7 +21,7 @@ public class CommentPostDAOTest {
 		CommentPostDAO postDAO = new CommentPostDAO();
 		CommentBean commnetBean = new CommentBean();
 		//		dbに存在するタスクIDを入力
-		commnetBean.setTaskId(15);
+		commnetBean.setTaskId(1);
 		commnetBean.setCommentUser("admin");
 		commnetBean.setCommentContent("test");
 		try {
