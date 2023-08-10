@@ -62,6 +62,9 @@
 			</table>
 			<input type="submit" value="登録">
 		</form>
+		<form action="menu.jsp" method="POST">
+			<input type="submit" value="メニューへ">
+		</form>
 	</div>
 </body>
 </html>
