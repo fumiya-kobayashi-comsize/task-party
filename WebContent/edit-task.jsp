@@ -103,6 +103,8 @@
 		</tr>
 	</table>
 	</form>
-
+	<form action="menu.jsp" method="POST">
+		<input type="submit" value="メニューへ">
+	</form>
 </body>
 </html>
