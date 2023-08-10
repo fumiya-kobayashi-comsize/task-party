@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import model.dao.UserDAO;
+import util.PasswordUtil;
 
 /**
  * Servlet implementation class LoginServlet
@@ -47,14 +48,15 @@ public class LoginServlet extends HttpServlet {
 
 		String userId = request.getParameter("user_id");
 		String password = request.getParameter("password");
+		String safetyPassword = PasswordUtil.getSafetyPassword(password, userId);
 
 //		ユーザーが存在するかを判定するための変数
-		boolean match = false;
+		boolean isMatch = false;
 //		セッションに名前をあげるための変数
 		String userName = null;
 
 		try {
-			match = userDAO.matchUser(userId, password);
+			isMatch = userDAO.matchUser(userId, safetyPassword);
 			userName = userDAO.selectUser(userId);
 		} catch (ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
@@ -63,7 +65,7 @@ public class LoginServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		session.setAttribute("user_name", userName);
 		session.setAttribute("user_id", userId);
-		if (match) {
+		if (isMatch) {
 			RequestDispatcher rd = request.getRequestDispatcher("menu.jsp");
 			rd.forward(request, response);
 		} else {
