@@ -68,7 +68,7 @@ public class CommentPostServlet extends HttpServlet {
 		int count = 0;
 
 		commnetBean.setTaskId(task.getTaskId());
-		commnetBean.setCommentUser(session.getAttribute("userId").toString());
+		commnetBean.setCommentUser(session.getAttribute("user_id").toString());
 		commnetBean.setCommentContent(request.getParameter("comment"));
 
 		try {
