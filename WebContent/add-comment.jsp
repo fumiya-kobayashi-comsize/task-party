@@ -9,8 +9,8 @@
 <title>Insert title here</title>
 </head>
 <body>
-<%String name= (String)session.getAttribute("name");
-String userId= (String)session.getAttribute("userId");%>
+<%String name= (String)session.getAttribute("user_name");
+String userId= (String)session.getAttribute("user_id");%>
 <%TaskShowBean task = (TaskShowBean)session.getAttribute("task_show"); %>
 	<h1>コメント投稿画面</h1><hr>
 

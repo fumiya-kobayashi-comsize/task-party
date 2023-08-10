@@ -12,7 +12,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import model.dao.UserDAO;
-import model.entity.UserBean;
 
 /**
  * Servlet implementation class LoginServlet
@@ -45,26 +44,25 @@ public class LoginServlet extends HttpServlet {
 			throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		UserDAO userDAO = new UserDAO();
-		UserBean userBean = new UserBean();
 
-		userBean.setUserId(request.getParameter("id"));
-		userBean.setPass(request.getParameter("pass"));
+		String userId = request.getParameter("user_id");
+		String password = request.getParameter("password");
 
 //		ユーザーが存在するかを判定するための変数
 		boolean match = false;
 //		セッションに名前をあげるための変数
-		String name = null;
-		String userId =userBean.getUserId();
+		String userName = null;
+
 		try {
-			match = userDAO.matchUser(userBean);
-			name = userDAO.selectUser(userId).getUserName();
+			match = userDAO.matchUser(userId, password);
+			userName = userDAO.selectUser(userId);
 		} catch (ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
 		}
 
 		HttpSession session = request.getSession();
-		session.setAttribute("name", name);
-		session.setAttribute("userId", userId);
+		session.setAttribute("user_name", userName);
+		session.setAttribute("user_id", userId);
 		if (match) {
 			RequestDispatcher rd = request.getRequestDispatcher("menu.jsp");
 			rd.forward(request, response);

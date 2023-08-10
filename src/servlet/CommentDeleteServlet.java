@@ -50,7 +50,7 @@ public class CommentDeleteServlet extends HttpServlet {
 		int count = 0;
 		HttpSession session = request.getSession();
 
-		if(userId.equals(session.getAttribute("userId"))) {
+		if(userId.equals(session.getAttribute("user_id"))) {
 		try {
 			count = deleteDAO.deleteComment(commentId);
 

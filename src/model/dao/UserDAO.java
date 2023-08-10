@@ -5,8 +5,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import model.entity.UserBean;
-
 /**
  * ログイン判定をするメソッドを格納
  * @author 根上
@@ -23,14 +21,14 @@ public class UserDAO {
 	 * @throws SQLException
 	 * @throws ClassNotFoundException
 	 */
-	public boolean matchUser(UserBean userBean) throws SQLException, ClassNotFoundException {
+	public boolean matchUser(String userId, String password) throws SQLException, ClassNotFoundException {
 		String sql = "SELECT * FROM m_user WHERE user_id=? AND password=?";
 
 		try (Connection con = ConnectionManager.getConnection();
 				PreparedStatement pstmt = con.prepareStatement(sql);) {
 
-			pstmt.setString(1, userBean.getUserId());
-			pstmt.setString(2, userBean.getPass());
+			pstmt.setString(1, userId);
+			pstmt.setString(2, password);
 			ResultSet res = pstmt.executeQuery();
 			if(res.next()) {
 				return true;
@@ -47,9 +45,9 @@ public class UserDAO {
 	 * @throws SQLException
 	 * @throws ClassNotFoundException
 	 */
-	public UserBean selectUser(String userId) throws SQLException, ClassNotFoundException {
+	public String selectUser(String userId) throws SQLException, ClassNotFoundException {
 		String sql = "SELECT user_name FROM m_user WHERE user_id=?";
-		UserBean user = new UserBean();
+		String userName = null;
 
 		try (Connection con = ConnectionManager.getConnection();
 				PreparedStatement pstmt = con.prepareStatement(sql);) {
@@ -57,12 +55,10 @@ public class UserDAO {
 			pstmt.setString(1, userId);
 			ResultSet res = pstmt.executeQuery();
 			if(res.next()) {
-				user.setUserId(userId);
-				user.setPass(res.getString("password"));
-				user.setUserName(res.getString("user_name"));
+				userName = res.getString("user_name");
 			}
 		}
-		return user;
+		return userName;
 	}
 
 }

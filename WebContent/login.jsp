@@ -13,8 +13,8 @@
 		<h1>ユーザーIDとパスワードを入力してください。</h1>
 		<!-- actionにサーブレットURLを入れる  -->
 		<form action="LoginServlet" method="post">
-			ユーザーID<input type="text" name="id"><br>
-			パスワード<input type="text" name="pass"><br>
+			ユーザーID<input type="text" name="user_id"><br>
+			パスワード<input type="text" name="password"><br>
 			<input type="submit" value="ログイン">
 			<input type="reset" value="取消">
 		</form>
