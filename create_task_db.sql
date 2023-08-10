@@ -70,7 +70,8 @@ INSERT INTO task_db.m_category (category_name) VALUES ('新商品A:開発プロ�
 INSERT INTO task_db.m_category (category_name) VALUES ('既存商品B:改良プロジェクト');
 
 /*ユーザマスタ INSERT*/
-INSERT INTO task_db.m_user(user_id, password, user_name) VALUES ('admin', 'password', 'テストユーザー');
+INSERT INTO task_db.m_user(user_id, password, user_name) VALUES ('admin', '3f74691ad7292c5f0ee29cc8fba0b03463e3b1c4a1d368838dbe11b925d244c4', 'テストユーザー');
+/*INSERT INTO task_db.m_user(user_id, password, user_name) VALUES ('', '', '');*/
 
 /*タスクテーブル INSERT*/
 INSERT INTO task_db.t_task(task_name, category_id, limit_date, user_id, status_code, memo) VALUES ('サンプルタスク', 1, '2023-09-01', 'admin', '00', 'サンプルメモ');
