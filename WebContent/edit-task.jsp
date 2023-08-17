@@ -24,7 +24,7 @@
 			<tr>
 				<th>タスク名</th>
 				<td><input type="text" name="task_name"
-					value="<%=task.getTaskName() %>" maxlength="20" required></td>
+					value="<%=task.getTaskName() %>" maxlength="50" required></td>
 			</tr>
 			<tr>
 				<th>カテゴリ情報</th>
@@ -46,9 +46,12 @@
 				</select></td>
 			</tr>
 			<tr>
+				<th>開始日</th>
+				<td><input type="date" name="start_date" v-bind:min=today id="start_day"max="9999-12-31" value ="<%=task.getStartDate()%>" ></td>
+			</tr>
+			<tr>
 				<th>期限</th>
-				<td><input type="date" name="limit_date" v-bind:min=today id="app"
-					value = "<%=task.getLimitDate()%>" max="9999-12-31"  ></td>
+				<td><input type="date" name="limit_date" v-bind:min=today id="limit_day"max="9999-12-31" value = "<%=task.getLimitDate()%>"   ></td>
 			</tr>
 			<tr>
 				<th>担当者情報</th>
@@ -91,14 +94,14 @@
 			<tr>
 				<th>メモ</th>
 				<td><input type="text" name="memo"
-					value="<%=task.getMemo() %>" maxlength="20"></td>
+					value="<%=task.getMemo() %>" maxlength="100"></td>
 			</tr>
 		</table>
 		<table>
 		<tr>
 			<td>
 					<input type = "hidden" name = "task_id" value = <%=task.getTaskId() %>>
-					<input type = "submit" value = "変更する">
+					<input type = "submit" value = "変更する" onclick="return dayCon()">
 			</td>
 		</tr>
 	</table>
@@ -109,8 +112,9 @@
 
 	<script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js">
 	</script>
-	<script>var vue = new Vue({
-		  el: '#app',
+	<script type="text/javascript">
+		var vue = new Vue({
+		  el: '#start_day',
 		  data: {
 		    today: ''
 		  },
@@ -122,6 +126,52 @@
 		    this.today = YYYY + '-' + MM + '-' + DD
 		  },
 		})
-	</script>
+		var vue = new Vue({
+			  el: '#limit_day',
+			  data: {
+			    today: ''
+			  },
+			  created: function() {
+			    let todaySet = new Date();
+			    let YYYY = todaySet.getFullYear();
+			    var MM = ('00' + (todaySet.getMonth() + 1)).slice(-2);
+			    var DD = ('00' + todaySet.getDate()).slice(-2);
+			    this.today = YYYY + '-' + MM + '-' + DD
+			  },
+			})
+		function dayCon(){
+			  var val_from = document.getElementsByName("start_date")[0].value;
+			  var val_to = document.getElementsByName("limit_date")[0].value;
+
+			  if(val_from != "" && val_to != ""){
+
+			    // 追記ここから --------------------------------------------
+			    // 漢字の「年」と「月」を「/」に変換、「日」を削除する
+			    val_from = val_from.replace("年","/");
+			    val_from = val_from.replace("月","/");
+			    val_from = val_from.replace("日","");
+
+			    val_to = val_to.replace("年","/");
+			    val_to = val_to.replace("月","/");
+			    val_to = val_to.replace("日","");
+			    // 追記ここまで --------------------------------------------
+
+			    // 日付オブジェクトを生成
+			    var fromDate = new Date(val_from);
+			    var toDate = new Date(val_to);
+			    // 開始日と終了日の差を計算
+			    var judge = (toDate - fromDate);
+
+			    if(judge < 0){
+			      alert("終了日には開始日以降の日付を指定してください。");
+			      return false;
+			    }else{
+			      return true;
+			    }
+			  }else{
+			    return true;
+			  }
+			}
+		</script>
 </body>
 </html>

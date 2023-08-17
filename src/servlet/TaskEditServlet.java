@@ -85,6 +85,12 @@ public class TaskEditServlet extends HttpServlet {
 		task.setTaskId(Integer.parseInt(request.getParameter("task_id")));
 		task.setTaskName(request.getParameter("task_name"));
 		task.setCategoryId(Integer.parseInt(request.getParameter("category_id")));
+		LocalDate startDate = null;
+		if(!request.getParameter("start_date").equals("")) {
+			 startDate = LocalDate.parse(request.getParameter("start_date"),
+					DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+		}
+		task.setStartDate(startDate);
 		LocalDate localDate = null;
 		if(!request.getParameter("limit_date").equals("")) {
 			 localDate = LocalDate.parse(request.getParameter("limit_date"),
