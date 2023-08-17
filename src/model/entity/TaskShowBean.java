@@ -11,6 +11,7 @@ public class TaskShowBean {
 	private int taskId;
 	private String taskName;
 	private String categoryName;
+	private LocalDate startDate;
 	private LocalDate limitDate;
 	private String userName;
 	private String statusName;
@@ -50,6 +51,18 @@ public class TaskShowBean {
 	 */
 	public void setCategoryName(String categoryName) {
 		this.categoryName = categoryName;
+	}
+	/**
+	 * @return startDate
+	 */
+	public LocalDate getStartDate() {
+		return startDate;
+	}
+	/**
+	 * @param startDate セットする startDate
+	 */
+	public void setStartDate(LocalDate startDate) {
+		this.startDate = startDate;
 	}
 	/**
 	 * @return limitDate
@@ -99,6 +112,5 @@ public class TaskShowBean {
 	public void setMemo(String memo) {
 		this.memo = memo;
 	}
-
 
 }
