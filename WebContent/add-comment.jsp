@@ -43,7 +43,7 @@ String userId= (String)session.getAttribute("user_id");%>
 			</tr>
 			<tr>
 				<td>コメント内容</td>
-				<td><input type="text" name="comment" value=""></td>
+				<td><input type="text" name="comment" value="" required></td>
 			</tr>
 		</table>
 		<input type="submit" value="コメントを投稿">
