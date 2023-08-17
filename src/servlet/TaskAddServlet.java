@@ -99,7 +99,7 @@ public class TaskAddServlet extends HttpServlet {
 		boolean canInsertTask = true;
 
 		try {
-			//タスクを追加しようとしたユーザーのタスク一覧を取得
+			//タスクを追加しようとしたユーザーの着手中のタスク一覧を取得
 			usersTaskList = selectDAO.selectTask(taskBean.getUserId());
 		} catch (ClassNotFoundException | SQLException e) {
 			e.printStackTrace();

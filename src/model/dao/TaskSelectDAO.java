@@ -111,6 +111,14 @@ public class TaskSelectDAO {
 		return task;
 	}
 
+	/**
+	 * 着手中タスク一覧
+	 * @author arakawa
+	 * @param userId
+	 * @return List<TaskBean>
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 */
 	public List<TaskBean> selectTask(String userId) throws ClassNotFoundException, SQLException {
 		List<TaskBean> taskList = new ArrayList<>();
 		String sql = "SELECT * FROM t_task WHERE user_id = ? AND status_code = '50'";
