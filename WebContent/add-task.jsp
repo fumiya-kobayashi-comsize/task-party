@@ -18,7 +18,7 @@
 			<table border="1">
 				<tr>
 					<td>タスク名</td>
-					<td><input type="text" name="taskName" maxlength="50" required></td>
+					<td><input type="text" name="taskName" maxlength="19" required></td>
 				</tr>
 				<tr>
 					<td>カテゴリ名</td>
@@ -33,7 +33,7 @@
 				</tr>
 				<tr>
 					<td>期限</td>
-					<td><input type="date" name="limitDate"></td>
+					<td><input type="date" name="limitDate" v-bind:min=today id="app"max="9999-12-31"></td>
 				</tr>
 				<tr>
 					<td>担当者情報</td>
@@ -57,7 +57,7 @@
 				</tr>
 				<tr>
 					<td>メモ</td>
-					<td><input type="text" name="memo" maxlength="100"></td>
+					<td><input type="text" name="memo" maxlength="19"></td>
 				</tr>
 			</table>
 			<input type="submit" value="登録">
@@ -66,5 +66,22 @@
 			<input type="submit" value="メニューへ">
 		</form>
 	</div>
+
+	<script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js">
+	</script>
+	<script>var vue = new Vue({
+		  el: '#app',
+		  data: {
+		    today: ''
+		  },
+		  created: function() {
+		    let todaySet = new Date();
+		    let YYYY = todaySet.getFullYear();
+		    var MM = ('00' + (todaySet.getMonth() + 1)).slice(-2);
+		    var DD = ('00' + todaySet.getDate()).slice(-2);
+		    this.today = YYYY + '-' + MM + '-' + DD
+		  },
+		})
+	</script>
 </body>
 </html>

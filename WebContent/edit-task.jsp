@@ -24,7 +24,7 @@
 			<tr>
 				<th>タスク名</th>
 				<td><input type="text" name="task_name"
-					value="<%=task.getTaskName() %>" maxlength="50" required></td>
+					value="<%=task.getTaskName() %>" maxlength="20" required></td>
 			</tr>
 			<tr>
 				<th>カテゴリ情報</th>
@@ -47,8 +47,8 @@
 			</tr>
 			<tr>
 				<th>期限</th>
-				<td><input type="date" name="limit_date"
-					value = "<%=task.getLimitDate()%>"></td>
+				<td><input type="date" name="limit_date" v-bind:min=today id="app"
+					value = "<%=task.getLimitDate()%>" max="9999-12-31"  ></td>
 			</tr>
 			<tr>
 				<th>担当者情報</th>
@@ -62,7 +62,7 @@
 				<%
 						}else{
 				%>
-				<option value = "<%=user.getUserId() %>"         ><%=userName %></option>
+				<option value = "<%=user.getUserId() %>"><%=userName %></option>
 				<%
 						}
 					}
@@ -81,7 +81,7 @@
 				<%
 						}else{
 				%>
-				<option value = "<%=status.getStatusCode() %>"         ><%=statusName %></option>
+				<option value = "<%=status.getStatusCode() %>" ><%=statusName %></option>
 				<%
 						}
 					}
@@ -91,7 +91,7 @@
 			<tr>
 				<th>メモ</th>
 				<td><input type="text" name="memo"
-					value="<%=task.getMemo() %>" maxlength="100"></td>
+					value="<%=task.getMemo() %>" maxlength="20"></td>
 			</tr>
 		</table>
 		<table>
@@ -106,5 +106,22 @@
 	<form action="menu.jsp" method="POST">
 		<input type="submit" value="メニューへ">
 	</form>
+
+	<script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js">
+	</script>
+	<script>var vue = new Vue({
+		  el: '#app',
+		  data: {
+		    today: ''
+		  },
+		  created: function() {
+		    let todaySet = new Date();
+		    let YYYY = todaySet.getFullYear();
+		    var MM = ('00' + (todaySet.getMonth() + 1)).slice(-2);
+		    var DD = ('00' + todaySet.getDate()).slice(-2);
+		    this.today = YYYY + '-' + MM + '-' + DD
+		  },
+		})
+	</script>
 </body>
 </html>
