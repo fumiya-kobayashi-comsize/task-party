@@ -9,6 +9,9 @@ public class UserBean {
 	String userId;
 	String pass;
 	String userName;
+	boolean admin;
+	int atpt;
+	boolean locked;
 	/**
 	 * @return userId
 	 */
@@ -45,5 +48,42 @@ public class UserBean {
 	public void setUserName(String userName) {
 		this.userName = userName;
 	}
+	/**
+	 * @return admin
+	 */
+	public boolean isAdmin() {
+		return admin;
+	}
+	/**
+	 * @param admin セットする admin
+	 */
+	public void setAdmin(boolean admin) {
+		this.admin = admin;
+	}
+	/**
+	 * @return atpt
+	 */
+	public int getAtpt() {
+		return atpt;
+	}
+	/**
+	 * @param atpt セットする atpt
+	 */
+	public void setAtpt(int atpt) {
+		this.atpt = atpt;
+	}
+	/**
+	 * @return locked
+	 */
+	public boolean isLocked() {
+		return locked;
+	}
+	/**
+	 * @param locked セットする locked
+	 */
+	public void setLocked(boolean locked) {
+		this.locked = locked;
+	}
+
 
 }

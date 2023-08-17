@@ -30,8 +30,12 @@ public class UserDAO {
 			pstmt.setString(1, userId);
 			pstmt.setString(2, password);
 			ResultSet res = pstmt.executeQuery();
-			if(res.next()) {
-				return true;
+			if (res.next()) {
+				if(res.getBoolean("is_locked")) {
+					return false;
+				} else if (res.getInt("login_attempts") < 5) {
+					return true;
+				}
 			}
 			return false;
 		}
@@ -54,11 +58,57 @@ public class UserDAO {
 
 			pstmt.setString(1, userId);
 			ResultSet res = pstmt.executeQuery();
-			if(res.next()) {
+			if (res.next()) {
 				userName = res.getString("user_name");
 			}
 		}
 		return userName;
 	}
 
+	/**
+	 * @author koseki
+	 * @param isMatch
+	 * @return locked
+	 * @throws SQLException
+	 * @throws ClassNotFoundException
+	 */
+		public int isLocked(String userId, int attempt) throws SQLException, ClassNotFoundException {
+			StringBuilder sb = new StringBuilder();
+			sb.append("UPDATE ");
+			sb.append(" m_user ");
+			sb.append("SET ");
+			sb.append(" login_attempts = login_attempts + 1 ");
+			if(attempt >= 5) {
+				sb.append(" , is_locked = true ");
+			}
+			sb.append("WHERE user_id = ? ");
+			String sql = sb.toString();
+
+			//		ユーザがロックされているかの判定
+			int result = 0;
+
+			try (Connection con = ConnectionManager.getConnection();
+					PreparedStatement pstmt = con.prepareStatement(sql);) {
+
+				pstmt.setString(1, userId);
+				result = pstmt.executeUpdate();
+			}
+			return result;
+		}
+
+		public int loginAttempt(String userId) throws SQLException, ClassNotFoundException {
+			String sql = "SELECT login_attempts FROM m_user WHERE user_id = ?";
+			int attempt = 0;
+
+			try (Connection con = ConnectionManager.getConnection();
+					PreparedStatement pstmt = con.prepareStatement(sql);) {
+
+				pstmt.setString(1, userId);
+				ResultSet res = pstmt.executeQuery();
+				if (res.next()) {
+					attempt = res.getInt("login_attempts");
+				}
+			}
+			return attempt;
+		}
 }

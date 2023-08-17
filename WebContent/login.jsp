@@ -11,7 +11,15 @@
 		<h1>ログイン画面</h1>
 		<hr>
 		<h1>ユーザーIDとパスワードを入力してください。</h1>
-		<!-- actionにサーブレットURLを入れる  -->
+		<% int locked = 0;
+		if((Integer)request.getAttribute("locked") != null){
+			locked = (Integer)request.getAttribute("locked");
+		}
+			if(locked > 0){
+			%>
+			ログインに失敗しました。
+		<%} else {%>
+		<%} %>
 		<form action="LoginServlet" method="post">
 			ユーザーID<input type="text" name="user_id"><br>
 			パスワード<input type="text" name="password"><br>

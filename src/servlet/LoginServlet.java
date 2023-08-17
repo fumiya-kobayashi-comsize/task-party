@@ -54,10 +54,18 @@ public class LoginServlet extends HttpServlet {
 		boolean isMatch = false;
 //		セッションに名前をあげるための変数
 		String userName = null;
+//		ユーザがロックされているかを判定するための変数
+		int locked = 0;
+		int attempt = 0;
 
 		try {
 			isMatch = userDAO.matchUser(userId, safetyPassword);
-			userName = userDAO.selectUser(userId);
+			if(isMatch) {
+				userName = userDAO.selectUser(userId);
+			} else {
+				attempt = userDAO.loginAttempt(userId);
+				locked = userDAO.isLocked(userId, attempt);
+			}
 		} catch (ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
 		}
@@ -65,6 +73,7 @@ public class LoginServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		session.setAttribute("user_name", userName);
 		session.setAttribute("user_id", userId);
+		request.setAttribute("locked", locked);
 		if (isMatch) {
 			RequestDispatcher rd = request.getRequestDispatcher("menu.jsp");
 			rd.forward(request, response);
