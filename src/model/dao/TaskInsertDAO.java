@@ -27,9 +27,9 @@ public class TaskInsertDAO {
 
 		StringBuilder sb = new StringBuilder();
 		sb.append(" INSERT INTO t_task ");
-		sb.append(" (task_name,category_id,limit_date");
+		sb.append(" (task_name,category_id,start_date,limit_date");
 		sb.append(" ,user_id,status_code,memo) ");
-		sb.append("  VALUES(?,?,?,?,?,?)");
+		sb.append("  VALUES(?,?,?,?,?,?,?)");
 		String sql = sb.toString();
 
 		try (Connection con = ConnectionManager.getConnection();
@@ -37,15 +37,19 @@ public class TaskInsertDAO {
 
 			pstmt.setString(1, taskBean.getTaskName());
 			pstmt.setInt(2, taskBean.getCategoryId());
-
-			if (taskBean.getLimitDate() != null) {
-				pstmt.setDate(3, Date.valueOf(taskBean.getLimitDate()));
+			if (taskBean.getStartDate() != null) {
+				pstmt.setDate(3, Date.valueOf(taskBean.getStartDate()));
 			} else {
 				pstmt.setDate(3, null);
 			}
-			pstmt.setString(4, taskBean.getUserId());
-			pstmt.setString(5, taskBean.getStatusCode());
-			pstmt.setString(6, taskBean.getMemo());
+			if (taskBean.getLimitDate() != null) {
+				pstmt.setDate(4, Date.valueOf(taskBean.getLimitDate()));
+			} else {
+				pstmt.setDate(4, null);
+			}
+			pstmt.setString(5, taskBean.getUserId());
+			pstmt.setString(6, taskBean.getStatusCode());
+			pstmt.setString(7, taskBean.getMemo());
 
 			count = pstmt.executeUpdate();
 		}
