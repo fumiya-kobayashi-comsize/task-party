@@ -23,6 +23,13 @@
 			<td><%=task.getCategoryName() %></td>
 		</tr>
 		<tr>
+			<th>開始日</th>
+			<td><%if(task.getStartDate()!=null){ %>
+					<%=task.getStartDate() %>
+				<% }%>
+			</td>
+		</tr>
+		<tr>
 			<th>期限</th>
 			<td><%if(task.getLimitDate()!=null){ %>
 					<%=task.getLimitDate() %>
