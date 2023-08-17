@@ -12,8 +12,26 @@ CREATE TABLE task_db.m_user
 	user_id VARCHAR(24) PRIMARY KEY NOT NULL,
 	password VARCHAR(64) NOT NULL,
 	user_name VARCHAR(20) UNIQUE NOT NULL,
+	is_admin BOOLEAN DEFAULT FALSE NOT NULL,
+    login_attempts INT DEFAULT 0 NOT NULL,
+    is_locked BOOLEAN DEFAULT FALSE NOT NULL,
+    lock_datetime TIMESTAMP,
 	update_datetime TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP NOT NULL
 );
+
+/* このテーブルには以下の列が含まれています：
+user_id: ユーザID。主キーとして指定され、NOT NULL制約があります。
+password: ユーザのパスワードを格納します。NOT NULL制約があります。
+user_name: ユーザ名。一意性が必要なため、UNIQUE制約があります。NOT NULL制約もあります。
+is_admin: ユーザが管理者権限を持つかどうかを示すBOOLEAN型の列です。デフォルト値はFALSEです。
+login_attempts: ユーザがログインを試みた回数を格納する列です。デフォルト値は0です。
+is_locked: ログイン試行回数が一定回数以上の場合に、ユーザがロックされたかどうかを示すBOOLEAN型の列です。デフォルト値はFALSEです。
+lock_datetime: ユーザがロックされた時刻を記録するTIMESTAMP型の列です。
+update_datetime: レコードの更新時刻を記録するTIMESTAMP型の列で、デフォルト値はCURRENT_TIMESTAMPです。
+ログインの際には、入力されたユーザ名とパスワードを照合し、存在するか確認した後、is_lockedがTRUEでないことと、
+login_attemptsが一定回数未満であることを確認してログインを許可します。
+パスワードが間違っていた場合、login_attemptsをインクリメントします。管理者権限を持つユーザはis_admin列で判定できます。*/
+
 
 /*カテゴリーマスタ作成*/
 CREATE TABLE task_db.m_category
