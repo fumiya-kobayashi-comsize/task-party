@@ -25,5 +25,13 @@
 			<input type="submit" value="ログアウト">
 		</form>
 	</div>
+	<%if((Boolean)session.getAttribute("admin")){
+		%>
+		<div align = right>
+			<form action="admin-management.jsp">
+				<input type = "submit" value = "管理者画面">
+			</form>
+		</div>
+	<%} %>
 </body>
 </html>

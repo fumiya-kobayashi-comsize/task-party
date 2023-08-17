@@ -31,7 +31,7 @@ public class UserDAO {
 			pstmt.setString(2, password);
 			ResultSet res = pstmt.executeQuery();
 			if (res.next()) {
-				if(res.getBoolean("is_locked")) {
+				if (res.getBoolean("is_locked")) {
 					return false;
 				} else if (res.getInt("login_attempts") < 5) {
 					return true;
@@ -72,43 +72,65 @@ public class UserDAO {
 	 * @throws SQLException
 	 * @throws ClassNotFoundException
 	 */
-		public int isLocked(String userId, int attempt) throws SQLException, ClassNotFoundException {
-			StringBuilder sb = new StringBuilder();
-			sb.append("UPDATE ");
-			sb.append(" m_user ");
-			sb.append("SET ");
-			sb.append(" login_attempts = login_attempts + 1 ");
-			if(attempt >= 5) {
-				sb.append(" , is_locked = true ");
-			}
-			sb.append("WHERE user_id = ? ");
-			String sql = sb.toString();
-
-			//		ユーザがロックされているかの判定
-			int result = 0;
-
-			try (Connection con = ConnectionManager.getConnection();
-					PreparedStatement pstmt = con.prepareStatement(sql);) {
-
-				pstmt.setString(1, userId);
-				result = pstmt.executeUpdate();
-			}
-			return result;
+	public int isLocked(String userId, int attempt) throws SQLException, ClassNotFoundException {
+		StringBuilder sb = new StringBuilder();
+		sb.append("UPDATE ");
+		sb.append(" m_user ");
+		sb.append("SET ");
+		sb.append(" login_attempts = login_attempts + 1 ");
+		if (attempt >= 5) {
+			sb.append(" , is_locked = true ");
 		}
+		sb.append("WHERE user_id = ? ");
+		String sql = sb.toString();
 
-		public int loginAttempt(String userId) throws SQLException, ClassNotFoundException {
-			String sql = "SELECT login_attempts FROM m_user WHERE user_id = ?";
-			int attempt = 0;
+		//		ユーザがロックされているかの判定
+		int result = 0;
 
-			try (Connection con = ConnectionManager.getConnection();
-					PreparedStatement pstmt = con.prepareStatement(sql);) {
+		try (Connection con = ConnectionManager.getConnection();
+				PreparedStatement pstmt = con.prepareStatement(sql);) {
 
-				pstmt.setString(1, userId);
-				ResultSet res = pstmt.executeQuery();
-				if (res.next()) {
-					attempt = res.getInt("login_attempts");
-				}
-			}
-			return attempt;
+			pstmt.setString(1, userId);
+			result = pstmt.executeUpdate();
 		}
+		return result;
+	}
+
+	/**
+	 * @param userId
+	 * @return ログイン試行回数
+	 * @throws SQLException
+	 * @throws ClassNotFoundException
+	 */
+	public int loginAttempt(String userId) throws SQLException, ClassNotFoundException {
+		String sql = "SELECT login_attempts FROM m_user WHERE user_id = ?";
+		int attempt = 0;
+
+		try (Connection con = ConnectionManager.getConnection();
+				PreparedStatement pstmt = con.prepareStatement(sql);) {
+
+			pstmt.setString(1, userId);
+			ResultSet res = pstmt.executeQuery();
+			if (res.next()) {
+				attempt = res.getInt("login_attempts");
+			}
+		}
+		return attempt;
+	}
+
+	public boolean adminJudge(String userId) throws SQLException, ClassNotFoundException {
+		String sql = "SELECT is_admin FROM m_user WHERE user_id = ? ";
+		boolean admin = false;
+
+		try (Connection con = ConnectionManager.getConnection();
+				PreparedStatement pstmt = con.prepareStatement(sql);) {
+
+			pstmt.setString(1, userId);
+			ResultSet res = pstmt.executeQuery();
+			if (res.next()) {
+				admin = res.getBoolean("is_admin");
+			}
+		}
+		return admin;
+	}
 }

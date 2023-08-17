@@ -56,12 +56,16 @@ public class LoginServlet extends HttpServlet {
 		String userName = null;
 //		ユーザがロックされているかを判定するための変数
 		int locked = 0;
+//		ユーザのログイン試行回数
 		int attempt = 0;
+//		管理者の判定
+		boolean admin = false;
 
 		try {
 			isMatch = userDAO.matchUser(userId, safetyPassword);
 			if(isMatch) {
 				userName = userDAO.selectUser(userId);
+				admin = userDAO.adminJudge(userId);
 			} else {
 				attempt = userDAO.loginAttempt(userId);
 				locked = userDAO.isLocked(userId, attempt);
@@ -74,6 +78,7 @@ public class LoginServlet extends HttpServlet {
 		session.setAttribute("user_name", userName);
 		session.setAttribute("user_id", userId);
 		request.setAttribute("locked", locked);
+		session.setAttribute("admin", admin);
 		if (isMatch) {
 			RequestDispatcher rd = request.getRequestDispatcher("menu.jsp");
 			rd.forward(request, response);
