@@ -29,6 +29,7 @@ public class TaskSelectDAO {
 		sqlSb.append("  t1.task_id ");
 		sqlSb.append(", t1.task_name ");
 		sqlSb.append(", t2.category_name ");
+		sqlSb.append(", t1.start_date ");
 		sqlSb.append(", t1.limit_date ");
 		sqlSb.append(", t3.user_name ");
 		sqlSb.append(", t4.status_name ");
@@ -54,14 +55,19 @@ public class TaskSelectDAO {
 				PreparedStatement pstmt = con.prepareStatement(sql)){
 			pstmt.setInt(1, taskId);
 			ResultSet res = pstmt.executeQuery();
+			LocalDate startDate = null;
 			LocalDate limitDate = null;
 			if(res.next()) {
 				taskShow.setTaskId(taskId);
 				taskShow.setTaskName(res.getString("task_name"));
 				taskShow.setCategoryName(res.getString("category_name"));
+				if (res.getDate("start_date") != null) {
+					startDate = res.getDate("start_date").toLocalDate();
+				}
 				if (res.getDate("limit_date") != null) {
 					limitDate = res.getDate("limit_date").toLocalDate();
 				}
+				taskShow.setStartDate(startDate);
 				taskShow.setLimitDate(limitDate);
 				taskShow.setUserName(res.getString("user_name"));
 				taskShow.setStatusName(res.getString("status_name"));
@@ -80,14 +86,19 @@ public class TaskSelectDAO {
 				PreparedStatement pstmt = con.prepareStatement(sql)){
 			pstmt.setInt(1, taskId);
 			ResultSet res = pstmt.executeQuery();
+			LocalDate startDate = null;
 			LocalDate limitDate = null;
 			if(res.next()) {
 				task.setTaskId(taskId);
 				task.setTaskName(res.getString("task_name"));
 				task.setCategoryId(res.getInt("category_id"));
+				if (res.getDate("start_date") != null) {
+					startDate = res.getDate("start_date").toLocalDate();
+				}
 				if (res.getDate("limit_date") != null) {
 					limitDate = res.getDate("limit_date").toLocalDate();
 				}
+				task.setLimitDate(startDate);
 				task.setLimitDate(limitDate);
 				task.setUserId(res.getString("user_id"));
 				task.setStatusCode(res.getString("status_code"));
