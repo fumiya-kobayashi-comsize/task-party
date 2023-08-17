@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -16,6 +17,7 @@ import javax.servlet.http.HttpSession;
 
 import model.dao.MakeListDAO;
 import model.dao.TaskInsertDAO;
+import model.dao.TaskSelectDAO;
 import model.entity.CategoryBean;
 import model.entity.StatusBean;
 import model.entity.TaskBean;
@@ -71,6 +73,7 @@ public class TaskAddServlet extends HttpServlet {
 			throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		TaskInsertDAO insertDAO = new TaskInsertDAO();
+		TaskSelectDAO selectDAO = new TaskSelectDAO();
 		int count = 0;
 		LocalDate localDate = null;
 		LocalDate startDate = null;
@@ -92,11 +95,56 @@ public class TaskAddServlet extends HttpServlet {
 		taskBean.setStatusCode(request.getParameter("statusCode"));
 		taskBean.setMemo(request.getParameter("memo"));
 
+		List<TaskBean> usersTaskList = new ArrayList<>();
+		boolean canInsertTask = true;
+
 		try {
-			count = insertDAO.insertTask(taskBean);
+			//タスクを追加しようとしたユーザーのタスク一覧を取得
+			usersTaskList = selectDAO.selectTask(taskBean.getUserId());
 		} catch (ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
 		}
+
+		//タスク登録期間が被っていたらcanInsertTaskにfalseを代入
+		for (TaskBean usersTask : usersTaskList) {
+			if(usersTask.getStartDate() == null && usersTask.getLimitDate() == null) {
+				canInsertTask = false;
+				break;
+			}
+			if(usersTask.getStartDate() == null) {
+				if(usersTask.getLimitDate().isBefore(taskBean.getStartDate())) {
+					continue;
+				}
+				canInsertTask = false;
+				break;
+			}
+			if(usersTask.getLimitDate() == null) {
+				if(usersTask.getStartDate().isAfter(taskBean.getLimitDate())) {
+					continue;
+				}
+				canInsertTask = false;
+				break;
+			}
+
+
+			if(usersTask.getStartDate().isAfter(taskBean.getStartDate()) ||
+					usersTask.getLimitDate().isBefore(taskBean.getLimitDate())) {
+				continue;
+			}
+
+			canInsertTask = false;
+			break;
+		}
+
+		//タスクを追加可能なら追加
+		if(canInsertTask) {
+			try {
+				count = insertDAO.insertTask(taskBean);
+			} catch (ClassNotFoundException | SQLException e) {
+				e.printStackTrace();
+			}
+		}
+
 		if (count == 0) {
 			RequestDispatcher rd = request.getRequestDispatcher("add-task-error.jsp");
 			rd.forward(request, response);

@@ -5,6 +5,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 import model.entity.TaskBean;
 import model.entity.TaskShowBean;
@@ -107,5 +109,36 @@ public class TaskSelectDAO {
 		}
 
 		return task;
+	}
+
+	public List<TaskBean> selectTask(String userId) throws ClassNotFoundException, SQLException {
+		List<TaskBean> taskList = new ArrayList<>();
+		String sql = "SELECT * FROM t_task WHERE user_id = ? AND status_code = '50'";
+		try(Connection con = ConnectionManager.getConnection();
+				PreparedStatement pstmt = con.prepareStatement(sql)){
+			pstmt.setString(1, userId);
+			ResultSet res = pstmt.executeQuery();
+			while(res.next()) {
+				TaskBean task = new TaskBean();
+				LocalDate startDate = null;
+				LocalDate limitDate = null;
+				task.setTaskId(res.getInt("task_id"));
+				task.setTaskName(res.getString("task_name"));
+				task.setCategoryId(res.getInt("category_id"));
+				if (res.getDate("start_date") != null) {
+					startDate = res.getDate("start_date").toLocalDate();
+				}
+				if (res.getDate("limit_date") != null) {
+					limitDate = res.getDate("limit_date").toLocalDate();
+				}
+				task.setLimitDate(limitDate);
+				task.setUserId(userId);
+				task.setStatusCode(res.getString("status_code"));
+				task.setMemo(res.getString("memo"));
+				taskList.add(task);
+			}
+		}
+
+		return taskList;
 	}
 }
