@@ -13,9 +13,9 @@ CREATE TABLE task_db.m_user
 	password VARCHAR(64) NOT NULL,
 	user_name VARCHAR(20) UNIQUE NOT NULL,
 	is_admin BOOLEAN DEFAULT FALSE NOT NULL,
-    login_attempts INT DEFAULT 0 NOT NULL,
-    is_locked BOOLEAN DEFAULT FALSE NOT NULL,
-    lock_datetime TIMESTAMP,
+	login_attempts INT DEFAULT 0 NOT NULL,
+	is_locked BOOLEAN DEFAULT FALSE NOT NULL,
+	lock_datetime TIMESTAMP,
 	update_datetime TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP NOT NULL
 );
 
@@ -28,6 +28,7 @@ login_attempts: ユーザがログインを試みた回数を格納する列で�
 is_locked: ログイン試行回数が一定回数以上の場合に、ユーザがロックされたかどうかを示すBOOLEAN型の列です。デフォルト値はFALSEです。
 lock_datetime: ユーザがロックされた時刻を記録するTIMESTAMP型の列です。
 update_datetime: レコードの更新時刻を記録するTIMESTAMP型の列で、デフォルト値はCURRENT_TIMESTAMPです。
+
 ログインの際には、入力されたユーザ名とパスワードを照合し、存在するか確認した後、is_lockedがTRUEでないことと、
 login_attemptsが一定回数未満であることを確認してログインを許可します。
 パスワードが間違っていた場合、login_attemptsをインクリメントします。管理者権限を持つユーザはis_admin列で判定できます。*/
@@ -88,7 +89,8 @@ INSERT INTO task_db.m_category (category_name) VALUES ('新商品A:開発プロ�
 INSERT INTO task_db.m_category (category_name) VALUES ('既存商品B:改良プロジェクト');
 
 /*ユーザマスタ INSERT*/
-INSERT INTO task_db.m_user(user_id, password, user_name) VALUES ('admin', '3f74691ad7292c5f0ee29cc8fba0b03463e3b1c4a1d368838dbe11b925d244c4', 'テストユーザー');
+INSERT INTO task_db.m_user(user_id, password, user_name,is_admin) VALUES ('admin', '3f74691ad7292c5f0ee29cc8fba0b03463e3b1c4a1d368838dbe11b925d244c4', '管理者ユーザー',true);
+INSERT INTO task_db.m_user(user_id, password, user_name) VALUES ('user', '5a63524297fbbf5df0f2f10ff13fba9a19168b9d7a3a4e76fddc81e12f46b2f1', '一般ユーザー');
 /*INSERT INTO task_db.m_user(user_id, password, user_name) VALUES ('', '', '');*/
 
 /*タスクテーブル INSERT*/
