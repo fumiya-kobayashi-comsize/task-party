@@ -122,14 +122,15 @@ public class TaskBean {
 		result = prime * result + categoryId;
 		result = prime * result + ((limitDate == null) ? 0 : limitDate.hashCode());
 		result = prime * result + ((memo == null) ? 0 : memo.hashCode());
+		result = prime * result + ((startDate == null) ? 0 : startDate.hashCode());
 		result = prime * result + ((statusCode == null) ? 0 : statusCode.hashCode());
 		result = prime * result + taskId;
 		result = prime * result + ((taskName == null) ? 0 : taskName.hashCode());
 		result = prime * result + ((userId == null) ? 0 : userId.hashCode());
 		return result;
 	}
-	/* 全部のフィールドを比較して等価判定
-	 *
+	/* (非 Javadoc)
+	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
 	@Override
 	public boolean equals(Object obj) {
@@ -152,6 +153,11 @@ public class TaskBean {
 				return false;
 		} else if (!memo.equals(other.memo))
 			return false;
+		if (startDate == null) {
+			if (other.startDate != null)
+				return false;
+		} else if (!startDate.equals(other.startDate))
+			return false;
 		if (statusCode == null) {
 			if (other.statusCode != null)
 				return false;
@@ -171,7 +177,6 @@ public class TaskBean {
 			return false;
 		return true;
 	}
-
 
 
 }
