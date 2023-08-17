@@ -16,6 +16,7 @@
 	<tr>
 		<th>タスク名</th>
 		<th>カテゴリ情報</th>
+		<th>開始日</th>
 		<th>期限</th>
 		<th>担当者情報</th>
 		<th>ステータス情報</th>
@@ -25,6 +26,11 @@
 	<tr>
 		<td><%=task.getTaskName() %></td>
 		<td><%=task.getCategoryName() %></td>
+		<td>
+			<%if(task.getStartDate()!=null){ %>
+				<%=task.getStartDate() %>
+			<% }%>
+		</td>
 		<td>
 			<%if(task.getLimitDate()!=null){ %>
 				<%=task.getLimitDate() %>

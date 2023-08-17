@@ -34,6 +34,7 @@ public class TaskSelectAllDAO {
 		sb.append("  t1.task_id ");
 		sb.append(", t1.task_name ");
 		sb.append(", t2.category_name ");
+		sb.append(", t1.start_date ");
 		sb.append(", t1.limit_date ");
 		sb.append(", t3.user_name ");
 		sb.append(", t4.status_name ");
@@ -59,7 +60,7 @@ public class TaskSelectAllDAO {
 		try (Connection con = ConnectionManager.getConnection();
 				PreparedStatement pstmt = con.prepareStatement(sql)) {
 			LocalDate limitDate = null;
-			String testStr = null;
+			LocalDate startDate = null;
 			//一覧を取得
 			ResultSet res = pstmt.executeQuery();
 
@@ -69,6 +70,11 @@ public class TaskSelectAllDAO {
 				String taskName = res.getString("task_name");
 				String categoryName = res.getString("category_name");
 
+				if (res.getDate("start_date") != null) {
+					startDate = res.getDate("start_date").toLocalDate();
+				} else {
+					startDate = null;
+				}
 				if (res.getDate("limit_date") != null) {
 					limitDate = res.getDate("limit_date").toLocalDate();
 				} else {
@@ -82,12 +88,12 @@ public class TaskSelectAllDAO {
 				} else {
 					memo = "";
 				}
-				//			LocalDate limitDate = res.getDate("limit_date").toLocalDate();
 
 				TaskShowBean task = new TaskShowBean();
 				task.setTaskId(taskId);
 				task.setTaskName(taskName);
 				task.setCategoryName(categoryName);
+				task.setStartDate(startDate);
 				task.setLimitDate(limitDate);
 				task.setUserName(userName);
 				task.setStatusName(statusName);
