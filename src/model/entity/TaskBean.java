@@ -11,6 +11,7 @@ public class TaskBean {
 	private int taskId;
 	private String taskName;
 	private int categoryId;
+	private LocalDate startDate;
 	private LocalDate limitDate;
 	private String userId;
 	private String statusCode;
@@ -50,6 +51,18 @@ public class TaskBean {
 	 */
 	public void setCategoryId(int categoryId) {
 		this.categoryId = categoryId;
+	}
+	/**
+	 * @return startDate
+	 */
+	public LocalDate getStartDate() {
+		return startDate;
+	}
+	/**
+	 * @param startDate セットする startDate
+	 */
+	public void setStartDate(LocalDate startDate) {
+		this.startDate = startDate;
 	}
 	/**
 	 * @return limitDate
