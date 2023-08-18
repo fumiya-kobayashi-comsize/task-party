@@ -33,5 +33,8 @@
 			</form>
 		</div>
 	<%} %>
+	<script type="text/javascript">
+		windnow.open('')
+	</script>
 </body>
 </html>

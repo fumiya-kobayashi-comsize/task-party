@@ -66,25 +66,27 @@ public class UserDAO {
 	}
 
 	/**
+	 * 存在するユーザーのログイン試行回数をインクリメントする
+	 * 一定回数以上でロック
 	 * @author koseki
 	 * @param isMatch
 	 * @return locked
 	 * @throws SQLException
 	 * @throws ClassNotFoundException
 	 */
-	public int isLocked(String userId, int attempt) throws SQLException, ClassNotFoundException {
+	public int updateAttempt(String userId, int attempt) throws SQLException, ClassNotFoundException {
 		StringBuilder sb = new StringBuilder();
 		sb.append("UPDATE ");
 		sb.append(" m_user ");
 		sb.append("SET ");
 		sb.append(" login_attempts = login_attempts + 1 ");
-		if (attempt >= 5) {
+		if (attempt >= 4) {
 			sb.append(" , is_locked = true ");
 		}
 		sb.append("WHERE user_id = ? ");
 		String sql = sb.toString();
 
-		//		ユーザがロックされているかの判定
+		//ユーザがロックされているかの判定
 		int result = 0;
 
 		try (Connection con = ConnectionManager.getConnection();
@@ -97,12 +99,13 @@ public class UserDAO {
 	}
 
 	/**
+	 * ログイン試行回数を取得
 	 * @param userId
 	 * @return ログイン試行回数
 	 * @throws SQLException
 	 * @throws ClassNotFoundException
 	 */
-	public int loginAttempt(String userId) throws SQLException, ClassNotFoundException {
+	public int getLoginAttempt(String userId) throws SQLException, ClassNotFoundException {
 		String sql = "SELECT login_attempts FROM m_user WHERE user_id = ?";
 		int attempt = 0;
 
@@ -118,6 +121,13 @@ public class UserDAO {
 		return attempt;
 	}
 
+	/**
+	 * 管理者を判定
+	 * @param userId
+	 * @return
+	 * @throws SQLException
+	 * @throws ClassNotFoundException
+	 */
 	public boolean adminJudge(String userId) throws SQLException, ClassNotFoundException {
 		String sql = "SELECT is_admin FROM m_user WHERE user_id = ? ";
 		boolean admin = false;
@@ -132,5 +142,20 @@ public class UserDAO {
 			}
 		}
 		return admin;
+	}
+
+	public boolean isLocked(String userId) throws SQLException, ClassNotFoundException {
+		String sql = "SELECT is_locked FROM m_user WHERE user_id = ? ";
+		boolean lock = false;
+
+		try(Connection con = ConnectionManager.getConnection();
+				PreparedStatement pstmt = con.prepareStatement(sql);) {
+			pstmt.setString(1, userId);
+			ResultSet res = pstmt.executeQuery();
+			if (res.next()) {
+				lock = res.getBoolean("is_locked");
+			}
+		}
+		return lock;
 	}
 }

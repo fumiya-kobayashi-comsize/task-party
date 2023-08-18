@@ -54,21 +54,32 @@ public class LoginServlet extends HttpServlet {
 		boolean isMatch = false;
 //		セッションに名前をあげるための変数
 		String userName = null;
-//		ユーザがロックされているかを判定するための変数
-		int locked = 0;
 //		ユーザのログイン試行回数
 		int attempt = 0;
 //		管理者の判定
 		boolean admin = false;
+//		ユーザーがロックされているか判定
+		boolean isLocked = false;
 
 		try {
+//			ユーザーIDが存在するか、パスワードが合っているか
 			isMatch = userDAO.matchUser(userId, safetyPassword);
+//			ユーザーがロックされているか
+			isLocked = userDAO.isLocked(userId);
+
+//			ユーザーID、パスワードが合っている場合
 			if(isMatch) {
+//				ユーザー名を取得
 				userName = userDAO.selectUser(userId);
+//				管理者であるかの判定
 				admin = userDAO.adminJudge(userId);
+
+//			IDパスいずれか、もしくは両方が間違えている場合
 			} else {
-				attempt = userDAO.loginAttempt(userId);
-				locked = userDAO.isLocked(userId, attempt);
+//				ユーザーIDからログイン試行回数を取得
+				attempt = userDAO.getLoginAttempt(userId);
+//				試行回数をインクリメント、一定以上でロック
+				userDAO.updateAttempt(userId, attempt);
 			}
 		} catch (ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
@@ -77,7 +88,7 @@ public class LoginServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		session.setAttribute("user_name", userName);
 		session.setAttribute("user_id", userId);
-		request.setAttribute("locked", locked);
+		request.setAttribute("isLocked", isLocked);
 		session.setAttribute("admin", admin);
 		if (isMatch) {
 			RequestDispatcher rd = request.getRequestDispatcher("menu.jsp");

@@ -11,13 +11,13 @@
 		<h1>ログイン画面</h1>
 		<hr>
 		<h1>ユーザーIDとパスワードを入力してください。</h1>
-		<% int locked = 0;
-		if((Integer)request.getAttribute("locked") != null){
-			locked = (Integer)request.getAttribute("locked");
+		<% boolean locked = false;
+		if ((Boolean)request.getAttribute("isLocked") != null){
+			locked = (boolean)request.getAttribute("isLocked");
 		}
-			if(locked > 0){
+			if(locked){
 			%>
-			ログインに失敗しました。
+			このアカウントはロックされています。
 		<%} else {%>
 		<%} %>
 		<form action="LoginServlet" method="post">
