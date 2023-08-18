@@ -6,6 +6,8 @@ import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,7 +31,7 @@ class TaskSelectAllDAOTest {
 			taskList = dao.SelectAll();
 			//読み込みファイルのインスタンス生成
 			//ファイル名を指定する
-			fi = new FileInputStream("task_db.t_task.csv");
+			fi = new FileInputStream("t_taskAll.csv");
 			is = new InputStreamReader(fi);
 			br = new BufferedReader(is);
 
@@ -38,6 +40,9 @@ class TaskSelectAllDAOTest {
 
 			//読み込み行数の管理
 			int i = 0;
+
+			//LocalDateへの変換
+			DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
 			//1行ずつ読み込みを行う
 			while ((line = br.readLine()) != null) {
@@ -48,11 +53,13 @@ class TaskSelectAllDAOTest {
 					assertEquals(Integer.parseInt(data[0]), taskList.get(i - 1).getTaskId());
 					assertEquals(data[1], taskList.get(i - 1).getTaskName());
 					assertEquals(data[2], taskList.get(i - 1).getCategoryName());
-					assertEquals(data[3], taskList.get(i - 1).getLimitDate());
-					assertEquals(data[4], taskList.get(i - 1).getUserName());
-					assertEquals(data[5], taskList.get(i - 1).getStatusName());
-					assertEquals(data[6], taskList.get(i - 1).getMemo());
+					assertEquals(LocalDate.parse(data[3], dtf), taskList.get(i - 1).getStartDate());
+					assertEquals(LocalDate.parse(data[4], dtf), taskList.get(i - 1).getLimitDate());
+					assertEquals(data[5], taskList.get(i - 1).getUserName());
+					assertEquals(data[6], taskList.get(i - 1).getStatusName());
+					assertEquals(data[7], taskList.get(i - 1).getMemo());
 				}
+				i++;
 			}
 		} catch (SQLException | ClassNotFoundException e) {
 			e.printStackTrace();

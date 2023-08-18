@@ -25,8 +25,8 @@ class TaskSelectDAOTest {
 		assertEquals(1, ts.getTaskId());
 		assertEquals("サンプルタスク", ts.getTaskName());
 		assertEquals("新商品A:開発プロジェクト", ts.getCategoryName());
-		assertEquals(LocalDate.of(2023, 9, 1), ts.getLimitDate());
-		assertEquals("テストユーザー", ts.getUserName());
+		assertEquals(LocalDate.of(2023, 9, 11), ts.getLimitDate());
+		assertEquals("管理者ユーザー", ts.getUserName());
 		assertEquals("未着手", ts.getStatusName());
 		assertEquals("サンプルメモ", ts.getMemo());
 	}
@@ -44,7 +44,7 @@ class TaskSelectDAOTest {
 		assertEquals(1, task.getTaskId());
 		assertEquals("サンプルタスク", task.getTaskName());
 		assertEquals(1, task.getCategoryId());
-		assertEquals(LocalDate.of(2023, 9, 1), task.getLimitDate());
+		assertEquals(LocalDate.of(2023, 9, 11), task.getLimitDate());
 		assertEquals("admin", task.getUserId());
 		assertEquals("00", task.getStatusCode());
 		assertEquals("サンプルメモ", task.getMemo());

@@ -1,3 +1,3 @@
-﻿task_id,task_name,category_name,limit_date,user_name,status_name,memo
-1,サンプルタスク,新商品A:開発プロジェクト,2023/09/01,テストユーザー,未着手,サンプルメモ
-2,サンプルタスク2,既存商品B:改良プロジェクト,,テストユーザー,完了,
+﻿task_id,task_name,category_name,start_date,limit_date,user_name,status_name,memo
+1,サンプルタスク,新商品A:開発プロジェクト,2023-09-01,2023-09-11,管理者ユーザー,未着手,サンプルメモ
+2,サンプルタスク2,既存商品B:改良プロジェクト,2023-08-01,,管理者ユーザー,完了,

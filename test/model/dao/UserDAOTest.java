@@ -6,6 +6,8 @@ import java.sql.SQLException;
 
 import org.junit.jupiter.api.Test;
 
+import util.PasswordUtil;
+
 /**
  * idとpasswordが合致を判定するメソッドのテストクラス
  */
@@ -16,9 +18,10 @@ public class UserDAOTest {
 
 		boolean match = false;
 		UserDAO userDAO = new UserDAO();
+		PasswordUtil hash = new PasswordUtil();
 
 		String userId="admin";
-		String userPassword="password";
+		String userPassword=hash.getSafetyPassword("password", userId);
 		try {
 			match = userDAO.matchUser(userId, userPassword);
 		} catch (ClassNotFoundException | SQLException e) {
@@ -55,7 +58,7 @@ public class UserDAOTest {
 			// TODO 自動生成された catch ブロックd
 			e.printStackTrace();
 		}
-		assertEquals("テストユーザー", name);
+		assertEquals("管理者ユーザー", name);
 	}
 	@Test
 	void selectUserFailure(){
