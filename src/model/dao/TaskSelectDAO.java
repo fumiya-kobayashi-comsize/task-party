@@ -150,4 +150,34 @@ public class TaskSelectDAO {
 
 		return taskList;
 	}
+
+	public List<TaskBean> selectProgressTask() throws ClassNotFoundException, SQLException {
+		List<TaskBean> taskList = new ArrayList<>();
+		String sql = "SELECT * FROM t_task WHERE status_code = '50'";
+		try(Connection con = ConnectionManager.getConnection();
+				PreparedStatement pstmt = con.prepareStatement(sql)){
+			ResultSet res = pstmt.executeQuery();
+			while(res.next()) {
+				TaskBean task = new TaskBean();
+				LocalDate startDate = null;
+				LocalDate limitDate = null;
+				task.setTaskId(res.getInt("task_id"));
+				task.setTaskName(res.getString("task_name"));
+				task.setCategoryId(res.getInt("category_id"));
+				if (res.getDate("start_date") != null) {
+					startDate = res.getDate("start_date").toLocalDate();
+				}
+				if (res.getDate("limit_date") != null) {
+					limitDate = res.getDate("limit_date").toLocalDate();
+				}
+				task.setLimitDate(limitDate);
+				task.setUserId(res.getString("user_id"));
+				task.setStatusCode(res.getString("status_code"));
+				task.setMemo(res.getString("memo"));
+				taskList.add(task);
+			}
+		}
+
+		return taskList;
+	}
 }
