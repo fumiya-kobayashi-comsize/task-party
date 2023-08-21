@@ -117,23 +117,29 @@ public class TaskAddServlet extends HttpServlet {
 				break;
 			}
 			if (usersTask.getStartDate() == null) {
-				if (usersTask.getLimitDate().isBefore(taskBean.getStartDate())) {
-					continue;
+				if(taskBean.getStartDate() != null) {
+					if (usersTask.getLimitDate().isBefore(taskBean.getStartDate())) {
+						continue;
+					}
 				}
 				canInsertTask = false;
 				break;
 			}
 			if (usersTask.getLimitDate() == null) {
-				if (usersTask.getStartDate().isAfter(taskBean.getLimitDate())) {
-					continue;
+				if(taskBean.getLimitDate() != null) {
+					if (usersTask.getStartDate().isAfter(taskBean.getLimitDate())) {
+						continue;
+					}
 				}
 				canInsertTask = false;
 				break;
 			}
 
-			if (usersTask.getStartDate().isAfter(taskBean.getStartDate()) ||
-					usersTask.getLimitDate().isBefore(taskBean.getLimitDate())) {
-				continue;
+			if(taskBean.getStartDate() != null && taskBean.getLimitDate() != null) {
+				if (usersTask.getStartDate().isAfter(taskBean.getStartDate()) ||
+						usersTask.getLimitDate().isBefore(taskBean.getLimitDate())) {
+					continue;
+				}
 			}
 
 			canInsertTask = false;
