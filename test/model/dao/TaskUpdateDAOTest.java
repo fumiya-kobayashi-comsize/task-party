@@ -15,9 +15,10 @@ class TaskUpdateDAOTest {
 	void test1UpdateTask() {
 		int count = 0;
 		TaskBean task = new TaskBean();
-		task.setTaskId(2);
+		task.setTaskId(3);
 		task.setTaskName("サンプルタスク99");
 		task.setCategoryId(1);
+		task.setStartDate(LocalDate.of(2023, 8, 8));
 		task.setLimitDate(LocalDate.of(2023, 9, 1));
 		task.setUserId("admin");
 		task.setStatusCode("99");
@@ -36,12 +37,13 @@ class TaskUpdateDAOTest {
 	void test2UpdateTask() {
 		int count = 0;
 		TaskBean task = new TaskBean();
-		task.setTaskId(1);
-		task.setTaskName("サンプルタスク99");
+		task.setTaskId(4);
+		task.setTaskName("サンプルタスク50");
 		task.setCategoryId(1);
+		task.setStartDate(null);
 		task.setLimitDate(null);
 		task.setUserId("admin");
-		task.setStatusCode("99");
+		task.setStatusCode("50");
 		task.setMemo("");
 		TaskUpdateDAO dao = new TaskUpdateDAO();
 		try {

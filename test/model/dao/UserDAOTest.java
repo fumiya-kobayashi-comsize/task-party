@@ -20,14 +20,16 @@ public class UserDAOTest {
 		UserDAO userDAO = new UserDAO();
 		PasswordUtil hash = new PasswordUtil();
 
-		String userId="admin";
-		String userPassword=hash.getSafetyPassword("password", userId);
+		String userId = "admin";
+		String userPassword = hash.getSafetyPassword("password", userId);
 		try {
-			match = userDAO.matchUser(userId, userPassword);
+			for (int i = 0; i < 6; i++) {
+				match = userDAO.matchUser(userId, userPassword);
+				assertTrue(match);
+			}
 		} catch (ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
 		}
-		assertTrue(match);
 	}
 
 	@Test
@@ -36,22 +38,26 @@ public class UserDAOTest {
 		boolean match = false;
 		UserDAO userDAO = new UserDAO();
 
-		String userId="";
-		String userPassword="";
+		String userId = "";
+		String userPassword = "";
 		try {
-			match = userDAO.matchUser(userId, userPassword);
+			for (int i = 0; i < 6; i++) {
+				match = userDAO.matchUser(userId, userPassword);
+				assertFalse(match);
+			}
 		} catch (ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
 		}
-		assertFalse(match);
+
 	}
+
 	@Test
 	void selectUser() {
 
 		UserDAO userDAO = new UserDAO();
 
 		String name = null;
-		String userId="admin";
+		String userId = "admin";
 		try {
 			name = userDAO.selectUser(userId);
 		} catch (ClassNotFoundException | SQLException e) {
@@ -60,13 +66,14 @@ public class UserDAOTest {
 		}
 		assertEquals("管理者ユーザー", name);
 	}
+
 	@Test
-	void selectUserFailure(){
+	void selectUserFailure() {
 
 		UserDAO userDAO = new UserDAO();
 
 		String name = null;
-		String userId="";
+		String userId = "";
 		try {
 			name = userDAO.selectUser(userId);
 		} catch (ClassNotFoundException | SQLException e) {
@@ -74,5 +81,108 @@ public class UserDAOTest {
 			e.printStackTrace();
 		}
 		assertNull(name);
+	}
+
+	@Test
+	void lockedUser() {
+
+		boolean match = false;
+		UserDAO userDAO = new UserDAO();
+		PasswordUtil hash = new PasswordUtil();
+
+		String userId = "user";
+		String userPassword = hash.getSafetyPassword("password", userId);
+		try {
+			for (int i = 0; i < 6; i++) {
+				match = userDAO.matchUser(userId, userPassword);
+				assertFalse(match);
+			}
+		} catch (ClassNotFoundException | SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Test
+	void updateUserAttempt() {
+
+		int count = 0;
+		int attempt = 0;
+		UserDAO dao = new UserDAO();
+
+		String userId = "user";
+
+		try {
+			for (int i = 0; i < 6; i++) {
+				attempt = dao.getLoginAttempt(userId);
+				count = dao.updateAttempt(userId, attempt);
+				assertEquals(1, count);
+			}
+		} catch (ClassNotFoundException | SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Test
+	void adminJudge1() {
+
+		boolean result = false;
+		UserDAO dao = new UserDAO();
+
+		String userId = "admin";
+
+		try {
+			result = dao.adminJudge(userId);
+		} catch (ClassNotFoundException | SQLException e) {
+			e.printStackTrace();
+		}
+		assertTrue(result);
+	}
+
+	@Test
+	void adminJudge2() {
+
+		boolean result = false;
+		UserDAO dao = new UserDAO();
+
+		String userId = "user";
+
+		try {
+			dao.adminJudge(userId);
+		} catch (ClassNotFoundException | SQLException e) {
+			e.printStackTrace();
+		}
+		assertFalse(result);
+	}
+
+	@Test
+	void isLocked1() {
+
+		boolean result = false;
+		UserDAO dao = new UserDAO();
+
+		String userId = "admin";
+
+		try {
+			dao.isLocked(userId);
+		} catch (ClassNotFoundException | SQLException e) {
+			e.printStackTrace();
+		}
+		assertFalse(result);
+	}
+
+	@Test
+	void isLocked2() {
+
+		boolean result = false;
+		UserDAO dao = new UserDAO();
+
+		String userId = "user";
+
+		try {
+			dao.isLocked(userId);
+		} catch (ClassNotFoundException | SQLException e) {
+			e.printStackTrace();
+		}
+		assertFalse(result);
 	}
 }

@@ -42,7 +42,7 @@ class TaskSelectAllDAOTest {
 			int i = 0;
 
 			//LocalDateへの変換
-			DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+			DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd");
 
 			//1行ずつ読み込みを行う
 			while ((line = br.readLine()) != null) {

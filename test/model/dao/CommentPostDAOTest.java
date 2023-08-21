@@ -38,7 +38,7 @@ public class CommentPostDAOTest {
 		int count = 0;
 		CommentPostDAO postDAO = new CommentPostDAO();
 		CommentBean commnetBean = new CommentBean();
-		commnetBean.setTaskId(0);
+		commnetBean.setTaskId(1);
 		commnetBean.setCommentUser("");
 		commnetBean.setCommentContent("");
 		try {

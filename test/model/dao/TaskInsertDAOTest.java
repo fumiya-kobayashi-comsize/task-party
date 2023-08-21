@@ -16,6 +16,7 @@ class TaskInsertDAOTest {
 		TaskBean task = new TaskBean();
 		task.setTaskName("サンプルタスク３");
 		task.setCategoryId(1);
+		task.setStartDate(LocalDate.of(2023, 8, 8));
 		task.setLimitDate(LocalDate.of(2023, 9, 1));
 		task.setUserId("admin");
 		task.setStatusCode("99");
@@ -35,8 +36,9 @@ class TaskInsertDAOTest {
 	@Test
 	void test2InsertTask() {
 		TaskBean task = new TaskBean();
-		task.setTaskName("サンプルタスク３");
+		task.setTaskName("サンプルタスク４");
 		task.setCategoryId(1);
+		task.setStartDate(null);
 		task.setLimitDate(null);
 		task.setUserId("admin");
 		task.setStatusCode("99");
