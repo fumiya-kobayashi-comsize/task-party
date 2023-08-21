@@ -21,6 +21,10 @@
 			<input type="submit" value="タスク表示">
 		</form>
 		<br>
+		<form action="EmployeeCalendarServlet" method="GET">
+			<input type="submit" value="カレンダー表示" >
+		</form>
+		<br>
 		<form action="logout.jsp" method="POST">
 			<input type="submit" value="ログアウト">
 		</form>
