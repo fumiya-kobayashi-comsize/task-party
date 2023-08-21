@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import model.dao.TaskSelectCurrentUserDAO;
 import model.dao.UserDAO;
 import util.PasswordUtil;
 
@@ -45,10 +46,12 @@ public class LoginServlet extends HttpServlet {
 			throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		UserDAO userDAO = new UserDAO();
+		TaskSelectCurrentUserDAO currentUserDAO =new TaskSelectCurrentUserDAO();
 
 		String userId = request.getParameter("user_id");
 		String password = request.getParameter("password");
 		String safetyPassword = PasswordUtil.getSafetyPassword(password, userId);
+		int currentUsersLimit =0;
 
 //		ユーザーが存在するかを判定するための変数
 		boolean isMatch = false;
@@ -66,6 +69,9 @@ public class LoginServlet extends HttpServlet {
 			isMatch = userDAO.matchUser(userId, safetyPassword);
 //			ユーザーがロックされているか
 			isLocked = userDAO.isLocked(userId);
+
+//			ユーザーの着手しているタスクの期限を取得
+			currentUsersLimit=currentUserDAO.selectCurrentUsersTask(userId);
 
 //			ユーザーID、パスワードが合っている場合
 			if(isMatch) {
@@ -88,6 +94,7 @@ public class LoginServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		session.setAttribute("user_name", userName);
 		session.setAttribute("user_id", userId);
+		session.setAttribute("current_users_limit",currentUsersLimit );
 		request.setAttribute("isLocked", isLocked);
 		session.setAttribute("admin", admin);
 		if (isMatch) {

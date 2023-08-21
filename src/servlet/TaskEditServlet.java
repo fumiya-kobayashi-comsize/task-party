@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import model.dao.MakeListDAO;
+import model.dao.TaskSelectCurrentUserDAO;
 import model.dao.TaskSelectDAO;
 import model.dao.TaskUpdateDAO;
 import model.entity.CategoryBean;
@@ -86,6 +87,11 @@ public class TaskEditServlet extends HttpServlet {
 		task.setTaskName(request.getParameter("task_name"));
 		task.setCategoryId(Integer.parseInt(request.getParameter("category_id")));
 		LocalDate startDate = null;
+		HttpSession session = request.getSession();
+		String userId = (String) session.getAttribute("user_id");
+		int currentUsersLimit =0;
+
+
 		if(!request.getParameter("start_date").equals("")) {
 			 startDate = LocalDate.parse(request.getParameter("start_date"),
 					DateTimeFormatter.ofPattern("yyyy-MM-dd"));
@@ -103,15 +109,18 @@ public class TaskEditServlet extends HttpServlet {
 
 		TaskSelectDAO selectDao = new TaskSelectDAO();
 		TaskUpdateDAO dao = new TaskUpdateDAO();
+		TaskSelectCurrentUserDAO currentUserDAO =new TaskSelectCurrentUserDAO();
 		int updateCount = 0;
 		try {
 			if(!task.equals(selectDao.selectTask(task.getTaskId()))) {
 				updateCount = dao.updateTask(task);
+				currentUsersLimit=currentUserDAO.selectCurrentUsersTask(userId);
 			}
 		} catch (ClassNotFoundException | SQLException e) {
 			// TODO 自動生成された catch ブロック
 			e.printStackTrace();
 		}
+
 		if (updateCount != 0) {
 			TaskShowBean taskShow = new TaskShowBean();
 			try {
@@ -121,6 +130,7 @@ public class TaskEditServlet extends HttpServlet {
 				e.printStackTrace();
 			}
 			request.setAttribute("task", taskShow);
+			session.setAttribute("current_users_limit",currentUsersLimit );
 			RequestDispatcher rd = request.getRequestDispatcher("edit-task-success.jsp");
 			rd.forward(request, response);
 		} else {

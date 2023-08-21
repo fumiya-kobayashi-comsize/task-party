@@ -33,6 +33,16 @@
 			</form>
 		</div>
 	<%} %>
+
+	<%int current_users_limit= (int)session.getAttribute("current_users_limit"); %>
+	<%if(current_users_limit>=0){ %>
+		<dialog open>
+	  		<p>期限は残り<%= current_users_limit%> 日です。</p>
+	  		<form method="dialog">
+	   	 		<button>OK</button>
+	  		</form>
+		</dialog>
+	<%} %>
 	<script type="text/javascript">
 		windnow.open('')
 	</script>
