@@ -13,6 +13,7 @@ import javax.servlet.http.HttpSession;
 
 import model.dao.CommentDeleteAllDAO;
 import model.dao.TaskDeleteDAO;
+import model.dao.TaskSelectCurrentUserDAO;
 import model.dao.TaskSelectDAO;
 import model.entity.TaskShowBean;
 
@@ -59,15 +60,22 @@ public class TaskDeleteServlet extends HttpServlet {
 
 		TaskDeleteDAO dao = new TaskDeleteDAO();
 		CommentDeleteAllDAO commentDelete = new CommentDeleteAllDAO();
+		TaskSelectCurrentUserDAO currentUserDAO =new TaskSelectCurrentUserDAO();
+		int updateCount = 0;
+		HttpSession session = request.getSession();
+		String userId = (String) session.getAttribute("user_id");
+		int currentUsersLimit =0;
 		int processNumber = 0; //処理件数
 
 		try {
 			//処理
 			commentDelete.deleteAllComment(Integer.parseInt(request.getParameter("task_id"))) ;
 			processNumber = dao.deleteTask(Integer.parseInt(request.getParameter("task_id")));
+			currentUsersLimit=currentUserDAO.selectCurrentUsersTask(userId);
 		} catch (SQLException | ClassNotFoundException e) {
 			e.printStackTrace();
 		}
+		session.setAttribute("current_users_limit",currentUsersLimit );
 		//処理件数で遷移先を
 		if(processNumber>0) {
 			//成功画面

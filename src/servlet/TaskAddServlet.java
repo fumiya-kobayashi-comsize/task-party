@@ -17,6 +17,7 @@ import javax.servlet.http.HttpSession;
 
 import model.dao.MakeListDAO;
 import model.dao.TaskInsertDAO;
+import model.dao.TaskSelectCurrentUserDAO;
 import model.dao.TaskSelectDAO;
 import model.entity.CategoryBean;
 import model.entity.StatusBean;
@@ -74,7 +75,11 @@ public class TaskAddServlet extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		TaskInsertDAO insertDAO = new TaskInsertDAO();
 		TaskSelectDAO selectDAO = new TaskSelectDAO();
+		TaskSelectCurrentUserDAO currentUserDAO = new TaskSelectCurrentUserDAO();
+		HttpSession session = request.getSession();
+		String userId = (String) session.getAttribute("user_id");
 		int count = 0;
+		int currentUsersLimit = 0;
 		LocalDate localDate = null;
 		LocalDate startDate = null;
 		//　　　送られてきたdateをlocaldateへ変換
@@ -107,27 +112,26 @@ public class TaskAddServlet extends HttpServlet {
 
 		//タスク登録期間が被っていたらcanInsertTaskにfalseを代入
 		for (TaskBean usersTask : usersTaskList) {
-			if(usersTask.getStartDate() == null && usersTask.getLimitDate() == null) {
+			if (usersTask.getStartDate() == null && usersTask.getLimitDate() == null) {
 				canInsertTask = false;
 				break;
 			}
-			if(usersTask.getStartDate() == null) {
-				if(usersTask.getLimitDate().isBefore(taskBean.getStartDate())) {
+			if (usersTask.getStartDate() == null) {
+				if (usersTask.getLimitDate().isBefore(taskBean.getStartDate())) {
 					continue;
 				}
 				canInsertTask = false;
 				break;
 			}
-			if(usersTask.getLimitDate() == null) {
-				if(usersTask.getStartDate().isAfter(taskBean.getLimitDate())) {
+			if (usersTask.getLimitDate() == null) {
+				if (usersTask.getStartDate().isAfter(taskBean.getLimitDate())) {
 					continue;
 				}
 				canInsertTask = false;
 				break;
 			}
 
-
-			if(usersTask.getStartDate().isAfter(taskBean.getStartDate()) ||
+			if (usersTask.getStartDate().isAfter(taskBean.getStartDate()) ||
 					usersTask.getLimitDate().isBefore(taskBean.getLimitDate())) {
 				continue;
 			}
@@ -137,13 +141,15 @@ public class TaskAddServlet extends HttpServlet {
 		}
 
 		//タスクを追加可能なら追加
-		if(canInsertTask) {
+		if (canInsertTask) {
 			try {
 				count = insertDAO.insertTask(taskBean);
+				currentUsersLimit = currentUserDAO.selectCurrentUsersTask(userId);
 			} catch (ClassNotFoundException | SQLException e) {
 				e.printStackTrace();
 			}
 		}
+		session.setAttribute("current_users_limit", currentUsersLimit);
 
 		if (count == 0) {
 			RequestDispatcher rd = request.getRequestDispatcher("add-task-error.jsp");
