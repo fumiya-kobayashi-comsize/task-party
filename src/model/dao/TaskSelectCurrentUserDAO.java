@@ -42,9 +42,13 @@ public class TaskSelectCurrentUserDAO {
 			ResultSet res = pstmt.executeQuery();
 
 			if (res.next()) {
-				startDate = res.getDate("start_date").toLocalDate();
-				limitDate = res.getDate("limit_date").toLocalDate();
-				if (!startDate.equals(null) && !limitDate.equals(null) ) {
+				if (res.getDate("start_date") != null) {
+					startDate = res.getDate("start_date").toLocalDate();
+				}
+				if (res.getDate("limit_date") != null) {
+					limitDate = res.getDate("limit_date").toLocalDate();
+				}
+				if (startDate != null && limitDate != null) {
 					if (startDate.isBefore(currentDate) || startDate.isEqual(currentDate)) {
 						currentUsersLimit = (int) ChronoUnit.DAYS.between(currentDate, limitDate);
 					}
