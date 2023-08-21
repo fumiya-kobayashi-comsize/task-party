@@ -91,12 +91,14 @@ INSERT INTO task_db.m_category (category_name) VALUES ('既存商品B:改良プ�
 
 /*ユーザマスタ INSERT*/
 INSERT INTO task_db.m_user(user_id, password, user_name,is_admin) VALUES ('admin', '3f74691ad7292c5f0ee29cc8fba0b03463e3b1c4a1d368838dbe11b925d244c4', '管理者ユーザー',true);
-INSERT INTO task_db.m_user(user_id, password, user_name) VALUES ('user', '5a63524297fbbf5df0f2f10ff13fba9a19168b9d7a3a4e76fddc81e12f46b2f1', '一般ユーザー');
+INSERT INTO task_db.m_user(user_id, password, user_name, is_locked) VALUES ('user', '5a63524297fbbf5df0f2f10ff13fba9a19168b9d7a3a4e76fddc81e12f46b2f1', '一般ユーザー', true);
 /*INSERT INTO task_db.m_user(user_id, password, user_name) VALUES ('', '', '');*/
 
 /*タスクテーブル INSERT*/
-INSERT INTO task_db.t_task(task_name, category_id, start_date, limit_date, user_id, status_code, memo) VALUES ('サンプルタスク', 1,'2023-09-01', '2023-09-11', 'admin', '00', 'サンプルメモ');
+INSERT INTO task_db.t_task(task_name, category_id, start_date, limit_date, user_id, status_code, memo) VALUES ('未着手サンプルタスク', 1,'2023-09-01', '2023-09-11', 'admin', '00', 'サンプルメモ');
 INSERT INTO task_db.t_task(task_name, category_id, start_date, user_id, status_code) VALUES ('サンプルタスク2', 2, '2023-08-01','admin', '99');
+INSERT INTO task_db.t_task(task_name, category_id, user_id, status_code, memo) VALUES ('着手中サンプルタスク', 1, 'admin', '50', 'サンプルメモ');
+INSERT INTO task_db.t_task(task_name, category_id, start_date, limit_date, user_id, status_code, memo) VALUES ('着手中サンプルタスク', 1,'2023-08-10', '2023-08-30', 'user', '50', 'サンプルメモ');
 
 /*コメントテーブル INSERT*/
 INSERT INTO task_db.t_comment(task_id, user_id, comment) VALUES (2,'admin','コメント');

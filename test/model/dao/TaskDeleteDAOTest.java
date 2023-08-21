@@ -13,7 +13,7 @@ class TaskDeleteDAOTest {
 		int count = 0;
 		TaskDeleteDAO dao = new TaskDeleteDAO();
 		try {
-			count = dao.deleteTask(3);
+			count = dao.deleteTask(2);
 		} catch (ClassNotFoundException | SQLException e) {
 			// TODO 自動生成された catch ブロック
 			e.printStackTrace();

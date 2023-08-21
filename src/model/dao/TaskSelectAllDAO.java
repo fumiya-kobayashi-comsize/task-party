@@ -83,7 +83,7 @@ public class TaskSelectAllDAO {
 				String userName = res.getString("user_name");
 				String statusName = res.getString("status_name");
 				String memo;
-				if (res.getString("memo") != null) {
+				if (!res.getString("memo").equals("")) {
 					memo = res.getString("memo");
 				} else {
 					memo = "";

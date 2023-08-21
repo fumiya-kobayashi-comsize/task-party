@@ -75,7 +75,7 @@ public class UserBean {
 	/**
 	 * @return locked
 	 */
-	public boolean isLocked() {
+	public boolean getLocked() {
 		return locked;
 	}
 	/**
