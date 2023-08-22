@@ -41,7 +41,7 @@ public class TaskSelectCurrentUserDAO {
 			pstmt.setString(1, userId);
 			ResultSet res = pstmt.executeQuery();
 
-			if (res.next()) {
+			while (res.next()) {
 				if (res.getDate("start_date") != null) {
 					startDate = res.getDate("start_date").toLocalDate();
 				}
