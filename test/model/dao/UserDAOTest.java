@@ -233,4 +233,49 @@ public class UserDAOTest {
 		}
 		assertFalse(result);
 	}
+
+	@Test
+	void getAttempt() {
+		int result = 0;
+		UserDAO dao = new UserDAO();
+
+		String userId = "aaa";
+
+		try {
+			result = dao.getLoginAttempt(userId);
+		} catch (SQLException|ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+		assertEquals(0, result);
+	}
+
+	@Test
+	void isLockedFalse() {
+		boolean result = false;
+		UserDAO dao = new UserDAO();
+
+		String userId = "aaa";
+
+		try {
+			result = dao.isLocked(userId);
+		} catch (SQLException|ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+		assertFalse(result);
+	}
+
+	@Test
+	void adminJudgeFalse() {
+		boolean result = false;
+		UserDAO dao = new UserDAO();
+
+		String userId = "aaa";
+
+		try {
+			result = dao.adminJudge(userId);
+		} catch (SQLException|ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+		assertFalse(result);
+	}
 }

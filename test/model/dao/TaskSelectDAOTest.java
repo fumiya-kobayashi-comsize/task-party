@@ -282,4 +282,16 @@ class TaskSelectDAOTest {
 			}
 		}
 	}
+	@Test
+	void testSelectTaskShowFailed() {
+		TaskSelectDAO dao = new TaskSelectDAO();
+		TaskShowBean ts = new TaskShowBean();
+		try {
+			ts = dao.selectTaskShow(330);
+		} catch (ClassNotFoundException | SQLException e) {
+			// TODO 自動生成された catch ブロック
+			e.printStackTrace();
+		}
+		assertEquals(0, ts.getTaskId());
+	}
 }
