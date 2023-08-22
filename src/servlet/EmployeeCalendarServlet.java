@@ -47,7 +47,6 @@ public class EmployeeCalendarServlet extends HttpServlet {
 			userList = listDAO.selectAllUser();
 			progressTaskList = selectDAO.selectProgressTask();
 		} catch (ClassNotFoundException | SQLException e) {
-			// TODO 自動生成された catch ブロック
 			e.printStackTrace();
 		}
 		List<boolean[]> isEmptyTaskWeekLists = new ArrayList<>();
@@ -65,7 +64,7 @@ public class EmployeeCalendarServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		session.setAttribute("user_list", userList);
 		session.setAttribute("is_empty_list", isEmptyTaskWeekLists);
-		request.setAttribute("date", date);
+		session.setAttribute("date", date);
 		RequestDispatcher rd = request.getRequestDispatcher("employee-calendar.jsp");
 		rd.forward(request, response);
 	}
@@ -74,7 +73,42 @@ public class EmployeeCalendarServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.setCharacterEncoding("UTF-8");
+		HttpSession session = request.getSession();
+		MakeListDAO listDAO = new MakeListDAO();
+		TaskSelectDAO selectDAO = new TaskSelectDAO();
+		List<UserBean> userList = null;
+		List<TaskBean> progressTaskList = null;
+		try {
+			userList = listDAO.selectAllUser();
+			progressTaskList = selectDAO.selectProgressTask();
+		} catch (ClassNotFoundException | SQLException e) {
+			e.printStackTrace();
+		}
+		List<boolean[]> isEmptyTaskWeekLists = new ArrayList<>();
+		LocalDate date = (LocalDate)session.getAttribute("date");
+		String dateChange = request.getParameter("date_change");
+		if(dateChange.equals("next")) {
+			date = date.plusDays(1);
+		}else if(dateChange.equals("prev")){
+			date = date.minusDays(1);
+		}
+		for (UserBean user : userList) {
+			boolean [] isEmptyTaskWeekList = new boolean[7];
+			for(int i = 0; i < 7; i++) {
+				isEmptyTaskWeekList[i] = isTaskEmpty(user.getUserId(), date.plusDays(i));
+			}
+			isEmptyTaskWeekLists.add(isEmptyTaskWeekList);
+		}
+		boolean flag = isEmptyTaskWeekLists.get(0)[0];
 
+
+
+		session.setAttribute("user_list", userList);
+		session.setAttribute("is_empty_list", isEmptyTaskWeekLists);
+		session.setAttribute("date", date);
+		RequestDispatcher rd = request.getRequestDispatcher("employee-calendar.jsp");
+		rd.forward(request, response);
 	}
 
 	private boolean isTaskEmpty(String userId, LocalDate checkDate) {

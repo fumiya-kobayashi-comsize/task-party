@@ -10,9 +10,17 @@
 <%
 	List<UserBean> userList=(List)session.getAttribute("user_list");
 	List<boolean[]> isEmptyTaskWeekLists = (List)session.getAttribute("is_empty_list");
-	LocalDate date = (LocalDate)request.getAttribute("date");
+	LocalDate date = (LocalDate)session.getAttribute("date");
 %>
 <body>
+	<form action="EmployeeCalendarServlet" method="post">
+	<input type = "hidden" name = "date_change", value = prev>
+	<input type = "submit" value = "PREV">
+	</form>
+	<form action="EmployeeCalendarServlet" method="post">
+	<input type = "hidden" name = "date_change", value = next>
+	<input type = "submit" value = "NEXT">
+	</form>
 	<table>
 		<tr>
 			<th rowspan="2">従業員</th>
