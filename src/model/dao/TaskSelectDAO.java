@@ -193,7 +193,7 @@ public class TaskSelectDAO {
 	 */
 	public List<TaskBean> selectOtherProgressTask(String userId, int taskId) throws ClassNotFoundException, SQLException {
 		List<TaskBean> taskList = new ArrayList<>();
-		String sql = "SELECT * FROM t_task WHERE user_id = ? AND status_code = '50' NOT task_id = ?";
+		String sql = "SELECT * FROM t_task WHERE user_id = ? AND status_code = '50' AND NOT task_id = ?";
 		try(Connection con = ConnectionManager.getConnection();
 				PreparedStatement pstmt = con.prepareStatement(sql)){
 			pstmt.setString(1, userId);
