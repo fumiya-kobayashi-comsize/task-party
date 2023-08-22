@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -74,7 +73,6 @@ public class TaskAddServlet extends HttpServlet {
 			throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		TaskInsertDAO insertDAO = new TaskInsertDAO();
-		TaskSelectDAO selectDAO = new TaskSelectDAO();
 		TaskSelectCurrentUserDAO currentUserDAO = new TaskSelectCurrentUserDAO();
 		HttpSession session = request.getSession();
 		String userId = (String) session.getAttribute("user_id");
@@ -91,65 +89,20 @@ public class TaskAddServlet extends HttpServlet {
 			localDate = LocalDate.parse(request.getParameter("limitDate"),
 					DateTimeFormatter.ofPattern("yyyy-MM-dd"));
 		}
-		TaskBean taskBean = new TaskBean();
-		taskBean.setTaskName(request.getParameter("taskName"));
-		taskBean.setCategoryId(Integer.parseInt(request.getParameter("categoryId")));
-		taskBean.setStartDate(startDate);
-		taskBean.setLimitDate(localDate);
-		taskBean.setUserId(request.getParameter("userId"));
-		taskBean.setStatusCode(request.getParameter("statusCode"));
-		taskBean.setMemo(request.getParameter("memo"));
+		TaskBean insertTask = new TaskBean();
+		insertTask.setTaskName(request.getParameter("taskName"));
+		insertTask.setCategoryId(Integer.parseInt(request.getParameter("categoryId")));
+		insertTask.setStartDate(startDate);
+		insertTask.setLimitDate(localDate);
+		insertTask.setUserId(request.getParameter("userId"));
+		insertTask.setStatusCode(request.getParameter("statusCode"));
+		insertTask.setMemo(request.getParameter("memo"));
 
-		List<TaskBean> usersTaskList = new ArrayList<>();
-		boolean canInsertTask = true;
-
-		try {
-			//タスクを追加しようとしたユーザーの着手中のタスク一覧を取得
-			usersTaskList = selectDAO.selectProgressTask(taskBean.getUserId());
-		} catch (ClassNotFoundException | SQLException e) {
-			e.printStackTrace();
-		}
-
-		//タスク登録期間が被っていたらcanInsertTaskにfalseを代入
-		for (TaskBean usersTask : usersTaskList) {
-			if (usersTask.getStartDate() == null && usersTask.getLimitDate() == null) {
-				canInsertTask = false;
-				break;
-			}
-			if (usersTask.getStartDate() == null) {
-				if(taskBean.getStartDate() != null) {
-					if (usersTask.getLimitDate().isBefore(taskBean.getStartDate())) {
-						continue;
-					}
-				}
-				canInsertTask = false;
-				break;
-			}
-			if (usersTask.getLimitDate() == null) {
-				if(taskBean.getLimitDate() != null) {
-					if (usersTask.getStartDate().isAfter(taskBean.getLimitDate())) {
-						continue;
-					}
-				}
-				canInsertTask = false;
-				break;
-			}
-
-			if(taskBean.getStartDate() != null && taskBean.getLimitDate() != null) {
-				if (usersTask.getStartDate().isAfter(taskBean.getStartDate()) ||
-						usersTask.getLimitDate().isBefore(taskBean.getLimitDate())) {
-					continue;
-				}
-			}
-
-			canInsertTask = false;
-			break;
-		}
 
 		//タスクを追加可能なら追加
-		if (canInsertTask) {
+		if (canInsertTask(insertTask)) {
 			try {
-				count = insertDAO.insertTask(taskBean);
+				count = insertDAO.insertTask(insertTask);
 				currentUsersLimit = currentUserDAO.selectCurrentUsersTask(userId);
 			} catch (ClassNotFoundException | SQLException e) {
 				e.printStackTrace();
@@ -165,6 +118,66 @@ public class TaskAddServlet extends HttpServlet {
 			rd.forward(request, response);
 		}
 
+	}
+
+	/**
+	 * タスクを挿入可能か判定するメソッド
+	 * @author Arakawa
+	 * @param insertTask
+	 * @return boolean
+	 */
+	private boolean canInsertTask(TaskBean insertTask) {
+		TaskSelectDAO selectDAO = new TaskSelectDAO();
+		List<TaskBean> usersTaskList = null;
+		try {
+			//タスクを追加しようとしたユーザーの着手中のタスク一覧を取得
+			usersTaskList = selectDAO.selectProgressTask(insertTask.getUserId());
+		} catch (ClassNotFoundException | SQLException e) {
+			e.printStackTrace();
+		}
+
+		//タスクが重複していないか判定
+		if(usersTaskList == null) return true;
+		if(insertTask.getStartDate() == null && insertTask.getLimitDate() == null) return false;
+		for (TaskBean usersTask : usersTaskList) {
+			if (usersTask.getStartDate() == null && usersTask.getLimitDate() == null) {
+				return false;
+			}
+			if(insertTask.getStartDate() == null) {
+				if(usersTask.getStartDate() == null) return false;
+				if (usersTask.getStartDate().isAfter(insertTask.getLimitDate())) {
+					continue;
+				}
+				return false;
+			}
+			if(insertTask.getLimitDate() == null) {
+				if(usersTask.getLimitDate() == null) return false;
+				if (usersTask.getLimitDate().isBefore(insertTask.getStartDate())) {
+					continue;
+				}
+				return false;
+			}
+			if (usersTask.getStartDate() == null) {
+				if (usersTask.getLimitDate().isBefore(insertTask.getStartDate())) {
+					continue;
+				}
+				return false;
+			}
+			if (usersTask.getLimitDate() == null) {
+				if (usersTask.getStartDate().isAfter(insertTask.getLimitDate())) {
+					continue;
+				}
+				return false;
+			}
+
+			if (usersTask.getStartDate().isAfter(insertTask.getLimitDate()) ||
+					usersTask.getLimitDate().isBefore(insertTask.getStartDate())) {
+				continue;
+			}
+			return false;
+		}
+
+		return true;
 	}
 
 }
