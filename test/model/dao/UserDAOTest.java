@@ -14,7 +14,7 @@ import util.PasswordUtil;
 public class UserDAOTest {
 
 	@Test
-	void matchUser() {
+	void matchUser1() {
 
 		boolean match = false;
 		UserDAO userDAO = new UserDAO();
@@ -26,6 +26,54 @@ public class UserDAOTest {
 			for (int i = 0; i < 6; i++) {
 				match = userDAO.matchUser(userId, userPassword);
 				assertTrue(match);
+			}
+		} catch (ClassNotFoundException | SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Test
+	void matchUser2() {
+
+		boolean match = false;
+		UserDAO userDAO = new UserDAO();
+		PasswordUtil hash = new PasswordUtil();
+
+		String userId = "user";
+		String userPassword = hash.getSafetyPassword("1234567", userId);
+		try {
+			for (int i = 0; i < 6; i++) {
+				int attempt = userDAO.getLoginAttempt(userId);
+				userDAO.updateAttempt(userId, attempt);
+				match = userDAO.matchUser(userId, userPassword);
+				assertFalse(match);
+			}
+		} catch (ClassNotFoundException | SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Test
+	void matchUser3() {
+
+		boolean match = false;
+		UserDAO userDAO = new UserDAO();
+		PasswordUtil hash = new PasswordUtil();
+
+		String userId = "admin";
+		String userPassword = hash.getSafetyPassword("password", userId);
+		String wrongPassword = hash.getSafetyPassword("123456", userId);
+		try {
+			for (int i = 0; i < 5; i++) {
+				int attempt = userDAO.getLoginAttempt(userId);
+				userDAO.updateAttempt(userId, attempt);
+				match = userDAO.matchUser(userId, wrongPassword);
+			}
+			for (int i = 0; i < 6; i++) {
+				int attempt = userDAO.getLoginAttempt(userId);
+				userDAO.updateAttempt(userId, attempt);
+				match = userDAO.matchUser(userId, userPassword);
+				assertFalse(match);
 			}
 		} catch (ClassNotFoundException | SQLException e) {
 			e.printStackTrace();

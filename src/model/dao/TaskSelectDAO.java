@@ -100,7 +100,7 @@ public class TaskSelectDAO {
 				if (res.getDate("limit_date") != null) {
 					limitDate = res.getDate("limit_date").toLocalDate();
 				}
-				task.setLimitDate(startDate);
+				task.setStartDate(startDate);
 				task.setLimitDate(limitDate);
 				task.setUserId(res.getString("user_id"));
 				task.setStatusCode(res.getString("status_code"));
@@ -170,6 +170,7 @@ public class TaskSelectDAO {
 				if (res.getDate("limit_date") != null) {
 					limitDate = res.getDate("limit_date").toLocalDate();
 				}
+				task.setStartDate(startDate);
 				task.setLimitDate(limitDate);
 				task.setUserId(res.getString("user_id"));
 				task.setStatusCode(res.getString("status_code"));

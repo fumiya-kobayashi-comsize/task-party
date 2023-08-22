@@ -33,7 +33,7 @@ public class UserDAO {
 			if (res.next()) {
 				if (res.getBoolean("is_locked")) {
 					return false;
-				} else if (res.getInt("login_attempts") < 5) {
+				} else if (res.getInt("login_attempts") <= 5) {
 					return true;
 				}
 			}
@@ -80,7 +80,7 @@ public class UserDAO {
 		sb.append(" m_user ");
 		sb.append("SET ");
 		sb.append(" login_attempts = login_attempts + 1 ");
-		if (attempt >= 4) {
+		if (attempt >= 6) {
 			sb.append(" , is_locked = true ");
 		}
 		sb.append("WHERE user_id = ? ");

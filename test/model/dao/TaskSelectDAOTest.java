@@ -20,7 +20,7 @@ import model.entity.TaskShowBean;
 class TaskSelectDAOTest {
 
 	@Test
-	void testSelectTaskShow() {
+	void testSelectTaskShow1() {
 		TaskSelectDAO dao = new TaskSelectDAO();
 		TaskShowBean ts = new TaskShowBean();
 		try {
@@ -38,9 +38,29 @@ class TaskSelectDAOTest {
 		assertEquals("未着手", ts.getStatusName());
 		assertEquals("サンプルメモ", ts.getMemo());
 	}
+	@Test
+	void testSelectTaskShow2() {
+
+		TaskSelectDAO dao = new TaskSelectDAO();
+		TaskShowBean ts = new TaskShowBean();
+		try {
+			ts = dao.selectTaskShow(7);
+		} catch (ClassNotFoundException | SQLException e) {
+			// TODO 自動生成された catch ブロック
+			e.printStackTrace();
+		}
+		assertEquals(7, ts.getTaskId());
+		assertEquals("userタスク2-50", ts.getTaskName());
+		assertEquals("新商品A:開発プロジェクト", ts.getCategoryName());
+		assertEquals(null, ts.getStartDate());
+		assertEquals(null, ts.getLimitDate());
+		assertEquals("一般ユーザー", ts.getUserName());
+		assertEquals("着手", ts.getStatusName());
+		assertEquals("memo", ts.getMemo());
+	}
 
 	@Test
-	void testSelectTask() {
+	void testSelectTask1() {
 		TaskSelectDAO dao = new TaskSelectDAO();
 		TaskBean task = new TaskBean();
 		try {
@@ -52,10 +72,31 @@ class TaskSelectDAOTest {
 		assertEquals(1, task.getTaskId());
 		assertEquals("未着手サンプルタスク", task.getTaskName());
 		assertEquals(1, task.getCategoryId());
+		assertEquals(LocalDate.of(2023, 9, 1), task.getStartDate());
 		assertEquals(LocalDate.of(2023, 9, 11), task.getLimitDate());
 		assertEquals("admin", task.getUserId());
 		assertEquals("00", task.getStatusCode());
 		assertEquals("サンプルメモ", task.getMemo());
+	}
+
+	@Test
+	void testSelectTask2() {
+		TaskSelectDAO dao = new TaskSelectDAO();
+		TaskBean task = new TaskBean();
+		try {
+			task = dao.selectTask(8);
+		} catch (ClassNotFoundException | SQLException e) {
+			// TODO 自動生成された catch ブロック
+			e.printStackTrace();
+		}
+		assertEquals(8, task.getTaskId());
+		assertEquals("adminタスク2-50", task.getTaskName());
+		assertEquals(1, task.getCategoryId());
+		assertEquals(null, task.getStartDate());
+		assertEquals(null, task.getLimitDate());
+		assertEquals("admin", task.getUserId());
+		assertEquals("50", task.getStatusCode());
+		assertEquals("MEMO", task.getMemo());
 	}
 
 
