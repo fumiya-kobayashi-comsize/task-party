@@ -7,7 +7,6 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import model.entity.TaskShowBean;
 
@@ -83,9 +82,8 @@ public class TaskSelectAllDAO {
 				}
 				String userName = res.getString("user_name");
 				String statusName = res.getString("status_name");
-				Optional<String> nullable = Optional.ofNullable(res.getString("memo"));
 				String memo;
-				if (nullable.isPresent()) {
+				if (res.getString("memo") != null) {
 					memo = res.getString("memo");
 				} else {
 					memo = "";
