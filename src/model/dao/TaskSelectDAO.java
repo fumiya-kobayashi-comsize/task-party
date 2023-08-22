@@ -73,7 +73,11 @@ public class TaskSelectDAO {
 				taskShow.setLimitDate(limitDate);
 				taskShow.setUserName(res.getString("user_name"));
 				taskShow.setStatusName(res.getString("status_name"));
-				taskShow.setMemo(res.getString("memo"));
+				if(res.getString("memo") != null) {
+					taskShow.setMemo(res.getString("memo"));
+				} else {
+					taskShow.setMemo("");
+				}
 			}
 		}
 		return taskShow;
@@ -104,7 +108,11 @@ public class TaskSelectDAO {
 				task.setLimitDate(limitDate);
 				task.setUserId(res.getString("user_id"));
 				task.setStatusCode(res.getString("status_code"));
-				task.setMemo(res.getString("memo"));
+				if(res.getString("memo") != null) {
+					task.setMemo(res.getString("memo"));
+				} else {
+					task.setMemo("");
+				}
 			}
 		}
 
@@ -143,7 +151,11 @@ public class TaskSelectDAO {
 				task.setLimitDate(limitDate);
 				task.setUserId(userId);
 				task.setStatusCode(res.getString("status_code"));
-				task.setMemo(res.getString("memo"));
+				if(res.getString("memo") != null) {
+					task.setMemo(res.getString("memo"));
+				} else {
+					task.setMemo("");
+				}
 				taskList.add(task);
 			}
 		}
@@ -174,7 +186,11 @@ public class TaskSelectDAO {
 				task.setLimitDate(limitDate);
 				task.setUserId(res.getString("user_id"));
 				task.setStatusCode(res.getString("status_code"));
-				task.setMemo(res.getString("memo"));
+				if(res.getString("memo") != null) {
+					task.setMemo(res.getString("memo"));
+				} else {
+					task.setMemo("");
+				}
 				taskList.add(task);
 			}
 		}
@@ -216,7 +232,11 @@ public class TaskSelectDAO {
 				task.setLimitDate(limitDate);
 				task.setUserId(userId);
 				task.setStatusCode(res.getString("status_code"));
-				task.setMemo(res.getString("memo"));
+				if(res.getString("memo") != null) {
+					task.setMemo(res.getString("memo"));
+				} else {
+					task.setMemo("");
+				}
 				taskList.add(task);
 			}
 		}
