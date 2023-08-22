@@ -62,7 +62,6 @@ public class TaskEditServlet extends HttpServlet {
 			userList = mldao.selectAllUser();
 			statusList = mldao.selectAllStatus();
 		} catch (ClassNotFoundException | SQLException e) {
-			// TODO 自動生成された catch ブロック
 			e.printStackTrace();
 		}
 		if(task.getMemo() == null) {
@@ -82,10 +81,10 @@ public class TaskEditServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
-		TaskBean task = new TaskBean();
-		task.setTaskId(Integer.parseInt(request.getParameter("task_id")));
-		task.setTaskName(request.getParameter("task_name"));
-		task.setCategoryId(Integer.parseInt(request.getParameter("category_id")));
+		TaskBean updateTask = new TaskBean();
+		updateTask.setTaskId(Integer.parseInt(request.getParameter("task_id")));
+		updateTask.setTaskName(request.getParameter("task_name"));
+		updateTask.setCategoryId(Integer.parseInt(request.getParameter("category_id")));
 		LocalDate startDate = null;
 		HttpSession session = request.getSession();
 		String userId = (String) session.getAttribute("user_id");
@@ -96,37 +95,38 @@ public class TaskEditServlet extends HttpServlet {
 			 startDate = LocalDate.parse(request.getParameter("start_date"),
 					DateTimeFormatter.ofPattern("yyyy-MM-dd"));
 		}
-		task.setStartDate(startDate);
+		updateTask.setStartDate(startDate);
 		LocalDate localDate = null;
 		if(!request.getParameter("limit_date").equals("")) {
 			 localDate = LocalDate.parse(request.getParameter("limit_date"),
 					DateTimeFormatter.ofPattern("yyyy-MM-dd"));
 		}
-		task.setLimitDate(localDate);
-		task.setUserId(request.getParameter("user_id"));
-		task.setStatusCode(request.getParameter("status_code"));
-		task.setMemo(request.getParameter("memo"));
+		updateTask.setLimitDate(localDate);
+		updateTask.setUserId(request.getParameter("user_id"));
+		updateTask.setStatusCode(request.getParameter("status_code"));
+		updateTask.setMemo(request.getParameter("memo"));
 
 		TaskSelectDAO selectDao = new TaskSelectDAO();
 		TaskUpdateDAO dao = new TaskUpdateDAO();
 		TaskSelectCurrentUserDAO currentUserDAO =new TaskSelectCurrentUserDAO();
 		int updateCount = 0;
-		try {
-			if(!task.equals(selectDao.selectTask(task.getTaskId()))) {
-				updateCount = dao.updateTask(task);
-				currentUsersLimit=currentUserDAO.selectCurrentUsersTask(userId);
+		//更新可能ならタスクを更新する
+		if(canUpdateTask(updateTask)) {
+			try {
+				if(!updateTask.equals(selectDao.selectTask(updateTask.getTaskId()))) {
+					updateCount = dao.updateTask(updateTask);
+					currentUsersLimit=currentUserDAO.selectCurrentUsersTask(userId);
+				}
+			} catch (ClassNotFoundException | SQLException e) {
+				e.printStackTrace();
 			}
-		} catch (ClassNotFoundException | SQLException e) {
-			// TODO 自動生成された catch ブロック
-			e.printStackTrace();
 		}
 
 		if (updateCount != 0) {
 			TaskShowBean taskShow = new TaskShowBean();
 			try {
-				taskShow = selectDao.selectTaskShow(task.getTaskId());
+				taskShow = selectDao.selectTaskShow(updateTask.getTaskId());
 			} catch (ClassNotFoundException | SQLException e) {
-				// TODO 自動生成された catch ブロック
 				e.printStackTrace();
 			}
 			request.setAttribute("task", taskShow);
@@ -137,6 +137,66 @@ public class TaskEditServlet extends HttpServlet {
 			RequestDispatcher rd = request.getRequestDispatcher("edit-task-error.jsp");
 			rd.forward(request, response);
 		}
+	}
+
+	/**
+	 * タスクを更新可能か判定するメソッド
+	 * @author Arakawa
+	 * @param updateTask
+	 * @return boolean
+	 */
+	private boolean canUpdateTask(TaskBean updateTask) {
+		TaskSelectDAO selectDAO = new TaskSelectDAO();
+		List<TaskBean> usersTaskList = null;
+		try {
+			//タスクを更新しようとしたユーザーの着手中のタスク一覧(更新タスクを除く)を取得
+			usersTaskList = selectDAO.selectOtherProgressTask(updateTask.getUserId(), updateTask.getTaskId());
+		} catch (ClassNotFoundException | SQLException e) {
+			e.printStackTrace();
+		}
+
+		//タスクが重複していないか判定
+		if(usersTaskList == null) return true;
+		if(updateTask.getStartDate() == null && updateTask.getLimitDate() == null) return false;
+		for (TaskBean usersTask : usersTaskList) {
+			if (usersTask.getStartDate() == null && usersTask.getLimitDate() == null) {
+				return false;
+			}
+			if(updateTask.getStartDate() == null) {
+				if(usersTask.getStartDate() == null) return false;
+				if (usersTask.getStartDate().isAfter(updateTask.getLimitDate())) {
+					continue;
+				}
+				return false;
+			}
+			if(updateTask.getLimitDate() == null) {
+				if(usersTask.getLimitDate() == null) return false;
+				if (usersTask.getLimitDate().isBefore(updateTask.getStartDate())) {
+					continue;
+				}
+				return false;
+			}
+			if (usersTask.getStartDate() == null) {
+				if (usersTask.getLimitDate().isBefore(updateTask.getStartDate())) {
+					continue;
+				}
+				return false;
+			}
+			if (usersTask.getLimitDate() == null) {
+				if (usersTask.getStartDate().isAfter(updateTask.getLimitDate())) {
+					continue;
+				}
+				return false;
+			}
+
+			if (usersTask.getStartDate().isAfter(updateTask.getLimitDate()) ||
+					usersTask.getLimitDate().isBefore(updateTask.getStartDate())) {
+				continue;
+			}
+			return false;
+		}
+
+		return true;
 	}
 
 }

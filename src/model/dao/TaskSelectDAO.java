@@ -181,4 +181,46 @@ public class TaskSelectDAO {
 
 		return taskList;
 	}
+
+	/**
+	 * 着手中タスク（引数にしたしたタスクを除く）一覧
+	 * @author Arakawa
+	 * @param userId
+	 * @param taskId
+	 * @return List<TaskBean>
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 */
+	public List<TaskBean> selectOtherProgressTask(String userId, int taskId) throws ClassNotFoundException, SQLException {
+		List<TaskBean> taskList = new ArrayList<>();
+		String sql = "SELECT * FROM t_task WHERE user_id = ? AND status_code = '50' NOT task_id = ?";
+		try(Connection con = ConnectionManager.getConnection();
+				PreparedStatement pstmt = con.prepareStatement(sql)){
+			pstmt.setString(1, userId);
+			pstmt.setInt(2, taskId);
+			ResultSet res = pstmt.executeQuery();
+			while(res.next()) {
+				TaskBean task = new TaskBean();
+				LocalDate startDate = null;
+				LocalDate limitDate = null;
+				task.setTaskId(res.getInt("task_id"));
+				task.setTaskName(res.getString("task_name"));
+				task.setCategoryId(res.getInt("category_id"));
+				if (res.getDate("start_date") != null) {
+					startDate = res.getDate("start_date").toLocalDate();
+				}
+				if (res.getDate("limit_date") != null) {
+					limitDate = res.getDate("limit_date").toLocalDate();
+				}
+				task.setStartDate(startDate);
+				task.setLimitDate(limitDate);
+				task.setUserId(userId);
+				task.setStatusCode(res.getString("status_code"));
+				task.setMemo(res.getString("memo"));
+				taskList.add(task);
+			}
+		}
+
+		return taskList;
+	}
 }
