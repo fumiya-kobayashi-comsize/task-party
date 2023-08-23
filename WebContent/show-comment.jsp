@@ -51,27 +51,30 @@
 	<input type="hidden" name="task_id" value= <%=task.getTaskId() %>>
 	<input type="submit" value="コメント追加">
 </form>
-<form action="delete-comment-confirm.jsp "method="POST">
+
 <table>
 	<%for(CommentBean comment : commentList){ %>
 	<tr>
 		<th>コメント投稿者</th>
 		<th>コメント</th>
 		<th>投稿日時</th>
-
+		<th>ID</th>
 	</tr>
 	<tr>
 		<td><%=comment.getCommentUserName() %></td>
 		<td><%=comment.getCommentContent() %></td>
 		<td><%=comment.getCommentDate() %></td>
-		<td><input type="submit" value="削除">
+		<td><%=comment.getCommentId() %>
+		<td>
+		<form action="delete-comment-confirm.jsp "method="POST">
+			<input type="submit" value="削除">
 			<input type="hidden" name="comment_id" value=<%=comment.getCommentId() %>>
 			<input type="hidden" name="user_id" value=<%=comment.getCommentUser() %>>
+		</form>
 		<td>
 	</tr>
 	<%} %>
-</table>
+	</table>
 
-</form>
 </body>
 </html>

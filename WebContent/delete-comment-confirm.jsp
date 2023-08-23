@@ -11,6 +11,8 @@
 <% String userId=request.getParameter("user_id"); %>
 	<h1>コメント削除確認</h1><hr>
 	このコメントを削除しますか?
+	<br>
+	<%=commentId %>
 
 
 	<form action="CommentDeleteServlet"method="POST">
