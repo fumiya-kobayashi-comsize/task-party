@@ -15,6 +15,8 @@
 	Locale locale = Locale.JAPANESE;
 %>
 <body>
+	<div class="date_changer">
+	<div class="inline">
 	<form action="EmployeeCalendarServlet" method="post">
 	<input type = "hidden" name = "date_change", value = prev>
 	<input type = "submit" value = "PREV">
@@ -24,6 +26,8 @@
 	<input type = "hidden" name = "date_change", value = next>
 	<input type = "submit" value = "NEXT">
 	</form>
+	</div>
+	</div>
 	<table>
 		<tr>
 			<th rowspan="2">従業員</th>

@@ -1,6 +1,22 @@
 @charset "utf-8";
 
 
+body{
+	width: 80%;
+	margin: auto;
+	text-align: center;
+}
+
+
+div.date_changer{
+
+}
+
+div.inline{
+	display:inline-flex;
+}
+
+
 table {
     outline: 2px solid #ddd;
     border-collapse: collapse;
