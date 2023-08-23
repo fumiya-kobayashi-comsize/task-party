@@ -45,9 +45,15 @@
 			<td><%=userList.get(i).getUserName() %></td>
 			<%
 			for(int j = 0; j < 7; j++){
+				if(isEmptyTaskWeekLists.get(i)[j]){
 			%>
-			<td><%=isEmptyTaskWeekLists.get(i)[j] %></td>
+			<td>〇</td>
 			<%
+				}else{
+			%>
+			<td>×</td>
+			<%
+				}
 			}
 			%>
 		</tr>
