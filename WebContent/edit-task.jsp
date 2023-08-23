@@ -47,11 +47,11 @@
 			</tr>
 			<tr>
 				<th>開始日</th>
-				<td><input type="date" name="start_date" v-bind:min=today id="start_day"max="9999-12-31" value ="<%=task.getStartDate()%>" ></td>
+				<td><input type="date" name="start_date" id="start_day"max="9999-12-31" value ="<%=task.getStartDate()%>" ></td>
 			</tr>
 			<tr>
 				<th>期限</th>
-				<td><input type="date" name="limit_date" v-bind:min=today id="limit_day"max="9999-12-31" value = "<%=task.getLimitDate()%>"   ></td>
+				<td><input type="date" name="limit_date" id="limit_day"max="9999-12-31" value = "<%=task.getLimitDate()%>"   ></td>
 			</tr>
 			<tr>
 				<th>担当者情報</th>
