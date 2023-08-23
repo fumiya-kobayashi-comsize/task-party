@@ -35,23 +35,27 @@ public class TaskSelectCurrentUserDAO {
 		try (Connection con = ConnectionManager.getConnection();
 				PreparedStatement pstmt = con.prepareStatement(sql)) {
 			LocalDate currentDate = LocalDate.now();
-			LocalDate startDate = null;
-			LocalDate limitDate = null;
 
 			pstmt.setString(1, userId);
 			ResultSet res = pstmt.executeQuery();
 
 			while (res.next()) {
+				LocalDate startDate = null;
+				LocalDate limitDate = null;
 				if (res.getDate("start_date") != null) {
 					startDate = res.getDate("start_date").toLocalDate();
 				}
 				if (res.getDate("limit_date") != null) {
 					limitDate = res.getDate("limit_date").toLocalDate();
 				}
+//				開始日と期限日が決まっている場合
 				if (startDate != null && limitDate != null) {
 					if (startDate.isBefore(currentDate) || startDate.isEqual(currentDate)) {
 						currentUsersLimit = (int) ChronoUnit.DAYS.between(currentDate, limitDate);
 					}
+//				期限日のみ決まってる場合
+				} else if (startDate == null && limitDate != null) {
+					currentUsersLimit = (int) ChronoUnit.DAYS.between(currentDate, limitDate);
 				}
 			}
 		}
