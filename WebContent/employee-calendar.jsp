@@ -55,5 +55,8 @@
 			}
 		%>
 	</table>
+	<form action="menu.jsp" method="get">
+		<input type="submit" value="メニューへ">
+	</form>
 </body>
 </html>
