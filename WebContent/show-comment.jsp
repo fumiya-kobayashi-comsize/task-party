@@ -58,13 +58,11 @@
 		<th>コメント投稿者</th>
 		<th>コメント</th>
 		<th>投稿日時</th>
-		<th>ID</th>
 	</tr>
 	<tr>
 		<td><%=comment.getCommentUserName() %></td>
 		<td><%=comment.getCommentContent() %></td>
 		<td><%=comment.getCommentDate() %></td>
-		<td><%=comment.getCommentId() %>
 		<td>
 		<form action="delete-comment-confirm.jsp "method="POST">
 			<input type="submit" value="削除">
