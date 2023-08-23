@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import = "java.util.List, java.time.LocalDate, model.entity.UserBean, model.entity.TaskBean"%>
+    pageEncoding="UTF-8" import = "java.util.List, java.time.LocalDate, model.entity.UserBean,
+    model.entity.TaskBean, java.time.format.DateTimeFormatter, java.time.format.TextStyle, java.util.Locale"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,12 +12,14 @@
 	List<UserBean> userList=(List)session.getAttribute("user_list");
 	List<boolean[]> isEmptyTaskWeekLists = (List)session.getAttribute("is_empty_list");
 	LocalDate date = (LocalDate)session.getAttribute("date");
+	Locale locale = Locale.JAPANESE;
 %>
 <body>
 	<form action="EmployeeCalendarServlet" method="post">
 	<input type = "hidden" name = "date_change", value = prev>
 	<input type = "submit" value = "PREV">
 	</form>
+	<%=date.format(DateTimeFormatter.ofPattern("yyyy年MM月dd日(E)", locale)) %>
 	<form action="EmployeeCalendarServlet" method="post">
 	<input type = "hidden" name = "date_change", value = next>
 	<input type = "submit" value = "NEXT">
@@ -24,13 +27,13 @@
 	<table>
 		<tr>
 			<th rowspan="2">従業員</th>
-			<th colspan="7"><%=date.getMonthValue() %>月</th>
+			<th colspan="7"><%=date.format(DateTimeFormatter.ofPattern("yyyy年MM月", locale)) %></th>
 		</tr>
 		<tr>
 			<%
 				for(int i = 0; i < 7; i++){
 			%>
-			<th><%=date.plusDays(i).getDayOfMonth() %><br><%=date.plusDays(i).getDayOfWeek() %></th>
+			<th><%=date.plusDays(i).getDayOfMonth() %><br>(<%=date.plusDays(i).getDayOfWeek().getDisplayName(TextStyle.SHORT, locale) %>)</th>
 			<%
 				}
 			%>
