@@ -17,6 +17,7 @@ div.inline{
 }
 
 
+
 table {
     outline: 2px solid #ddd;
     border-collapse: collapse;
@@ -24,6 +25,14 @@ table {
 }
 th {
     color: #000;
+}
+
+.saturday{
+	color: blue;
+}
+
+.sunday{
+	color: red;
 }
 th, td {
     outline: 1px solid #ddd;

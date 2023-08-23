@@ -1,3 +1,4 @@
+<%@page import="java.time.DayOfWeek"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import = "java.util.List, java.time.LocalDate, model.entity.UserBean,
     model.entity.TaskBean, java.time.format.DateTimeFormatter, java.time.format.TextStyle, java.util.Locale"%>
@@ -36,9 +37,19 @@
 		<tr>
 			<%
 				for(int i = 0; i < 7; i++){
+					if(date.plusDays(i).getDayOfWeek() == DayOfWeek.SATURDAY){
+			%>
+			<th class = "saturday"><%=date.plusDays(i).getDayOfMonth() %><br>(<%=date.plusDays(i).getDayOfWeek().getDisplayName(TextStyle.SHORT, locale) %>)</th>
+			<%
+					}else if(date.plusDays(i).getDayOfWeek() == DayOfWeek.SUNDAY){
+			%>
+			<th class = "sunday"><%=date.plusDays(i).getDayOfMonth() %><br>(<%=date.plusDays(i).getDayOfWeek().getDisplayName(TextStyle.SHORT, locale) %>)</th>
+			<%
+					}else{
 			%>
 			<th><%=date.plusDays(i).getDayOfMonth() %><br>(<%=date.plusDays(i).getDayOfWeek().getDisplayName(TextStyle.SHORT, locale) %>)</th>
 			<%
+					}
 				}
 			%>
 		</tr>
