@@ -3,6 +3,7 @@ package servlet;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -81,9 +82,9 @@ public class EmployeeCalendarServlet extends HttpServlet {
 		LocalDate date = (LocalDate)session.getAttribute("date");
 		String dateChange = request.getParameter("date_change");
 		if(dateChange.equals("next")) {
-			date = date.plusDays(7);
+			if(ChronoUnit.DAYS.between(LocalDate.now(), date) < 28) date = date.plusDays(7);
 		}else if(dateChange.equals("prev")){
-			date = date.minusDays(7);
+			if(!date.equals(LocalDate.now())) date = date.minusDays(7);
 		}
 		for (UserBean user : userList) {
 			boolean [] isEmptyTaskWeekList = new boolean[7];
