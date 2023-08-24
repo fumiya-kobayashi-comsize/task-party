@@ -221,4 +221,126 @@ class TaskSelectDAOTest {
 			}
 		}
 	}
+
+	@Test
+	void testSelectOtherProgressTask1(){
+		List<TaskBean> taskList = new ArrayList<TaskBean>();
+		TaskSelectDAO dao = new TaskSelectDAO();
+
+		//ファイル読み込みで使用する３つのクラス
+		FileInputStream fi = null;
+		InputStreamReader is = null;
+		BufferedReader br = null;
+
+		try {
+			taskList = dao.selectOtherProgressTask("admin", 1);
+			//読み込みファイルのインスタンス生成
+			//ファイル名を指定する
+			fi = new FileInputStream("admin除外済み着手中タスク一覧.csv");
+			is = new InputStreamReader(fi);
+			br = new BufferedReader(is);
+
+			//読み込み行
+			String line;
+
+			//読み込み行数の管理
+			int i = 0;
+
+			//LocalDateへの変換
+			DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd");
+
+			//1行ずつ読み込みを行う
+			while ((line = br.readLine()) != null) {
+				//先頭行は列名
+				if (i != 0) {
+					//カンマで分割した内容を配列に格納する
+					String[] data = line.split(",");
+					assertEquals(Integer.parseInt(data[0]), taskList.get(i - 1).getTaskId());
+					assertEquals(data[1], taskList.get(i - 1).getTaskName());
+					assertEquals(Integer.parseInt(data[2]), taskList.get(i - 1).getCategoryId());
+					if(Objects.toString(taskList.get(i - 1).getStartDate(), "") != "") {
+						assertEquals(LocalDate.parse(data[3], dtf), taskList.get(i - 1).getStartDate());
+					}
+					if(Objects.toString(taskList.get(i - 1).getLimitDate(), "") != "") {
+						assertEquals(LocalDate.parse(data[4], dtf), taskList.get(i - 1).getLimitDate());
+					}
+					assertEquals(data[5], taskList.get(i - 1).getUserId());
+					assertEquals(data[6], taskList.get(i - 1).getStatusCode());
+					assertEquals(data[7], taskList.get(i - 1).getMemo());
+				}
+				i++;
+			}
+		} catch (SQLException | ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				br.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+	}
+
+	@Test
+	void testSelectOtherProgressTask2(){
+		List<TaskBean> taskList = new ArrayList<TaskBean>();
+		TaskSelectDAO dao = new TaskSelectDAO();
+
+		//ファイル読み込みで使用する３つのクラス
+		FileInputStream fi = null;
+		InputStreamReader is = null;
+		BufferedReader br = null;
+
+		try {
+			taskList = dao.selectOtherProgressTask("user", 5);
+			//読み込みファイルのインスタンス生成
+			//ファイル名を指定する
+			fi = new FileInputStream("user除外済み着手中タスク一覧.csv");
+			is = new InputStreamReader(fi);
+			br = new BufferedReader(is);
+
+			//読み込み行
+			String line;
+
+			//読み込み行数の管理
+			int i = 0;
+
+			//LocalDateへの変換
+			DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd");
+
+			//1行ずつ読み込みを行う
+			while ((line = br.readLine()) != null) {
+				//先頭行は列名
+				if (i != 0) {
+					//カンマで分割した内容を配列に格納する
+					String[] data = line.split(",");
+					assertEquals(Integer.parseInt(data[0]), taskList.get(i - 1).getTaskId());
+					assertEquals(data[1], taskList.get(i - 1).getTaskName());
+					assertEquals(Integer.parseInt(data[2]), taskList.get(i - 1).getCategoryId());
+					if(Objects.toString(taskList.get(i - 1).getStartDate(), "") != "") {
+						assertEquals(LocalDate.parse(data[3], dtf), taskList.get(i - 1).getStartDate());
+					}
+					if(Objects.toString(taskList.get(i - 1).getLimitDate(), "") != "") {
+						assertEquals(LocalDate.parse(data[4], dtf), taskList.get(i - 1).getLimitDate());
+					}
+					assertEquals(data[5], taskList.get(i - 1).getUserId());
+					assertEquals(data[6], taskList.get(i - 1).getStatusCode());
+					assertEquals(data[7], taskList.get(i - 1).getMemo());
+				}
+				i++;
+			}
+		} catch (SQLException | ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				br.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+	}
 }
