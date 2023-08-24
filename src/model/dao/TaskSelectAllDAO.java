@@ -16,8 +16,15 @@ import model.entity.TaskShowBean;
  * @author Koseki
  *
  */
+
 public class TaskSelectAllDAO {
 
+	/**
+	 * 表示用タスク一覧を取得するメソッド
+	 * @return 各タスクのID,名前,カテゴリ名,開始日,期限,担当名,状態,メモが入っているリスト
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 */
 	public List<TaskShowBean> SelectAll() throws ClassNotFoundException, SQLException {
 
 		//空のリスト作成

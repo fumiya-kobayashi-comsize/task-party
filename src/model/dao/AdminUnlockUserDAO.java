@@ -12,6 +12,12 @@ import java.sql.SQLException;
  */
 public class AdminUnlockUserDAO {
 
+	/**
+	 * 管理者がロックされているユーザーをアンロックするためのメソッド
+	 * @return ロックが解除されたかを確認するための変数 0 or 1
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 */
 	public int unlockUser(String userId) throws SQLException, ClassNotFoundException {
 		int res = 0;
 		String sql = "UPDATE m_user SET login_attempts = 0, is_locked = false WHERE user_id = ?";

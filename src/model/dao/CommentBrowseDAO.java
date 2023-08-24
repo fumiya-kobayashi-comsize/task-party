@@ -19,6 +19,12 @@ import model.entity.CommentBean;
  */
 public class CommentBrowseDAO {
 
+	/**
+	 * 選択したタスクからそのタスクに応じたコメントを表示させるためのメソッド
+	 * @return 引数のタスクIDに応じたコメントのリスト
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 */
 	public List<CommentBean> TaskComment(int taskId) throws ClassNotFoundException, SQLException{
 		//空のリスト作成
 		List<CommentBean> commentList = new ArrayList<CommentBean>();

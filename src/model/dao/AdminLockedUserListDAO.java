@@ -17,6 +17,12 @@ import model.entity.UserBean;
  */
 public class AdminLockedUserListDAO {
 
+	/**
+	 * 管理者がロックされているユーザーを確認するためのメソッド
+	 * @return ログインがロックされているユーザーのリスト
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 */
 	public List<UserBean> lockedUserList() throws SQLException, ClassNotFoundException{
 		String sql = "SELECT * FROM m_user WHERE is_locked = true ";
 
