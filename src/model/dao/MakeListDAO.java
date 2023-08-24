@@ -12,6 +12,7 @@ import model.entity.StatusBean;
 import model.entity.UserBean;
 
 /**
+ * m_category,m_user,m_statusからそれぞれ情報を取得するメソッドを格納
  * @author Negami
  *
  */

@@ -3,8 +3,9 @@ package model.entity;
 import java.time.LocalDate;
 
 /**
- * タスクの表示用Bean
- * @author こせき
+ * タスク表示用の情報を
+ * 格納するBean
+ * @author Koseki
  *
  */
 public class TaskShowBean {

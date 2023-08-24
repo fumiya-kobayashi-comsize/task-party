@@ -1,8 +1,9 @@
 package model.entity;
 
 /**
- * タスクの表示用Bean
- * @author こせき
+ * コメント表示用の情報を
+ * 格納するBean
+ * @author Koseki
  *
  */
 public class CommentBean {
