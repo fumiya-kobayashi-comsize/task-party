@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 /**
+ * 特定のcomment_idを持つコメントを削除するメソッドを格納するクラス
  * @author Negami
  *
  */

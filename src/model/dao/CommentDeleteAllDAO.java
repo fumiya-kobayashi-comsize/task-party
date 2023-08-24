@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 /**
+ * 特定のtask_idを外部キーとして所有するコメントを全て削除するメソッドを格納するクラス
  * @author Negami
  *
  */

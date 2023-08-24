@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import model.entity.CommentBean;
 
 /**
+ * t_commentテーブルにコメントを登録するメソッドを格納するクラス
  * @author Negami
  *
  */
