@@ -15,32 +15,14 @@ import model.dao.AdminLockedUserListDAO;
 import model.entity.UserBean;
 
 /**
- * Servlet implementation class AdminLockedUserList
+ * 管理者によるロックされたユーザーのリストを制御するサーブレット
+ * @author Koseki
  */
 @WebServlet("/AdminLockedUserList")
-public class AdminLockedUserList extends HttpServlet {
+public class AdminLockedUserListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	/**
-	 * @see HttpServlet#HttpServlet()
-	 */
-	public AdminLockedUserList() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
-	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");

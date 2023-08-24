@@ -25,7 +25,7 @@
 				<td><%=lockedUser.getUserId() %></td>
 				<td><%=lockedUser.getUserName() %></td>
 				<td>
-					<form action = "AdminUnlockUser" method = "POST">
+					<form action = "AdminUnlockUserServlet" method = "POST">
 					<input type = "hidden" name = "unlock" value = <%=lockedUser.getUserId() %>>
 						<input type = "submit" value = "解除">
 					</form>

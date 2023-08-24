@@ -13,31 +13,13 @@ import javax.servlet.http.HttpServletResponse;
 import model.dao.AdminUnlockUserDAO;
 
 /**
- * Servlet implementation class AdminUnlockUser
+ * 管理者によるロックされているユーザーの解除を制御をするサーブレット
+ * @author Koseki
  */
 @WebServlet("/AdminUnlockUser")
-public class AdminUnlockUser extends HttpServlet {
+public class AdminUnlockUserServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public AdminUnlockUser() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
-
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
-	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 
@@ -47,7 +29,7 @@ public class AdminUnlockUser extends HttpServlet {
 		} catch (SQLException | ClassNotFoundException e) {
 			e.printStackTrace();
 		}
-		RequestDispatcher rd = request.getRequestDispatcher("AdminLockedUserList");
+		RequestDispatcher rd = request.getRequestDispatcher("AdminLockedUserListServlet");
 		rd.forward(request, response);
 	}
 }

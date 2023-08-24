@@ -18,29 +18,13 @@ import model.entity.CommentBean;
 import model.entity.TaskShowBean;
 
 /**
- * Servlet implementation class CommentBrowseServlet
+ * タスクに付随するコメントの表示を制御するサーブレット
+ * @author Koseki
  */
 @WebServlet("/CommentBrowseServlet")
 public class CommentBrowseServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public CommentBrowseServlet() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
-
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//魔法の呪文
 		request.setCharacterEncoding("UTF-8");
