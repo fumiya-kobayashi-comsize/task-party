@@ -40,12 +40,9 @@ public class EmployeeCalendarServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		MakeListDAO listDAO = new MakeListDAO();
-		TaskSelectDAO selectDAO = new TaskSelectDAO();
 		List<UserBean> userList = null;
-		List<TaskBean> progressTaskList = null;
 		try {
 			userList = listDAO.selectAllUser();
-			progressTaskList = selectDAO.selectProgressTask();
 		} catch (ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
 		}
@@ -58,8 +55,6 @@ public class EmployeeCalendarServlet extends HttpServlet {
 			}
 			isEmptyTaskWeekLists.add(isEmptyTaskWeekList);
 		}
-		boolean flag = isEmptyTaskWeekLists.get(0)[0];
-
 
 		HttpSession session = request.getSession();
 		session.setAttribute("user_list", userList);
@@ -76,12 +71,9 @@ public class EmployeeCalendarServlet extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		HttpSession session = request.getSession();
 		MakeListDAO listDAO = new MakeListDAO();
-		TaskSelectDAO selectDAO = new TaskSelectDAO();
 		List<UserBean> userList = null;
-		List<TaskBean> progressTaskList = null;
 		try {
 			userList = listDAO.selectAllUser();
-			progressTaskList = selectDAO.selectProgressTask();
 		} catch (ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
 		}
@@ -100,6 +92,7 @@ public class EmployeeCalendarServlet extends HttpServlet {
 			}
 			isEmptyTaskWeekLists.add(isEmptyTaskWeekList);
 		}
+
 
 		session.setAttribute("user_list", userList);
 		session.setAttribute("is_empty_list", isEmptyTaskWeekLists);
