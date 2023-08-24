@@ -14,7 +14,7 @@ import model.entity.TaskBean;
  */
 public class TaskUpdateDAO {
 	/**
-	 * 引数にしたTaskBeanの値にタスクを更新し、更新した回数を戻り値として返すメソッド
+	 * 引数にしたTaskBeanの値にタスクを更新するメソッド
 	 * @param TaskBean
 	 * @return 更新回数
 	 * @throws ClassNotFoundException

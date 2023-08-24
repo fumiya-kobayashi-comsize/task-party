@@ -145,6 +145,9 @@ public class TaskEditServlet extends HttpServlet {
 	 * @return boolean
 	 */
 	private boolean canUpdateTask(TaskBean updateTask) {
+		// 更新するタスクが未着手なら更新可能
+		if(updateTask.getStatusCode().equals("00")) return true;
+
 		TaskSelectDAO selectDAO = new TaskSelectDAO();
 		List<TaskBean> usersTaskList = null;
 		try {
@@ -155,7 +158,7 @@ public class TaskEditServlet extends HttpServlet {
 		}
 
 		// タスクが重複していないか判定
-		if(usersTaskList == null) return true;
+		if(usersTaskList.isEmpty()) return true;
 		if(updateTask.getStartDate() == null && updateTask.getLimitDate() == null) return false;
 		for (TaskBean usersTask : usersTaskList) {
 			if (usersTask.getStartDate() == null && usersTask.getLimitDate() == null) {

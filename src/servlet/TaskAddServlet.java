@@ -126,6 +126,9 @@ public class TaskAddServlet extends HttpServlet {
 	 * @return boolean
 	 */
 	private boolean canInsertTask(TaskBean insertTask) {
+		// 追加するタスクが未着手なら挿入可能
+		if(insertTask.getStatusCode().equals("00")) return true;
+
 		TaskSelectDAO selectDAO = new TaskSelectDAO();
 		List<TaskBean> usersTaskList = null;
 		try {
@@ -136,7 +139,7 @@ public class TaskAddServlet extends HttpServlet {
 		}
 
 		// タスクが重複していないか判定
-		if(usersTaskList == null) return true;
+		if(usersTaskList.isEmpty()) return true;
 		if(insertTask.getStartDate() == null && insertTask.getLimitDate() == null) return false;
 		for (TaskBean usersTask : usersTaskList) {
 			if (usersTask.getStartDate() == null && usersTask.getLimitDate() == null) {
