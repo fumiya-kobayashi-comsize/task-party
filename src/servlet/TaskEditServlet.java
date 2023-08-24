@@ -137,8 +137,8 @@ public class TaskEditServlet extends HttpServlet {
 	 * @return boolean
 	 */
 	private boolean canUpdateTask(TaskBean updateTask) {
-		// 更新するタスクが未着手なら更新可能
-		if(updateTask.getStatusCode().equals("00")) return true;
+		// 更新するタスクが未着手もしくは完了なら更新可能
+		if(updateTask.getStatusCode().equals("00") || updateTask.getStatusCode().equals("99")) return true;
 
 		TaskSelectDAO selectDAO = new TaskSelectDAO();
 		List<TaskBean> usersTaskList = null;

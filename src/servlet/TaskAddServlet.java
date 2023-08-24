@@ -124,8 +124,8 @@ public class TaskAddServlet extends HttpServlet {
 	 * @return boolean
 	 */
 	private boolean canInsertTask(TaskBean insertTask) {
-		// 追加するタスクが未着手なら挿入可能
-		if(insertTask.getStatusCode().equals("00")) return true;
+		// 追加するタスクが未着手もしくは完了なら挿入可能
+		if(insertTask.getStatusCode().equals("00") || insertTask.getStatusCode().equals("99")) return true;
 
 		TaskSelectDAO selectDAO = new TaskSelectDAO();
 		List<TaskBean> usersTaskList = null;
