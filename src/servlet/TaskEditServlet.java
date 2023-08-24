@@ -28,8 +28,8 @@ import model.entity.UserBean;
  * Servlet implementation class TaskEditServlet
  */
 /**
- * タスク編集Servlet
- * @author arakawa
+ * タスクの編集を制御するServlet
+ * @author Arakawa
  *
  */
 @WebServlet("/TaskEditServlet")
@@ -110,7 +110,7 @@ public class TaskEditServlet extends HttpServlet {
 		TaskUpdateDAO dao = new TaskUpdateDAO();
 		TaskSelectCurrentUserDAO currentUserDAO =new TaskSelectCurrentUserDAO();
 		int updateCount = 0;
-		//更新可能ならタスクを更新する
+		// 更新可能ならタスクを更新する
 		if(canUpdateTask(updateTask)) {
 			try {
 				if(!updateTask.equals(selectDao.selectTask(updateTask.getTaskId()))) {
@@ -140,8 +140,7 @@ public class TaskEditServlet extends HttpServlet {
 	}
 
 	/**
-	 * タスクを更新可能か判定するメソッド
-	 * @author Arakawa
+	 * 更新するタスクと同ユーザーの既存タスクの期間を比較し、更新可能か判定するメソッド
 	 * @param updateTask
 	 * @return boolean
 	 */
@@ -149,13 +148,13 @@ public class TaskEditServlet extends HttpServlet {
 		TaskSelectDAO selectDAO = new TaskSelectDAO();
 		List<TaskBean> usersTaskList = null;
 		try {
-			//タスクを更新しようとしたユーザーの着手中のタスク一覧(更新タスクを除く)を取得
+			// タスクを更新しようとしたユーザーの着手中のタスク一覧(更新タスクを除く)を取得
 			usersTaskList = selectDAO.selectOtherProgressTask(updateTask.getUserId(), updateTask.getTaskId());
 		} catch (ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
 		}
 
-		//タスクが重複していないか判定
+		// タスクが重複していないか判定
 		if(usersTaskList == null) return true;
 		if(updateTask.getStartDate() == null && updateTask.getLimitDate() == null) return false;
 		for (TaskBean usersTask : usersTaskList) {
