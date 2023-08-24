@@ -19,12 +19,12 @@
 	<div class="date_changer">
 	<div class="inline">
 	<form action="EmployeeCalendarServlet" method="post">
-	<input type = "hidden" name = "date_change", value = prev>
+	<input type = "hidden" name = "date_change" value = prev>
 	<input type = "submit" value = "PREV">
 	</form>
 	<%=date.format(DateTimeFormatter.ofPattern("yyyy年MM月dd日(E)", locale)) %>
 	<form action="EmployeeCalendarServlet" method="post">
-	<input type = "hidden" name = "date_change", value = next>
+	<input type = "hidden" name = "date_change" value = next>
 	<input type = "submit" value = "NEXT">
 	</form>
 	</div>
