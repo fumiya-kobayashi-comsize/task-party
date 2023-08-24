@@ -20,20 +20,15 @@ import model.dao.TaskSelectDAO;
 import model.entity.TaskBean;
 import model.entity.UserBean;
 
+
 /**
- * Servlet implementation class EmployeeCalendarServlet
+ * 従業員のカレンダー早見表を制御するためのServlet
+ * @author Arakawa
+ *
  */
 @WebServlet("/EmployeeCalendarServlet")
 public class EmployeeCalendarServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public EmployeeCalendarServlet() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
@@ -102,6 +97,12 @@ public class EmployeeCalendarServlet extends HttpServlet {
 		rd.forward(request, response);
 	}
 
+	/**
+	 * ユーザーと日付から着手中タスクがあるかどうか判定するメソッド
+	 * @param userId
+	 * @param checkDate
+	 * @return boolean
+	 */
 	private boolean isTaskEmpty(String userId, LocalDate checkDate) {
 		boolean isEmpty = true;
 		TaskSelectDAO selectDAO = new TaskSelectDAO();
