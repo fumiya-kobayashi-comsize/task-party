@@ -26,17 +26,15 @@ import model.entity.UserBean;
 /**
  * Servlet implementation class TaskAddServlet
  */
+/**
+ * タスクの追加を制御するServlet
+ * @author Arakawa
+ *
+ */
 @WebServlet("/TaskAddServlet")
 public class TaskAddServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	/**
-	 * @see HttpServlet#HttpServlet()
-	 */
-	public TaskAddServlet() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
