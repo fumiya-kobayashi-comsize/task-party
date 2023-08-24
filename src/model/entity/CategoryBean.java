@@ -1,8 +1,8 @@
 package model.entity;
 
 /**
- * カテゴリーのBean
- * @author arakawa
+ * カテゴリー情報を格納するBean
+ * @author Arakawa
  *
  */
 public class CategoryBean {

@@ -1,8 +1,8 @@
 package model.entity;
 
 /**
- * ステータスのBean
- * @author arakawa
+ * ステータス情報を格納するBean
+ * @author Arakawa
  *
  */
 public class StatusBean {

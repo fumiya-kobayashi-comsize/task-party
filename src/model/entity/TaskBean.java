@@ -3,8 +3,8 @@ package model.entity;
 import java.time.LocalDate;
 
 /**
- * タスクのBean
- * @author arakawa
+ * タスク情報を格納するBean
+ * @author Aakawa
  *
  */
 public class TaskBean {
