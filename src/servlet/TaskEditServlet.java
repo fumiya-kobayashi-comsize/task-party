@@ -70,30 +70,33 @@ public class TaskEditServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
+		LocalDate startDate = null;
+		LocalDate limitDate = null;
+		String memo =null;
+		int currentUsersLimit =0;
 		TaskBean updateTask = new TaskBean();
 		updateTask.setTaskId(Integer.parseInt(request.getParameter("task_id")));
 		updateTask.setTaskName(request.getParameter("task_name"));
 		updateTask.setCategoryId(Integer.parseInt(request.getParameter("category_id")));
-		LocalDate startDate = null;
 		HttpSession session = request.getSession();
 		String userId = (String) session.getAttribute("user_id");
-		int currentUsersLimit =0;
-
 
 		if(!request.getParameter("start_date").equals("")) {
 			 startDate = LocalDate.parse(request.getParameter("start_date"),
 					DateTimeFormatter.ofPattern("yyyy-MM-dd"));
 		}
-		updateTask.setStartDate(startDate);
-		LocalDate localDate = null;
 		if(!request.getParameter("limit_date").equals("")) {
-			 localDate = LocalDate.parse(request.getParameter("limit_date"),
+			 limitDate = LocalDate.parse(request.getParameter("limit_date"),
 					DateTimeFormatter.ofPattern("yyyy-MM-dd"));
 		}
-		updateTask.setLimitDate(localDate);
+		if(!request.getParameter("memo").equals("")) {
+			memo=request.getParameter("memo");
+		}
+		updateTask.setStartDate(startDate);
+		updateTask.setLimitDate(limitDate);
 		updateTask.setUserId(request.getParameter("user_id"));
 		updateTask.setStatusCode(request.getParameter("status_code"));
-		updateTask.setMemo(request.getParameter("memo"));
+		updateTask.setMemo(memo);
 
 		TaskSelectDAO selectDao = new TaskSelectDAO();
 		TaskUpdateDAO dao = new TaskUpdateDAO();
