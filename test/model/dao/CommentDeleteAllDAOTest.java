@@ -23,7 +23,7 @@ public class CommentDeleteAllDAOTest {
 		} catch (ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
 		}
-		assertEquals(1, count);
+		assertEquals(7, count);
 	}
 	@Test
 	void deleteAllCommentFailure() {

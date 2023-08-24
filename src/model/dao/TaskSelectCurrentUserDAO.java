@@ -50,7 +50,7 @@ public class TaskSelectCurrentUserDAO {
 				}
 //				開始日と期限日が決まっている場合
 				if (startDate != null && limitDate != null) {
-					if (startDate.isBefore(currentDate) || startDate.isEqual(currentDate)) {
+					if (startDate.isEqual(currentDate) || startDate.isBefore(currentDate)) {
 						currentUsersLimit = (int) ChronoUnit.DAYS.between(currentDate, limitDate);
 					}
 //				期限日のみ決まってる場合

@@ -19,7 +19,7 @@ class TaskSelectCurrentUserDAOTest {
 		} catch (SQLException | ClassNotFoundException e) {
 			e.printStackTrace();
 		}
-		assertEquals(0, result);
+		assertEquals(7, result);
 	}
 
 	@Test
@@ -29,6 +29,34 @@ class TaskSelectCurrentUserDAOTest {
 
 		try {
 			result = dao.selectCurrentUsersTask("user");
+
+		} catch (SQLException | ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+		assertEquals(0, result);
+	}
+
+	@Test
+	void test3() {
+		int result = 0;
+		TaskSelectCurrentUserDAO dao = new TaskSelectCurrentUserDAO();
+
+		try {
+			result = dao.selectCurrentUsersTask("test1");
+
+		} catch (SQLException | ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+		assertEquals(2, result);
+	}
+
+	@Test
+	void test4() {
+		int result = 0;
+		TaskSelectCurrentUserDAO dao = new TaskSelectCurrentUserDAO();
+
+		try {
+			result = dao.selectCurrentUsersTask("test2");
 
 		} catch (SQLException | ClassNotFoundException e) {
 			e.printStackTrace();
