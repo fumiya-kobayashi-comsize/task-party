@@ -16,20 +16,14 @@ import model.dao.TaskSelectDAO;
 import model.entity.CommentBean;
 import model.entity.TaskShowBean;
 
+
 /**
- * Servlet implementation class CommentPostServlet
+ * @author Negami
+ *
  */
 @WebServlet("/CommentPostServlet")
 public class CommentPostServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
-	/**
-	 * @see HttpServlet#HttpServlet()
-	 */
-	public CommentPostServlet() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
 
 	/**
 	 *

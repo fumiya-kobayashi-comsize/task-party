@@ -13,20 +13,14 @@ import javax.servlet.http.HttpSession;
 
 import model.dao.CommentDeleteDAO;
 
+
 /**
- * Servlet implementation class CommentDeleteServlet
+ * @author Negami
+ *
  */
 @WebServlet("/CommentDeleteServlet")
 public class CommentDeleteServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
-	/**
-	 * @see HttpServlet#HttpServlet()
-	 */
-	public CommentDeleteServlet() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)

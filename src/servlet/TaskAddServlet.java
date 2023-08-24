@@ -25,7 +25,7 @@ import model.entity.UserBean;
 
 /**
  * タスクの追加を制御するServlet
- * @author Arakawa
+ * @author Negami Arakawa
  *
  */
 @WebServlet("/TaskAddServlet")

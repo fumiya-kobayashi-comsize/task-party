@@ -15,20 +15,14 @@ import model.dao.TaskSelectCurrentUserDAO;
 import model.dao.UserDAO;
 import util.PasswordUtil;
 
+
 /**
- * Servlet implementation class LoginServlet
+ * @author Negami Koseki
+ *
  */
 @WebServlet("/LoginServlet")
 public class LoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
-	/**
-	 * @see HttpServlet#HttpServlet()
-	 */
-	public LoginServlet() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
