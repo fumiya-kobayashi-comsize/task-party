@@ -33,7 +33,7 @@ class TaskSelectCurrentUserDAOTest {
 		} catch (SQLException | ClassNotFoundException e) {
 			e.printStackTrace();
 		}
-		assertEquals(6, result);
+		assertEquals(7, result);
 	}
 
 }

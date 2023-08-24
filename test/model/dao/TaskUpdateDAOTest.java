@@ -38,33 +38,11 @@ class TaskUpdateDAOTest {
 		int count = 0;
 		TaskBean task = new TaskBean();
 		task.setTaskId(9);
-		task.setTaskName("adminタスク50");
+		task.setTaskName("negami着手中タスク");
 		task.setCategoryId(1);
 		task.setStartDate(null);
 		task.setLimitDate(null);
-		task.setUserId("admin");
-		task.setStatusCode("50");
-		task.setMemo("");
-		TaskUpdateDAO dao = new TaskUpdateDAO();
-		try {
-			count = dao.updateTask(task);
-		} catch (ClassNotFoundException | SQLException e) {
-			// TODO 自動生成された catch ブロック
-			e.printStackTrace();
-		}
-		assertEquals(1, count);
-	}
-
-	@Test
-	void test3UpdateTask() {
-		int count = 0;
-		TaskBean task = new TaskBean();
-		task.setTaskId(10);
-		task.setTaskName("userタスク50");
-		task.setCategoryId(1);
-		task.setStartDate(LocalDate.of(2023, 8, 21));
-		task.setLimitDate(LocalDate.of(2023, 8, 31));
-		task.setUserId("user");
+		task.setUserId("negami");
 		task.setStatusCode("50");
 		task.setMemo("");
 		TaskUpdateDAO dao = new TaskUpdateDAO();

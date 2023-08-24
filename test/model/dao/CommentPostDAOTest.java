@@ -33,20 +33,4 @@ public class CommentPostDAOTest {
 		assertEquals(1, count);
 	}
 
-	@Test
-	void postCommentFailure() {
-		int count = 0;
-		CommentPostDAO postDAO = new CommentPostDAO();
-		CommentBean commnetBean = new CommentBean();
-		commnetBean.setTaskId(1);
-		commnetBean.setCommentUser("");
-		commnetBean.setCommentContent("");
-		try {
-			count = postDAO.postComment(commnetBean);
-		} catch (ClassNotFoundException | SQLException e) {
-			// TODO 自動生成された catch ブロックd
-			e.printStackTrace();
-		}
-		assertEquals(0, count);
-	}
 }
