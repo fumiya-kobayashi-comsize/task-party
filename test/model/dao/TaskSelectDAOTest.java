@@ -56,7 +56,7 @@ class TaskSelectDAOTest {
 		assertEquals(null, ts.getLimitDate());
 		assertEquals("一般ユーザー", ts.getUserName());
 		assertEquals("着手", ts.getStatusName());
-		assertEquals("サンプルメモ", ts.getMemo());
+		assertEquals("", ts.getMemo());
 	}
 
 	@Test
@@ -84,17 +84,17 @@ class TaskSelectDAOTest {
 		TaskSelectDAO dao = new TaskSelectDAO();
 		TaskBean task = new TaskBean();
 		try {
-			task = dao.selectTask(6);
+			task = dao.selectTask(8);
 		} catch (ClassNotFoundException | SQLException e) {
 			// TODO 自動生成された catch ブロック
 			e.printStackTrace();
 		}
-		assertEquals(6, task.getTaskId());
-		assertEquals("test2タスク50", task.getTaskName());
+		assertEquals(8, task.getTaskId());
+		assertEquals("test4タスク50", task.getTaskName());
 		assertEquals(1, task.getCategoryId());
-		assertEquals(LocalDate.of(2023, 8, 31), task.getStartDate());
-		assertEquals(LocalDate.of(2023, 9, 30), task.getLimitDate());
-		assertEquals("test2", task.getUserId());
+		assertEquals(null, task.getStartDate());
+		assertEquals(null, task.getLimitDate());
+		assertEquals("test4", task.getUserId());
 		assertEquals("50", task.getStatusCode());
 		assertEquals("", task.getMemo());
 	}
