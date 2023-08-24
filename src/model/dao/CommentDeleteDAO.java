@@ -5,7 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 /**
- * @author 根上
+ * @author Negami
  *
  */
 public class CommentDeleteDAO {
