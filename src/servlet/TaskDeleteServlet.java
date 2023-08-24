@@ -18,23 +18,13 @@ import model.dao.TaskSelectDAO;
 import model.entity.TaskShowBean;
 
 /**
- * Servlet implementation class TaskDeleteServlet
+ * タスクの削除を制御するサーブレット
+ * @author Koseki
  */
 @WebServlet("/TaskDeleteServlet")
 public class TaskDeleteServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public TaskDeleteServlet() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
-
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 
@@ -52,16 +42,12 @@ public class TaskDeleteServlet extends HttpServlet {
 		rd.forward(request, response);
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 
 		TaskDeleteDAO dao = new TaskDeleteDAO();
 		CommentDeleteAllDAO commentDelete = new CommentDeleteAllDAO();
 		TaskSelectCurrentUserDAO currentUserDAO =new TaskSelectCurrentUserDAO();
-		int updateCount = 0;
 		HttpSession session = request.getSession();
 		String userId = (String) session.getAttribute("user_id");
 		int currentUsersLimit =0;
