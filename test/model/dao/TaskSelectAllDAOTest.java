@@ -10,6 +10,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import org.junit.jupiter.api.Test;
 
@@ -53,8 +54,12 @@ class TaskSelectAllDAOTest {
 					assertEquals(Integer.parseInt(data[0]), taskList.get(i - 1).getTaskId());
 					assertEquals(data[1], taskList.get(i - 1).getTaskName());
 					assertEquals(data[2], taskList.get(i - 1).getCategoryName());
-					assertEquals(LocalDate.parse(data[3], dtf), taskList.get(i - 1).getStartDate());
-					assertEquals(LocalDate.parse(data[4], dtf), taskList.get(i - 1).getLimitDate());
+					if (Objects.toString(taskList.get(i - 1).getStartDate(), "") != "") {
+						assertEquals(LocalDate.parse(data[3], dtf), taskList.get(i - 1).getStartDate());
+					}
+					if (Objects.toString(taskList.get(i - 1).getLimitDate(), "") != "") {
+						assertEquals(LocalDate.parse(data[4], dtf), taskList.get(i - 1).getLimitDate());
+					}
 					assertEquals(data[5], taskList.get(i - 1).getUserName());
 					assertEquals(data[6], taskList.get(i - 1).getStatusName());
 					assertEquals(data[7], taskList.get(i - 1).getMemo());

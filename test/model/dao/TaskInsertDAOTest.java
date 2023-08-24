@@ -16,10 +16,10 @@ class TaskInsertDAOTest {
 		TaskBean task = new TaskBean();
 		task.setTaskName("サンプルタスク３");
 		task.setCategoryId(1);
-		task.setStartDate(LocalDate.of(2023, 8, 8));
-		task.setLimitDate(LocalDate.of(2023, 9, 1));
-		task.setUserId("admin");
-		task.setStatusCode("99");
+		task.setStartDate(LocalDate.of(2023, 8, 1));
+		task.setLimitDate(LocalDate.of(2023, 8, 31));
+		task.setUserId("arakawa");
+		task.setStatusCode("50");
 		task.setMemo("サンプルメモ３");
 		int count = 0;
 		TaskInsertDAO dao = new TaskInsertDAO();
@@ -40,8 +40,8 @@ class TaskInsertDAOTest {
 		task.setCategoryId(1);
 		task.setStartDate(null);
 		task.setLimitDate(null);
-		task.setUserId("admin");
-		task.setStatusCode("99");
+		task.setUserId("test5");
+		task.setStatusCode("00");
 		task.setMemo("");
 		int count = 0;
 		TaskInsertDAO dao = new TaskInsertDAO();
