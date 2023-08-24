@@ -89,9 +89,9 @@ public class EmployeeCalendarServlet extends HttpServlet {
 		LocalDate date = (LocalDate)session.getAttribute("date");
 		String dateChange = request.getParameter("date_change");
 		if(dateChange.equals("next")) {
-			date = date.plusDays(1);
+			date = date.plusDays(7);
 		}else if(dateChange.equals("prev")){
-			date = date.minusDays(1);
+			date = date.minusDays(7);
 		}
 		for (UserBean user : userList) {
 			boolean [] isEmptyTaskWeekList = new boolean[7];
@@ -100,9 +100,6 @@ public class EmployeeCalendarServlet extends HttpServlet {
 			}
 			isEmptyTaskWeekLists.add(isEmptyTaskWeekList);
 		}
-		boolean flag = isEmptyTaskWeekLists.get(0)[0];
-
-
 
 		session.setAttribute("user_list", userList);
 		session.setAttribute("is_empty_list", isEmptyTaskWeekLists);
