@@ -9,8 +9,8 @@ import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.PBEKeySpec;
 
 /**
- * ハッシュ化クラス
- * @author arakawa
+ * パスワードをソルトを使用してハッシュ化するためのクラス
+ * @author Arakawa
  *
  */
 public class PasswordUtil {
@@ -22,6 +22,7 @@ public class PasswordUtil {
     private static final int KEY_LENGTH = 256;
 
     /**
+     * ユーザーIDをソルトにして、パスワードをハッシュ化するためのメソッド
      * @param パスワード
      * @param ユーザーID
      * @return ハッシュ化済みのパスワード
