@@ -107,8 +107,8 @@ INSERT INTO task_db.t_task(task_name, category_id, start_date, limit_date, user_
 INSERT INTO task_db.t_task(task_name, category_id, start_date, user_id, status_code) VALUES ('サンプルタスク2', 2, '2023-08-01','admin', '99');
 INSERT INTO task_db.t_task(task_name, category_id, start_date, limit_date, user_id, status_code, memo) VALUES ('着手中サンプルタスク', 1, '2023-08-01', '2023-08-31', 'admin', '50', 'サンプルメモ');
 INSERT INTO task_db.t_task(task_name, category_id, user_id, status_code) VALUES ('着手中サンプルタスク', 1, 'user', '50');
-INSERT INTO task_db.t_task(task_name, category_id, start_date, limit_date, user_id, status_code, memo) VALUES ('test1タスク50', 1,'2023-08-22', '2023-08-24', 'test1', '50', 'サンプルメモ');
-INSERT INTO task_db.t_task(task_name, category_id, start_date, limit_date, user_id, status_code) VALUES ('test2タスク50', 1,'2023-08-31', '2023-09-30', 'test2', '50');
+INSERT INTO task_db.t_task(task_name, category_id, start_date, limit_date, user_id, status_code, memo) VALUES ('test1タスク50', 1,'2023-08-24', '2023-08-26', 'test1', '50', 'サンプルメモ');
+INSERT INTO task_db.t_task(task_name, category_id, limit_date, user_id, status_code) VALUES ('test2タスク50', 1, '2023-08-31', 'test2', '50');
 INSERT INTO task_db.t_task(task_name, category_id, user_id, status_code, memo) VALUES ('test3タスク50', 1, 'test3', '50', 'サンプルメモ');
 INSERT INTO task_db.t_task(task_name, category_id, user_id, status_code) VALUES ('test4タスク50', 1, 'test4', '50');
 
