@@ -76,11 +76,11 @@ public class TaskAddServlet extends HttpServlet {
 		TaskSelectCurrentUserDAO currentUserDAO = new TaskSelectCurrentUserDAO();
 		HttpSession session = request.getSession();
 		String userId = (String) session.getAttribute("user_id");
-		int count = 0;
+		int insertCount = 0;
 		int currentUsersLimit = 0;
 		LocalDate localDate = null;
 		LocalDate startDate = null;
-		//　　　送られてきたdateをlocaldateへ変換
+		// 送られてきたdateをlocaldateへ変換
 		if (!request.getParameter("startDate").equals("")) {
 			startDate = LocalDate.parse(request.getParameter("startDate"),
 					DateTimeFormatter.ofPattern("yyyy-MM-dd"));
@@ -99,10 +99,10 @@ public class TaskAddServlet extends HttpServlet {
 		insertTask.setMemo(request.getParameter("memo"));
 
 
-		//タスクを追加可能なら追加
+		// タスクが追加可能なら追加
 		if (canInsertTask(insertTask)) {
 			try {
-				count = insertDAO.insertTask(insertTask);
+				insertCount = insertDAO.insertTask(insertTask);
 				currentUsersLimit = currentUserDAO.selectCurrentUsersTask(userId);
 			} catch (ClassNotFoundException | SQLException e) {
 				e.printStackTrace();
@@ -110,7 +110,7 @@ public class TaskAddServlet extends HttpServlet {
 		}
 		session.setAttribute("current_users_limit", currentUsersLimit);
 
-		if (count == 0) {
+		if (insertCount == 0) {
 			RequestDispatcher rd = request.getRequestDispatcher("add-task-error.jsp");
 			rd.forward(request, response);
 		} else {
@@ -121,7 +121,7 @@ public class TaskAddServlet extends HttpServlet {
 	}
 
 	/**
-	 * タスクを挿入可能か判定するメソッド
+	 * 引数にしたタスクと、同ユーザーの既存タスクの期間を比較し、挿入可能か判定するメソッド
 	 * @param insertTask
 	 * @return boolean
 	 */
