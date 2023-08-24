@@ -4,6 +4,12 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
+/**
+ * ロックされたユーザーをアンロックするための
+ * データベースに接続するDAO
+ * @author Koseki
+ *
+ */
 public class AdminUnlockUserDAO {
 
 	public int unlockUser(String userId) throws SQLException, ClassNotFoundException {

@@ -12,8 +12,9 @@ import java.util.List;
 import model.entity.CommentBean;
 
 /**
- * コメント表示DAO
- * @author こせき
+ * 引数のタスクのコメントをすべて取得するための
+ * データベースに接続するDAO
+ * @author Koseki
  *
  */
 public class CommentBrowseDAO {

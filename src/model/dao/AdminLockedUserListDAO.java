@@ -10,8 +10,9 @@ import java.util.List;
 import model.entity.UserBean;
 
 /**
- *
- * @author koseki
+ * ロックされているユーザーを取得するための
+ * データベースに接続するDAO
+ * @author Koseki
  *
  */
 public class AdminLockedUserListDAO {
@@ -24,6 +25,7 @@ public class AdminLockedUserListDAO {
 				PreparedStatement pstmt = con.prepareStatement(sql)) {
 
 			ResultSet res = pstmt.executeQuery();
+			//ロック済みユーザーのリストを挿入
 			while (res.next()) {
 				String userId = res.getString("user_id");
 				String userName = res.getString("user_name");

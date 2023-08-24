@@ -9,7 +9,7 @@ import java.time.temporal.ChronoUnit;
 
 /**
  * ログインしたユーザーが着手しているタスクの確認、現在日時と期限の差分を返す
- * @author 根上
+ * @author Negami
  * @return 現在日時と期限の差分
  */
 public class TaskSelectCurrentUserDAO {
@@ -48,7 +48,7 @@ public class TaskSelectCurrentUserDAO {
 				if (res.getDate("limit_date") != null) {
 					limitDate = res.getDate("limit_date").toLocalDate();
 				}
-//				開始日と期限日が決まっている場合
+				// 開始日と期限日が決まっている場合
 				if (startDate != null && limitDate != null) {
 					if (startDate.isEqual(currentDate) || startDate.isBefore(currentDate)) {
 						currentUsersLimit = (int) ChronoUnit.DAYS.between(currentDate, limitDate);

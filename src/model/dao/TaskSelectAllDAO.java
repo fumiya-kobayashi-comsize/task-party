@@ -11,18 +11,13 @@ import java.util.List;
 import model.entity.TaskShowBean;
 
 /**
- * @author 小関
- * タスク一覧を取得するDAO
+ * 【表示用】タスク一覧を取得するための
+ * データベースに接続するDAO
+ * @author Koseki
  *
  */
 public class TaskSelectAllDAO {
 
-	/**
-	 * タスク一覧のリストを作成し、返します。
-	 * @return タスク一覧のリスト
-	 * @throws SQLException
-	 * @throws ClassNotFoundException
-	 */
 	public List<TaskShowBean> SelectAll() throws ClassNotFoundException, SQLException {
 
 		//空のリスト作成
