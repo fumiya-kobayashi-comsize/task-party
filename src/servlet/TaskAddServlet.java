@@ -24,9 +24,6 @@ import model.entity.TaskBean;
 import model.entity.UserBean;
 
 /**
- * Servlet implementation class TaskAddServlet
- */
-/**
  * タスクの追加を制御するServlet
  * @author Arakawa
  *
@@ -78,6 +75,7 @@ public class TaskAddServlet extends HttpServlet {
 		int currentUsersLimit = 0;
 		LocalDate localDate = null;
 		LocalDate startDate = null;
+		String memo =null;
 		// 送られてきたdateをlocaldateへ変換
 		if (!request.getParameter("startDate").equals("")) {
 			startDate = LocalDate.parse(request.getParameter("startDate"),
@@ -87,6 +85,9 @@ public class TaskAddServlet extends HttpServlet {
 			localDate = LocalDate.parse(request.getParameter("limitDate"),
 					DateTimeFormatter.ofPattern("yyyy-MM-dd"));
 		}
+		if(!request.getParameter("memo").equals("")) {
+			memo=request.getParameter("memo");
+		}
 		TaskBean insertTask = new TaskBean();
 		insertTask.setTaskName(request.getParameter("taskName"));
 		insertTask.setCategoryId(Integer.parseInt(request.getParameter("categoryId")));
@@ -94,8 +95,7 @@ public class TaskAddServlet extends HttpServlet {
 		insertTask.setLimitDate(localDate);
 		insertTask.setUserId(request.getParameter("userId"));
 		insertTask.setStatusCode(request.getParameter("statusCode"));
-		insertTask.setMemo(request.getParameter("memo"));
-
+		insertTask.setMemo(memo);
 
 		// タスクが追加可能なら追加
 		if (canInsertTask(insertTask)) {
