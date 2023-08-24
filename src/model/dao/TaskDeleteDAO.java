@@ -5,12 +5,13 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 /**
- * タスクを削除するDAO
- * @author arakawa
+ * データベースからタスクを削除するDAO
+ * @author Arakawa
  *
  */
 public class TaskDeleteDAO {
 	/**
+	 * 引数にしたタスクIDのタスクをデータベースから削除し、削除回数を戻り値として返すメソッド
 	 * @param タスクID
 	 * @return 削除回数
 	 * @throws ClassNotFoundException

@@ -8,12 +8,13 @@ import java.sql.SQLException;
 import model.entity.TaskBean;
 
 /**
- * タスク更新DAO
- * @author arakawa
+ * データベースのタスクを更新するDAO
+ * @author Arakawa
  *
  */
 public class TaskUpdateDAO {
 	/**
+	 * 引数にしたTaskBeanの値にタスクを更新し、更新した回数を戻り値として返すメソッド
 	 * @param TaskBean
 	 * @return 更新回数
 	 * @throws ClassNotFoundException

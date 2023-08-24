@@ -122,7 +122,6 @@ public class TaskAddServlet extends HttpServlet {
 
 	/**
 	 * タスクを挿入可能か判定するメソッド
-	 * @author Arakawa
 	 * @param insertTask
 	 * @return boolean
 	 */
@@ -130,13 +129,13 @@ public class TaskAddServlet extends HttpServlet {
 		TaskSelectDAO selectDAO = new TaskSelectDAO();
 		List<TaskBean> usersTaskList = null;
 		try {
-			//タスクを追加しようとしたユーザーの着手中のタスク一覧を取得
+			// タスクを追加しようとしたユーザーの着手中のタスク一覧を取得
 			usersTaskList = selectDAO.selectProgressTask(insertTask.getUserId());
 		} catch (ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
 		}
 
-		//タスクが重複していないか判定
+		// タスクが重複していないか判定
 		if(usersTaskList == null) return true;
 		if(insertTask.getStartDate() == null && insertTask.getLimitDate() == null) return false;
 		for (TaskBean usersTask : usersTaskList) {

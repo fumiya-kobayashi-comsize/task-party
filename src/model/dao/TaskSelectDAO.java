@@ -13,13 +13,14 @@ import model.entity.TaskShowBean;
 
 
 /**
- * タスク選択DAO
- * @author arakawa
+ * データベースからタスクを検索して取得するDAO
+ * @author Arakawa
  *
  */
 public class TaskSelectDAO {
 	/**
-	 * @param タスクID
+	 * 引数にしたタスクIDのタスクを画面表示用のBeanとして取得するメソッド
+	 * @param taskId
 	 * @return TaskShowBean
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
@@ -85,6 +86,15 @@ public class TaskSelectDAO {
 
 	}
 
+
+
+	/**
+	 * 引数にしたタスクIDのタスクをBeanとして取得するメソッド
+	 * @param taskId
+	 * @return TaskBean
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 */
 	public TaskBean selectTask(int taskId) throws ClassNotFoundException, SQLException {
 		TaskBean task = new TaskBean();
 		String sql = "SELECT * FROM t_task WHERE task_id = ?";
@@ -120,8 +130,7 @@ public class TaskSelectDAO {
 	}
 
 	/**
-	 * 着手中タスク一覧
-	 * @author arakawa
+	 * 引数したユーザーの着手中のタスクをListで取得するメソッド
 	 * @param userId
 	 * @return List<TaskBean>
 	 * @throws ClassNotFoundException
@@ -164,8 +173,7 @@ public class TaskSelectDAO {
 	}
 
 	/**
-	 * 着手中タスク（引数にしたしたタスクを除く）一覧
-	 * @author Arakawa
+	 * 引数にしたユーザーの着手中のタスク（引数にしたタスクを除く）をListで取得するメソッド
 	 * @param userId
 	 * @param taskId
 	 * @return List<TaskBean>
