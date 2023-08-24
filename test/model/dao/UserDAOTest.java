@@ -60,8 +60,8 @@ public class UserDAOTest {
 		UserDAO userDAO = new UserDAO();
 		PasswordUtil hash = new PasswordUtil();
 
-		String userId = "admin";
-		String userPassword = hash.getSafetyPassword("password", userId);
+		String userId = "arakawa";
+		String userPassword = hash.getSafetyPassword("arakawa", userId);
 		String wrongPassword = hash.getSafetyPassword("123456", userId);
 		try {
 			for (int i = 0; i < 5; i++) {

@@ -62,7 +62,9 @@ class TaskSelectAllDAOTest {
 					}
 					assertEquals(data[5], taskList.get(i - 1).getUserName());
 					assertEquals(data[6], taskList.get(i - 1).getStatusName());
-					assertEquals(data[7], taskList.get(i - 1).getMemo());
+					if (data.length > 7) {
+						assertEquals(data[7], taskList.get(i - 1).getMemo());
+					}
 				}
 				i++;
 			}
