@@ -7,7 +7,7 @@ import java.sql.SQLException;
 
 /**
  * ログイン判定をするメソッドを格納
- * @author 根上
+ * @author Negami
  *
  *
  */
@@ -15,7 +15,6 @@ public class UserDAO {
 
 	/**
 	 * ユーザーIDとパスワードが合致しているかを判定するメソッド
-	 * @author 根上
 	 * @param userBean
 	 * @return 変数match  内容true or false
 	 * @throws SQLException
@@ -43,7 +42,6 @@ public class UserDAO {
 
 	/**
 	 * 入力されたIDと関連するユーザーネームを抽出するメソッド
-	 * @author 根上
 	 * @param userId
 	 * @return	UserBean
 	 * @throws SQLException
@@ -68,7 +66,6 @@ public class UserDAO {
 	/**
 	 * 存在するユーザーのログイン試行回数をインクリメントする
 	 * 一定回数以上でロック
-	 * @author koseki
 	 * @param isMatch
 	 * @return locked
 	 * @throws SQLException

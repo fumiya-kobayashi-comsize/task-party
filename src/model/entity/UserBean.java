@@ -2,7 +2,7 @@ package model.entity;
 
 /**
  * user情報を格納するクラス
- * @author 根上
+ * @author Negami
  *
  */
 public class UserBean {

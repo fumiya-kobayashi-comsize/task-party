@@ -8,15 +8,14 @@ import java.sql.SQLException;
 import model.entity.TaskBean;
 
 /**
- * タスク登録と既存のカテゴリネーム、ユーザーネーム、ステータスネームを取得
- * @author 根上
+ * タスク登録メソッドを格納
+ * @author Negami
  *
  */
 public class TaskInsertDAO {
 
 	/**
-	 * タスク登録メソッド
-	 * @author 根上
+	 * 新しくタスクを登録するためのメソッド
 	 * @param taskBean
 	 * @return	insert成否判定のためのcount
 	 * @throws SQLException

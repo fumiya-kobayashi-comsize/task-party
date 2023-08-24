@@ -11,9 +11,13 @@ import model.entity.CategoryBean;
 import model.entity.StatusBean;
 import model.entity.UserBean;
 
+/**
+ * @author Negami
+ *
+ */
 public class MakeListDAO {
 	/**
-	 * @author 根上
+	 * m_categoryテーブルから全てのレコードを取得するメソッド
 	 * @return カテゴリー情報リスト
 	 * @throws SQLException
 	 * @throws ClassNotFoundException
@@ -41,8 +45,7 @@ public class MakeListDAO {
 	}
 
 	/**
-	 *
-	 *@author 根上
+	 * m_userテーブルから全てのレコードを取得するメソッド
 	 * @return ユーザー情報リスト
 	 * @throws SQLException
 	 * @throws ClassNotFoundException
@@ -70,7 +73,7 @@ public class MakeListDAO {
 	}
 
 	/**
-	 * @author 根上
+	 *  m_statusテーブルから全てのレコードを取得するメソッド
 	 * @returnステータス情報リスト
 	 * @throws SQLException
 	 * @throws ClassNotFoundException

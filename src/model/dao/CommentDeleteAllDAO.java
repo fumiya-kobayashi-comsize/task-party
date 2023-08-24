@@ -4,10 +4,13 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
+/**
+ * @author Negami
+ *
+ */
 public class CommentDeleteAllDAO {
 	/**
-	 * コメント オール削除メソッド
-	 * @author 根上
+	 * 特定のtask_idを外部キーとして所有するコメントを全て削除するメソッド
 	 * @param commentId
 	 * @returnコメントを削除できたかを確認する変数count
 	 * @throws ClassNotFoundException

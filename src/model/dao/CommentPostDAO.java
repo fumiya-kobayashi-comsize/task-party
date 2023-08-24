@@ -6,8 +6,19 @@ import java.sql.SQLException;
 
 import model.entity.CommentBean;
 
+/**
+ * @author Negami
+ *
+ */
 public class CommentPostDAO {
 
+	/**
+	 * t_commentテーブルにコメントを登録するメソッド
+	 * @param comment
+	 * @returnコメントが投稿できたかを判定する変数 count
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 */
 	public int postComment(CommentBean comment) throws ClassNotFoundException, SQLException {
 		int count=0;
 		String sql="INSERT INTO t_comment (task_id,user_id,comment)VALUES(?,?,?)";

@@ -11,8 +11,7 @@ import java.sql.SQLException;
 public class CommentDeleteDAO {
 
 	/**
-	 * コメント 削除メソッド
-	 * @author 根上
+	 * 特定のcomment_idを持つコメントを削除するメソッド
 	 * @param commentId
 	 * @returnコメントを削除できたかを確認する変数count
 	 * @throws ClassNotFoundException
