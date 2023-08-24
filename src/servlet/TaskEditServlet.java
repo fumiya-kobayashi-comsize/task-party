@@ -25,9 +25,6 @@ import model.entity.TaskShowBean;
 import model.entity.UserBean;
 
 /**
- * Servlet implementation class TaskEditServlet
- */
-/**
  * タスクの編集を制御するServlet
  * @author Arakawa
  *

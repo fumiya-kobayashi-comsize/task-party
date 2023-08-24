@@ -24,9 +24,6 @@ import model.entity.TaskBean;
 import model.entity.UserBean;
 
 /**
- * Servlet implementation class TaskAddServlet
- */
-/**
  * タスクの追加を制御するServlet
  * @author Arakawa
  *
