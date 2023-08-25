@@ -42,26 +42,29 @@ public class EmployeeCalendarServlet extends HttpServlet {
 		} catch (ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
 		}
-		List<boolean[]> isEmptyTaskWeekLists = new ArrayList<>();
+		List<boolean[]> isEmptyTaskWeekBoolsList = new ArrayList<>();
 		LocalDate date = LocalDate.now();
 		for (UserBean user : userList) {
 			TaskSelectDAO selectDAO = new TaskSelectDAO();
 			List<TaskBean> usersTaskList = null;
 			try {
+				// ユーザーの着手中タスク一覧を取得
 				usersTaskList = selectDAO.selectProgressTask(user.getUserId());
 			} catch (ClassNotFoundException | SQLException e) {
 				e.printStackTrace();
 			}
-			boolean [] isEmptyTaskWeekList = new boolean[7];
+			// 一週間分のboolean配列に着手中タスクの有無を代入
+			boolean [] isEmptyTaskWeekBools = new boolean[7];
 			for(int i = 0; i < 7; i++) {
-				isEmptyTaskWeekList[i] = isTaskEmpty(usersTaskList, date.plusDays(i));
+				isEmptyTaskWeekBools[i] = isTaskEmpty(usersTaskList, date.plusDays(i));
 			}
-			isEmptyTaskWeekLists.add(isEmptyTaskWeekList);
+			// boolean配列をユーザー数分のListに格納
+			isEmptyTaskWeekBoolsList.add(isEmptyTaskWeekBools);
 		}
 
 		HttpSession session = request.getSession();
 		session.setAttribute("user_list", userList);
-		session.setAttribute("is_empty_list", isEmptyTaskWeekLists);
+		session.setAttribute("is_empty_list", isEmptyTaskWeekBoolsList);
 		session.setAttribute("date", date);
 		RequestDispatcher rd = request.getRequestDispatcher("employee-calendar.jsp");
 		rd.forward(request, response);
@@ -80,7 +83,7 @@ public class EmployeeCalendarServlet extends HttpServlet {
 		} catch (ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
 		}
-		List<boolean[]> isEmptyTaskWeekLists = new ArrayList<>();
+		List<boolean[]> isEmptyTaskWeekBoolsList = new ArrayList<>();
 		LocalDate date = (LocalDate)session.getAttribute("date");
 		String dateChange = request.getParameter("date_change");
 		if(dateChange.equals("next")) {
@@ -92,20 +95,23 @@ public class EmployeeCalendarServlet extends HttpServlet {
 			TaskSelectDAO selectDAO = new TaskSelectDAO();
 			List<TaskBean> usersTaskList = null;
 			try {
+				// ユーザーの着手中タスク一覧を取得
 				usersTaskList = selectDAO.selectProgressTask(user.getUserId());
 			} catch (ClassNotFoundException | SQLException e) {
 				e.printStackTrace();
 			}
-			boolean [] isEmptyTaskWeekList = new boolean[7];
+			// 一週間分のboolean配列に着手中タスクの有無を代入
+			boolean [] isEmptyTaskWeekBools = new boolean[7];
 			for(int i = 0; i < 7; i++) {
-				isEmptyTaskWeekList[i] = isTaskEmpty(usersTaskList, date.plusDays(i));
+				isEmptyTaskWeekBools[i] = isTaskEmpty(usersTaskList, date.plusDays(i));
 			}
-			isEmptyTaskWeekLists.add(isEmptyTaskWeekList);
+			// boolean配列をユーザー数分のListに格納
+			isEmptyTaskWeekBoolsList.add(isEmptyTaskWeekBools);
 		}
 
 
 		session.setAttribute("user_list", userList);
-		session.setAttribute("is_empty_list", isEmptyTaskWeekLists);
+		session.setAttribute("is_empty_list", isEmptyTaskWeekBoolsList);
 		session.setAttribute("date", date);
 		RequestDispatcher rd = request.getRequestDispatcher("employee-calendar.jsp");
 		rd.forward(request, response);
@@ -113,7 +119,7 @@ public class EmployeeCalendarServlet extends HttpServlet {
 
 	/**
 	 * 指定した日付にユーザーの着手中タスクが存在するか判定するメソッド
-	 * @param userId
+	 * @param usersTaskList
 	 * @param checkDate
 	 * @return boolean
 	 */
