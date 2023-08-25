@@ -45,9 +45,16 @@ public class EmployeeCalendarServlet extends HttpServlet {
 		List<boolean[]> isEmptyTaskWeekLists = new ArrayList<>();
 		LocalDate date = LocalDate.now();
 		for (UserBean user : userList) {
+			TaskSelectDAO selectDAO = new TaskSelectDAO();
+			List<TaskBean> usersTaskList = null;
+			try {
+				usersTaskList = selectDAO.selectProgressTask(user.getUserId());
+			} catch (ClassNotFoundException | SQLException e) {
+				e.printStackTrace();
+			}
 			boolean [] isEmptyTaskWeekList = new boolean[7];
 			for(int i = 0; i < 7; i++) {
-				isEmptyTaskWeekList[i] = isTaskEmpty(user.getUserId(), date.plusDays(i));
+				isEmptyTaskWeekList[i] = isTaskEmpty(usersTaskList, date.plusDays(i));
 			}
 			isEmptyTaskWeekLists.add(isEmptyTaskWeekList);
 		}
@@ -82,9 +89,16 @@ public class EmployeeCalendarServlet extends HttpServlet {
 			if(!date.equals(LocalDate.now())) date = date.minusDays(7);
 		}
 		for (UserBean user : userList) {
+			TaskSelectDAO selectDAO = new TaskSelectDAO();
+			List<TaskBean> usersTaskList = null;
+			try {
+				usersTaskList = selectDAO.selectProgressTask(user.getUserId());
+			} catch (ClassNotFoundException | SQLException e) {
+				e.printStackTrace();
+			}
 			boolean [] isEmptyTaskWeekList = new boolean[7];
 			for(int i = 0; i < 7; i++) {
-				isEmptyTaskWeekList[i] = isTaskEmpty(user.getUserId(), date.plusDays(i));
+				isEmptyTaskWeekList[i] = isTaskEmpty(usersTaskList, date.plusDays(i));
 			}
 			isEmptyTaskWeekLists.add(isEmptyTaskWeekList);
 		}
@@ -98,20 +112,14 @@ public class EmployeeCalendarServlet extends HttpServlet {
 	}
 
 	/**
-	 * ユーザーと日付から着手中タスクがあるかどうか判定するメソッド
+	 * 指定した日付にユーザーの着手中タスクが存在するか判定するメソッド
 	 * @param userId
 	 * @param checkDate
 	 * @return boolean
 	 */
-	private boolean isTaskEmpty(String userId, LocalDate checkDate) {
+	private boolean isTaskEmpty(List<TaskBean> usersTaskList, LocalDate checkDate) {
 		boolean isEmpty = true;
-		TaskSelectDAO selectDAO = new TaskSelectDAO();
-		List<TaskBean> usersTaskList = null;
-		try {
-			usersTaskList = selectDAO.selectProgressTask(userId);
-		} catch (ClassNotFoundException | SQLException e) {
-			e.printStackTrace();
-		}
+
 		for (TaskBean usersTask : usersTaskList) {
 			if(usersTask.getStartDate() == null && usersTask.getLimitDate() == null) {
 				isEmpty = false;
