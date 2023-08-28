@@ -1,0 +1,42 @@
+@charset "utf-8";
+
+
+body{
+	width: 80%;
+	margin: auto;
+	text-align: center;
+}
+
+
+div.date_changer{
+
+}
+
+div.inline{
+	display:inline-flex;
+}
+
+
+
+table {
+    outline: 2px solid #ddd;
+    border-collapse: collapse;
+    width: 100%;
+}
+th {
+    color: #000;
+}
+
+.saturday{
+	color: blue;
+}
+
+.sunday{
+	color: red;
+}
+th, td {
+    outline: 1px solid #ddd;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    text-align: center;
+}

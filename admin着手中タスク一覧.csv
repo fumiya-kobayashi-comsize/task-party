@@ -1,0 +1,2 @@
+﻿task_id,task_name,category_id,start_date,limit_date,user_id,status_code,memo,create_datetime,update_datetime
+3,着手中サンプルタスク,1,,,admin,50,サンプルメモ,2023/08/21 17:09:00,2023/08/21 17:09:00
